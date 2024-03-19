@@ -13,10 +13,10 @@ namespace DBFirst
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities2 : DbContext
+    public partial class ForestDamageAssessmentDbEntities : DbContext
     {
-        public Entities2()
-            : base("name=Entities2")
+        public ForestDamageAssessmentDbEntities()
+            : base("name=ForestDamageAssessmentDbEntities")
         {
         }
     
@@ -25,5 +25,13 @@ namespace DBFirst
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Assortment> Assortment { get; set; }
+        public virtual DbSet<AssortmentExtra> AssortmentExtra { get; set; }
+        public virtual DbSet<AssortmentLinden> AssortmentLinden { get; set; }
+        public virtual DbSet<BreedDiameterModel> BreedDiameterModel { get; set; }
+        public virtual DbSet<RankHeights> RankHeights { get; set; }
+        public virtual DbSet<Regions> Regions { get; set; }
+        public virtual DbSet<STD> STD { get; set; }
+        public virtual DbSet<TaxPrice> TaxPrice { get; set; }
     }
 }

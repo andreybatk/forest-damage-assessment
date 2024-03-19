@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Расчет по незаконной рубке деревьев</h1>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Порода</th>
+            <th>Диаметр пня</th>
+            <th>Высота пня</th>
+            <th>Разряд высот</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="inputs">
+        <tr>
+            <th><input type="text" required></th>
+            <td><input type="number" required></td>
+            <td><input type="number" required></td>
+            <td><input type="number" required></td>
+            <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-primary" onclick="add()">+</button>
+
+<SCRIPT>
+    function add() {
+        //отмена отправки данных по этой кнопке
+        event.preventDefault();
+        //создание ещё одной строки как копии имеющейся
+        var parent = document.getElementById("inputs");
+        var clone = parent.children[0].cloneNode(true);
+        parent.appendChild(clone);
+        //очистка скопированного значения
+        clone.children[1].children[''].value = 0;
+
+    }
+    function deleteRow(currentRow)
+    {
+        try
+        {
+            var table = document.getElementById('inputs');
+            var rowCount = table.rows.length;
+            for (var i = 0; i < rowCount; i++)
+            {
+                var row = table.rows[i];
+                /*var chkbox = row.cells[0].childNodes[0];*/
+                /*if (null != chkbox && true == chkbox.checked)*/
+
+                if (row == currentRow.parentNode.parentNode)
+                {
+                    if (rowCount <= 1)
+                    {
+                        alert("Cannot delete all the rows.");
+                        break;
+                    }
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) { alert(e); }
+    }
+</SCRIPT>

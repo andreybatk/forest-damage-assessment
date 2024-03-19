@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ForestDamageAssessment.DB.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,14 @@ namespace ForestDamageAssessment.DB
 
     public class ApplicationDbContext : IdentityDbContext
     {
-        //public DbSet<Person> Persons { get; set; } = null!;
+        public DbSet<Assortment> Assortments { get; set; }
+        public DbSet<AssortmentExtra> AssortmentsExtra { get; set; }
+        public DbSet<AssortmentLinden> AssortmentsLinden { get; set; }
+        public DbSet<BreedDiameterModel> BreedDiameterModels { get; set; }
+        public DbSet<RankHeights> RankHeights { get; set; }
+        public DbSet<Regions> Regions { get; set; }
+        public DbSet<STD> STDs { get; set; }
+        public DbSet<TaxPrice> TaxPrices { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

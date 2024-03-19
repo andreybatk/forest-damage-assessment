@@ -5,8 +5,6 @@ VisualStudioVersion = 17.7.34302.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForestDamageAssessment", "ForestDamageAssessment\ForestDamageAssessment.csproj", "{3BFFB37D-95B7-4BA4-A1DD-6F257099B3CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst", "DBFirst\DBFirst.csproj", "{6A9C1954-7B40-47F2-9BD5-D8F916BB44C0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForestDamageAssessment.DB", "ForestDamageAssessment.DB\ForestDamageAssessment.DB.csproj", "{A76C23B8-355C-4B20-AE4D-8E3D1CFA5A0D}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{3BFFB37D-95B7-4BA4-A1DD-6F257099B3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BFFB37D-95B7-4BA4-A1DD-6F257099B3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BFFB37D-95B7-4BA4-A1DD-6F257099B3CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A9C1954-7B40-47F2-9BD5-D8F916BB44C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A9C1954-7B40-47F2-9BD5-D8F916BB44C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A9C1954-7B40-47F2-9BD5-D8F916BB44C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A9C1954-7B40-47F2-9BD5-D8F916BB44C0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A76C23B8-355C-4B20-AE4D-8E3D1CFA5A0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A76C23B8-355C-4B20-AE4D-8E3D1CFA5A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A76C23B8-355C-4B20-AE4D-8E3D1CFA5A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
