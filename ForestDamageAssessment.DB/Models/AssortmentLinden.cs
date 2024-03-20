@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForestDamageAssessment.DB.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ForestDamageAssessment.DB.Models
 {
-    public class AssortmentLinden
+    public class AssortmentLinden : IAssortmentTable
     {
         public int ID { get; set; }
         public string Breed { get; set; }

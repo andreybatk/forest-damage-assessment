@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ForestDamageAssessment.DB;
+using ForestDamageAssessment.Models;
 
 namespace ForestDamageAssessment
 {
@@ -19,6 +20,8 @@ namespace ForestDamageAssessment
 			builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			builder.Services.AddControllersWithViews();
+
+			builder.Services.AddTransient<Violation1Calculate>();
 
 			var app = builder.Build();
 
