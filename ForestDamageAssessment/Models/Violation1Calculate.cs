@@ -14,12 +14,11 @@ namespace ForestDamageAssessment.Models
         {
             _context = context;
         }
-        public async Task<Violation1CalculatedViewModel?> CalculateAsync(List<Violation1ViewModel> modelList)
+        public async Task CalculateAsync(List<Violation1ViewModel> modelList)
         {
             try
             {
                 await CalculateDiameterAsync(modelList);
-                var resultModel = new Violation1CalculatedViewModel();
 
                 foreach (var model in modelList)
                 {
@@ -49,27 +48,24 @@ namespace ForestDamageAssessment.Models
                         double.TryParse(table.FirewoodFuel, culture, out double firewoodFuel);
                         double.TryParse(table.Waste, culture, out double waste);
 
-                        var sumLarge = largeTotal * vInBark / 100;
-                        var sumAverage = (average1Total + average2Total) * vInBark / 100;
-                        var sumSmall = smallTotal * vInBark / 100;
-                        var sumBusiness = allBusiness * vInBark / 100;
-                        var sumFirewood = (firewoodFuel + waste) * vInBark / 100;
-                        var sumWaste = waste * vInBark / 100;
+                        model.BreedStock.SumLarge = largeTotal * vInBark / 100;
+                        model.BreedStock.SumAverage = (average1Total + average2Total) * vInBark / 100;
+                        model.BreedStock.SumSmall = smallTotal * vInBark / 100;
+                        model.BreedStock.SumBusiness = allBusiness * vInBark / 100;
+                        model.BreedStock.SumFirewood = (firewoodFuel + waste) * vInBark / 100;
+                        model.BreedStock.SumWaste = waste * vInBark / 100;
 
-                        resultModel.LiquidStock += sumBusiness + sumFirewood;
-                        resultModel.RootStock += sumLarge + sumAverage + sumSmall + sumFirewood + sumWaste;
+                        model.BreedStock.LiquidStock = model.BreedStock.SumBusiness + model.BreedStock.SumFirewood;
+                        model.BreedStock.RootStock = model.BreedStock.SumLarge + model.BreedStock.SumAverage + model.BreedStock.SumSmall
+                            + model.BreedStock.SumFirewood + model.BreedStock.SumWaste;
                     }
                 }
-
-                return resultModel;
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
             }
-
-            return null;
         }
         private async Task CalculateDiameterAsync(List<Violation1ViewModel> modelList)
         {
@@ -101,7 +97,7 @@ namespace ForestDamageAssessment.Models
             if(diameter != null)
             {
                 var thicknessLevel = await _context.STD.FirstOrDefaultAsync(x => x.ThicknessLevel == diameter + 1 || x.ThicknessLevel == diameter + 2 || x.ThicknessLevel == diameter + 3 || x.ThicknessLevel == diameter + 4);
-                return thicknessLevel.ThicknessLevel;
+                return thicknessLevel?.ThicknessLevel;
             }
 
             return null;

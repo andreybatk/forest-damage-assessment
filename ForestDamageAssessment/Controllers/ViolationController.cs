@@ -18,7 +18,7 @@ namespace ForestDamageAssessment.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CalculateViolation1(string[] breed, string[] diameter, string[] h, string[] rankH)
+        public async Task<IActionResult> BreedsData(string[] breed, string[] diameter, string[] h, string[] rankH)
         {
             var modelList = new List<Violation1ViewModel>();
             for (int i = 0; i < breed.Length; i++)
@@ -34,16 +34,21 @@ namespace ForestDamageAssessment.Controllers
             
             if(modelList.Count > 0)
             {
-                var resultModel = await _violation1Calculate.CalculateAsync(modelList);
-                return View("BreedsData", resultModel);
+                await _violation1Calculate.CalculateAsync(modelList);
+                return View(modelList);
             }
 
             return NotFound();
         }
-        //[HttpGet]
-        //public IActionResult BreedsData()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public IActionResult BreedsDataDetails([FromBody] Violation1ViewModel model)
+        {
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_DetailsPartial", model);
+        }
     }
 }
