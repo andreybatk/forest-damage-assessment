@@ -1,22 +1,56 @@
 ﻿@model List<Violation1ViewModel>
 @{
     ViewData["Title"] = "Данные о насаждениях";
+
+    var TotalRootStock = Model.Select(x => x.Stock)
+                   .Select(x => x.RootStock)
+                   .Sum();
+    var TotalLiquidStock = Model.Select(x => x.Stock)
+                   .Select(x => x.LiquidStock)
+                   .Sum();
+    var TotalBusinessMoney = Model.Select(x => x.Money)
+                  .Select(x => x.Business)
+                  .Sum();
+    var TotalFirewoodMoney = Model.Select(x => x.Money)
+                  .Select(x => x.Firewood)
+                  .Sum();
+    var TotalMoney = TotalBusinessMoney + TotalFirewoodMoney;
 }
 
 <div class="text-center">
     <h1 class="display-4">Расчет данных о насаждениях</h1>
 </div>
 
-<p class="fw-bolder">Общий корневой запас: </p>
-<p class="fw-bolder">Общий ликвидный запас:</p>
+<div class="table-responsive container">
+    <table class="table table-active rounded-3 overflow-hidden">
+        <thead>
+            <tr>
+                <th>Общий штраф</th>
+                <th>Общий корневой запас</th>
+                <th>Общий ликвидный запас</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <th>@TotalMoney</th>
+                    <td>@TotalRootStock</td>
+                    <td>@TotalLiquidStock</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <h1 class="display-6">Расчет данных по каждому пню</h1>
+</div>
 
 <div class="table-responsive container">
-    <table class="table table-hover table-bordered border-dark">
+    <table class="table table-hover table-bordered border">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Порода</th>
-                <th>Ступень толщины</th>
+                <th>Штраф</th>
                 <th>Корневой запас</th>
                 <th>Ликвидный запас</th>
                 <th></th>
@@ -24,16 +58,16 @@
         </thead>
         <tbody>
             @for (var i = 0; i < @Model.Count; i++)
-            {
+            { 
                 <tr>
                     <th>@(i + 1)</th>
                     <td>@Model[i].Breed</td>
-                    <td>@Model[i].ThicknessLevel</td>
-                    <td>@Model[i]?.BreedStock?.RootStock</td>
-                    <td>@Model[i]?.BreedStock?.LiquidStock</td>
+                    <td>@(Model[i].Money.Business + @Model[i].Money.Firewood)</td>
+                    <td>@Model[i]?.Stock?.RootStock</td>
+                    <td>@Model[i]?.Stock?.LiquidStock</td>
                     <td>
                         <div class="text-center">
-                            <button class="btn btn-outline-primary" data-item=@Json.Serialize(Model[i]) onclick="showDetails(this)">
+                            <button class="btn btn-outline-dark" data-item=@Json.Serialize(Model[i]) onclick="showDetails(this)">
                                 Подробнее
                             </button>
                         </div>

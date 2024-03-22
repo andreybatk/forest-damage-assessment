@@ -1,85 +1,125 @@
 ﻿@{
-    ViewData["Title"] = "Расчет";
+	ViewData["Title"] = "Расчет по незаконной рубке";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Расчет по незаконной рубке деревьев</h1>
+	<h1 class="display-4">Расчет по незаконной рубке</h1>
 </div>
 
 <form method="post" action="~/Violation/BreedsData">
-    <div class="table-responsive container">
-        <table class="table table-bordered border-dark">
-            <thead>
-                <tr>
-                    <th>Порода</th>
-                    <th>Диаметр пня, см</th>
-                    <th>Высота пня, см</th>
-                    <th>Разряд высот</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="inputs">
-                <tr>
-                    <th><input type="text" name="breed[]" required></th>
-                    <td><input type="number" step="0.01" name="diameter[]" required></td>
-                    <td><input type="number" step="0.01" name="h[]" required></td>
-                    <td><input type="number" step="0.01" name="rankH[]" required></td>
-                    <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-md">
-            <button class="btn btn-primary" onclick="addRow()">Добавить данные</button>
-            <input class="btn btn-success" type="submit" value="Отправить" />
-        </div>
-    </nav>
-    
+	<div class="input-group mb-3">
+		<div class="form-check form-check-inline">
+			<select size="1" name="region">
+				<option value = "50" selected>Республика Марий Эл</option>
+			</select>
+			Регион
+		</div>
+		<div class="form-check form-check-inline">
+			<select size="1" name="year">
+				<option selected>2023</option>
+			</select>
+			Год
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="checkbox" value="true" id="OZU" name="isOZU">
+			<label class="form-check-label" for="OZU">
+				ОЗУ
+			</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="checkbox" value="true" id="protectiveForests" name="isProtectiveForests">
+			<label class="form-check-label" for="protectiveForests">
+				Защитные леса
+			</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="checkbox" value="true" id="OOPT" name="isOOPT">
+			<label class="form-check-label" for="OOPT">
+				ООПТ
+			</label>
+		</div>
+	</div>
+	<div class="table-responsive container">
+		<table class="table table-bordered border">
+			<thead>
+				<tr>
+					<th>Порода</th>
+					<th>Диаметр пня, см</th>
+					<th>Высота пня, см</th>
+					<th>Разряд высот</th>
+					@* <th></th> *@
+				</tr>
+			</thead>
+			<tbody id="inputs">
+				<tr>
+					<td><input list="breeds" name="breed[]" required></td>
+					<td><input type="number" step="0.01" min="1" name="diameter[]" required></td>
+					<td><input type="number" step="0.01" min="1" name="h[]" required></td>
+					<td><input type="number" step="1" min="1" name="rankH[]" required></td>
+					<td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-md">
+			<button class="btn btn-primary" onclick="addRow()">Добавить данные</button>
+			<input class="btn btn-success" type="submit" value="Отправить" />
+		</div>
+	</nav>
 </form>
+
+<datalist id="breeds">
+	<option>Береза</option>
+	<option>Ель</option>
+	<option>Липа</option>
+	<option>Осина</option>
+	<option>Пихта</option>
+	<option>Сосна</option>
+	<option disabled>Ольха черная</option>
+	<option disabled>Дуб порослевой</option>
+	<option disabled>Дуб семенной</option>
+	<option disabled>Ива древовидная</option>
+	<option disabled>Ильм (вяз)</option>
+	<option disabled>Кедр</option>
+	<option disabled>Клен</option>
+	<option disabled>Осокорь</option>
+	<option disabled>Сосна после подсочки</option>
+</datalist>
+
 <script>
-    function addRow()
-    {
-        try 
-        {
-            event.preventDefault(); // Отмена отправки данных по этой кнопке
-            var parent = document.getElementById("inputs");
-            var clone = parent.children[0].cloneNode(true); // Создание ещё одной строки как копии имеющейся
-            parent.appendChild(clone);
+	function addRow() {
+		try {
+			event.preventDefault(); // Отмена отправки данных по этой кнопке
+			var parent = document.getElementById("inputs");
+			var clone = parent.children[0].cloneNode(true); // Создание ещё одной строки как копии имеющейся
+			parent.appendChild(clone);
 
-            // Очистка скопированного значения (если необходимо)
-            var inputs = clone.getElementsByTagName('input');
-            for (var i = 0; i < inputs.length; i++)
-            {
-                inputs[i].value = ''; // Очистка значения в input элементах
-            }
-        } catch (e) { alert(e); }
+			// Очистка скопированного значения (если необходимо)
+			var inputs = clone.getElementsByTagName('input');
+			for (var i = 0; i < inputs.length; i++) {
+				inputs[i].value = ''; // Очистка значения в input элементах
+			}
+		} catch (e) { alert(e); }
 
-    }
-    function deleteRow(currentRow)
-    {
-        try
-        {
-            var table = document.getElementById('inputs');
-            var rowCount = table.rows.length;
-            for (var i = 0; i < rowCount; i++)
-            {
-                var row = table.rows[i];
-                /*var chkbox = row.cells[0].childNodes[0];*/
-                /*if (null != chkbox && true == chkbox.checked)*/
+	}
+	function deleteRow(currentRow) {
+		try {
+			var table = document.getElementById('inputs');
+			var rowCount = table.rows.length;
+			for (var i = 0; i < rowCount; i++) {
+				var row = table.rows[i];
 
-                if (row == currentRow.parentNode.parentNode)
-                {
-                    if (rowCount <= 1)
-                    {
-                        alert("Нельзя удалить все строки.");
-                        break;
-                    }
-                    table.deleteRow(i);
-                    rowCount--;
-                    i--;
-                }
-            }
-        } catch (e) { alert(e); }
-    }
+				if (row == currentRow.parentNode.parentNode) {
+					if (rowCount <= 1) {
+						alert("Нельзя удалить все строки.");
+						break;
+					}
+					table.deleteRow(i);
+					rowCount--;
+					i--;
+				}
+			}
+		} catch (e) { alert(e); }
+	}
 </script>

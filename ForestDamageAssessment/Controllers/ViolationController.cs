@@ -18,7 +18,8 @@ namespace ForestDamageAssessment.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> BreedsData(string[] breed, string[] diameter, string[] h, string[] rankH)
+        public async Task<IActionResult> BreedsData(string[] breed, string[] diameter, string[] h, string[] rankH,
+			string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
             var modelList = new List<Violation1ViewModel>();
             for (int i = 0; i < breed.Length; i++)
@@ -29,12 +30,20 @@ namespace ForestDamageAssessment.Controllers
                 double.TryParse(h[i], culture, out double resultH);
                 double.TryParse(rankH[i], culture, out double resultRankH);
 
-                modelList.Add(new Violation1ViewModel { Breed = breed[i], Diameter = resultDiameter, H = resultH, RankH = resultRankH });
+                var viewModel = new Violation1ViewModel { Breed = breed[i], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
+                viewModel.Area.RegionCode = region;
+                viewModel.Area.Year = year;
+                viewModel.Area.IsProtectiveForests = isProtectiveForests;
+                viewModel.Area.IsOZU = isOZU;
+                viewModel.Area.IsOOPT = isOOPT;
+
+                modelList.Add(viewModel);
             }
             
-            if(modelList.Count > 0)
+
+			if (modelList.Count > 0)
             {
-                await _violation1Calculate.CalculateAsync(modelList);
+				await _violation1Calculate.CalculateAsync(modelList);
                 return View(modelList);
             }
 
@@ -48,7 +57,7 @@ namespace ForestDamageAssessment.Controllers
                 return NotFound();
             }
 
-            return PartialView("_DetailsPartial", model);
+            return PartialView("_BreedsDataDetailsPartial", model);
         }
     }
 }
