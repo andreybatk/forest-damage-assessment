@@ -9,9 +9,9 @@
 		<div class="modal-body">
 			<div class="d-grid gap-3">
 				<div class="p-2 bg-light border form-floating mb-3">
-					<p>Общий штраф : @(Model.Money.Business + @Model.Money.Firewood)</p>
-					<p>Штраф за деловую древесину : @Model.Money.Business</p>
-					<p>Штраф за дрова : @Model.Money.Firewood</p>
+					<p>Общий штраф : @String.Format("{0:C2}", Model.Money.Business + @Model.Money.Firewood)</p>
+					<p>Штраф за деловую древесину : @String.Format("{0:C2}", Model.Money.Business)</p>
+					<p>Штраф за дрова : @String.Format("{0:C2}", Model.Money.Firewood)</p>
 				</div>
 				<div class="p-2 bg-light border form-floating mb-3">
 					<p>Диаметр пня : @Model.Diameter</p>
@@ -21,17 +21,17 @@
 					<p>Ступень толщины : @Model.ThicknessLevel</p>
 				</div>
 				<div class="p-2 bg-light border">
-					<p>Корневой запас: @Model?.Stock?.RootStock</p>
-					<p2>Крупная: @Model?.Stock?.SumLarge</p2>
-					<p2>Средняя: @Model?.Stock?.SumAverage</p2>
-					<p2>Мелкая: @Model?.Stock?.SumSmall</p2>
-					<p2>Дрова: @Model?.Stock?.SumFirewood</p2>
-					<p2>Отходы: @Model?.Stock?.SumWaste</p2>
+					<p>Корневой запас: @String.Format("{0:f2}", Model?.Stock?.RootStock)</p>
+					<p2>Крупная: @String.Format("{0:f2}", Model?.Stock?.SumLarge)</p2>
+					<p2>Средняя: @String.Format("{0:f2}", Model?.Stock?.SumAverage)</p2>
+					<p2>Мелкая: @String.Format("{0:f2}", Model?.Stock?.SumSmall)</p2>
+					<p2>Дрова: @String.Format("{0:f2}", Model?.Stock?.SumFirewood)</p2>
+					<p2>Отходы: @String.Format("{0:f2}", Model?.Stock?.SumWaste)</p2>
 				</div>
 				<div class="p-2 bg-light border">
-					<p>Ликвидный запас: @Model?.Stock?.LiquidStock</p>
-					<p2>Деловая: @Model?.Stock?.SumBusiness</p2>
-					<p2>Дрова: @Model?.Stock?.SumFirewood</p2>
+					<p>Ликвидный запас: @String.Format("{0:f2}", Model?.Stock?.LiquidStock)</p>
+					<p2>Деловая: @String.Format("{0:f2}", Model?.Stock?.SumBusiness)</p2>
+					<p2>Дрова: @String.Format("{0:f2}", Model?.Stock?.SumFirewood)</p2>
 				</div>
 			</div>
 		</div>

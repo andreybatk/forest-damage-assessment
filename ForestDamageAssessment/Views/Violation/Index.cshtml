@@ -7,38 +7,38 @@
 </div>
 
 <form method="post" action="~/Violation/BreedsData">
-	<div class="input-group mb-3">
-		<div class="form-check form-check-inline">
-			<select size="1" name="region">
-				<option value = "50" selected>Республика Марий Эл</option>
+	<div class="mb-3">
+		<h4 class="text-black-50">Информация об участке леса</h4>
+		<div>
+			<select class="form-select-sm mr-3" name="region">
+				<option value="50" selected>Республика Марий Эл</option>
 			</select>
-			Регион
-		</div>
-		<div class="form-check form-check-inline">
-			<select size="1" name="year">
+			<select class="form-select-sm" name="year">
 				<option selected>2023</option>
 			</select>
-			Год
 		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="checkbox" value="true" id="OZU" name="isOZU">
-			<label class="form-check-label" for="OZU">
-				ОЗУ
-			</label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="checkbox" value="true" id="protectiveForests" name="isProtectiveForests">
-			<label class="form-check-label" for="protectiveForests">
-				Защитные леса
-			</label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="checkbox" value="true" id="OOPT" name="isOOPT">
-			<label class="form-check-label" for="OOPT">
-				ООПТ
-			</label>
+		<div class="input-group">
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" value="true" id="OZU" name="isOZU">
+				<label class="form-check-label" for="OZU">
+					ОЗУ
+				</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" value="true" id="protectiveForests" name="isProtectiveForests">
+				<label class="form-check-label" for="protectiveForests">
+					Защитные леса
+				</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" value="true" id="OOPT" name="isOOPT">
+				<label class="form-check-label" for="OOPT">
+					ООПТ
+				</label>
+			</div>
 		</div>
 	</div>
+	<h4 class="text-center">Информация о вырубленных насаждениях</h4>
 	<div class="table-responsive container">
 		<table class="table table-bordered border">
 			<thead>
@@ -47,7 +47,6 @@
 					<th>Диаметр пня, см</th>
 					<th>Высота пня, см</th>
 					<th>Разряд высот</th>
-					@* <th></th> *@
 				</tr>
 			</thead>
 			<tbody id="inputs">

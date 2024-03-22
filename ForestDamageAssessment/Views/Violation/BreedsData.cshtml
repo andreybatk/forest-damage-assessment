@@ -32,9 +32,9 @@
         </thead>
         <tbody>
                 <tr>
-                    <th>@TotalMoney</th>
-                    <td>@TotalRootStock</td>
-                    <td>@TotalLiquidStock</td>
+                    <th>@String.Format("{0:C2}",TotalMoney)</th>
+                    <td>@String.Format("{0:f2}",TotalRootStock)</td>
+                    <td>@String.Format("{0:f2}",TotalLiquidStock)</td>
                 </tr>
         </tbody>
     </table>
@@ -62,9 +62,9 @@
                 <tr>
                     <th>@(i + 1)</th>
                     <td>@Model[i].Breed</td>
-                    <td>@(Model[i].Money.Business + @Model[i].Money.Firewood)</td>
-                    <td>@Model[i]?.Stock?.RootStock</td>
-                    <td>@Model[i]?.Stock?.LiquidStock</td>
+                    <td>@String.Format("{0:C2}",Model[i].Money.Business + @Model[i].Money.Firewood)</td>
+                    <td>@String.Format("{0:f2}",Model[i]?.Stock?.RootStock)</td>
+                    <td>@String.Format("{0:f2}",Model[i]?.Stock?.LiquidStock)</td>
                     <td>
                         <div class="text-center">
                             <button class="btn btn-outline-dark" data-item=@Json.Serialize(Model[i]) onclick="showDetails(this)">
@@ -79,7 +79,7 @@
 </div>
 
 <div id="modal" class="modal fade">
-    <div id="modal-content"></div>
+    <div id="modal-content" class="modal-dialog"></div>
 </div>
 
 <script>
