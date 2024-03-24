@@ -5,7 +5,7 @@
 		/// <summary>
 		/// Регион
 		/// </summary>
-		public string? RegionCode { get; set; }
+		public string? Region { get; set; }
 		/// <summary>
 		/// Год
 		/// </summary>

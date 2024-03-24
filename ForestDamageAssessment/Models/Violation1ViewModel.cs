@@ -6,7 +6,6 @@
         {
             Stock = new BreedStock();
             Money = new MoneyPunishment();
-            Area = new ForestArea();
 		}
         /// <summary>
         /// Порода
@@ -40,10 +39,5 @@
         /// Штраф
         /// </summary>
 		public MoneyPunishment Money { get; set; }
-        /// <summary>
-        /// Лесной участок
-        /// </summary>
-	    public ForestArea Area { get; set; }
-        
 	}
 }

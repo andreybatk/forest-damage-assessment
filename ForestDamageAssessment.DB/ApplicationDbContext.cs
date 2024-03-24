@@ -16,6 +16,10 @@ namespace ForestDamageAssessment.DB
 
     public class ApplicationDbContext : IdentityDbContext
     {
+        /// <summary>
+        /// Локальные файлы в wwwroot
+        /// </summary>
+        public DbSet<FileModel> Files { get; set; }
         public DbSet<Assortment> Assortment { get; set; }
         public DbSet<AssortmentExtra> AssortmentExtra { get; set; }
         public DbSet<AssortmentLinden> AssortmentLinden { get; set; }

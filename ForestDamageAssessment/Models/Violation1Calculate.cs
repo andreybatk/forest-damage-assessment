@@ -3,6 +3,9 @@ using ForestDamageAssessment.DB.Infrastructure;
 using ForestDamageAssessment.DB.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ForestDamageAssessment.Models
 {
@@ -20,34 +23,44 @@ namespace ForestDamageAssessment.Models
             _context = context;
         }
 
-        public async Task<List<Violation1ViewModel>> CalculateAsync(string[] breed, string[] diameter, string[] h, string[] rankH,
-            string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+        public async Task<List<Violation1ViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestArea area)
         {
             var modelList = new List<Violation1ViewModel>();
-            for (int i = 0; i < breed.Length; i++)
+            var culture = new CultureInfo("en-us");
+
+            if (fileModel != null)
             {
-                var culture = new CultureInfo("en-us");
+                using (StreamReader reader = new StreamReader(fileModel.Path))
+                {
+                    string? line;
+                    while ((line = await reader.ReadLineAsync()) != null)
+                    {
+                        var data = line.Split(';');
+                        if(data.Length < 3)
+                        {
+                            continue;
+                        }
+                        double.TryParse(data[1], culture, out double resultDiameter);
+                        double.TryParse(data[2], culture, out double resultH);
+                        double.TryParse(data[3], culture, out double resultRankH);
 
-                double.TryParse(diameter[i], culture, out double resultDiameter);
-                double.TryParse(h[i], culture, out double resultH);
-                double.TryParse(rankH[i], culture, out double resultRankH);
+                        var viewModel = new Violation1ViewModel { Breed = data[0], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
+                        modelList.Add(viewModel);
+                    }
+                }
 
-                var viewModel = new Violation1ViewModel { Breed = breed[i], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
-                viewModel.Area.RegionCode = region;
-                viewModel.Area.Year = year;
-                viewModel.Area.IsProtectiveForests = isProtectiveForests;
-                viewModel.Area.IsOZU = isOZU;
-                viewModel.Area.IsOOPT = isOOPT;
-
-                modelList.Add(viewModel);
-            }
-
-            if (modelList.Count > 0)
-            {
                 await CalculateDiameterAsync(modelList);
                 await CalculateStockAsync(modelList);
-                await CalculateMoneyPunishmentAsync(modelList);
+                await CalculateMoneyPunishmentAsync(modelList, area);
             }
+
+            return modelList;
+        }
+        public async Task<List<Violation1ViewModel>> CalculateAsync(List<Violation1ViewModel> modelList, ForestArea area)
+        {
+            await CalculateDiameterAsync(modelList);
+            await CalculateStockAsync(modelList);
+            await CalculateMoneyPunishmentAsync(modelList, area);
 
             return modelList;
         }
@@ -55,27 +68,28 @@ namespace ForestDamageAssessment.Models
         {
             try
             {
+                var culture = new CultureInfo("en-us");
+                IAssortmentTable? table;
+
                 foreach (var model in modelList)
                 {
-                    IAssortmentTable? table;
+                    // Поиск данных по сортиментным таблицам: по породе, ступени толщины и разряду высот
 
                     if (model.Breed.ToLower() == "липа")
                     {
                         table = await _context.AssortmentLinden.FirstOrDefaultAsync(
-                            x => x.ThicknessLevel == model.ThicknessLevel.ToString() && x.H == model.H.ToString());
+                            x => x.ThicknessLevel == model.ThicknessLevel.ToString() && x.RankH == model.RankH.ToString());
                     }
                     else
                     {
                         table = await _context.Assortment.FirstOrDefaultAsync(
-                            x => x.ThicknessLevel == model.ThicknessLevel.ToString() && x.H == model.H.ToString());
+                            x => x.Breed == model.Breed && x.ThicknessLevel == model.ThicknessLevel.ToString());
                     }
 
                     if (table == null)
                     {
                         return;
                     }
-
-                    var culture = new CultureInfo("en-us");
 
                     double.TryParse(table.LargeTotal, culture, out double largeTotal);
                     double.TryParse(table.VInBark, culture, out double vInBark);
@@ -104,14 +118,15 @@ namespace ForestDamageAssessment.Models
                 Console.WriteLine(ex.Message);
             }
         }
-        private async Task CalculateMoneyPunishmentAsync(List<Violation1ViewModel> modelList)
+        private async Task CalculateMoneyPunishmentAsync(List<Violation1ViewModel> modelList, ForestArea area)
         {
             try
             {
                 foreach (var model in modelList)
                 {
+                    // Поиск данных по таблице такс: по региону и породе
                     var table = await _context.TaxPrice.FirstOrDefaultAsync(
-                        x => x.TaxPriceCode == model.Area.RegionCode && x.Breed == model.Breed);
+                        x => x.SubjectRF == area.Region && x.Breed == model.Breed);
 
                     if (table == null)
                     {
@@ -126,17 +141,17 @@ namespace ForestDamageAssessment.Models
                     model.Money.Business = priceAverage * model.Stock.SumBusiness * CuttingTreesCoefficient * Year2023Coefficient;
                     model.Money.Firewood = priceFirewood * model.Stock.SumFirewood * CuttingTreesCoefficient * Year2023Coefficient;
 
-                    if (model.Area.IsOZU)
+                    if (area.IsOZU)
                     {
                         model.Money.Business *= OZUCoefficient;
                         model.Money.Firewood *= OZUCoefficient;
                     }
-                    if (model.Area.IsProtectiveForests)
+                    if (area.IsProtectiveForests)
                     {
                         model.Money.Business *= ProtectiveForestsCoefficient;
                         model.Money.Firewood *= ProtectiveForestsCoefficient;
                     }
-                    if (model.Area.IsOOPT)
+                    if (area.IsOOPT)
                     {
                         model.Money.Business *= OOPTtCoefficient;
                         model.Money.Firewood *= OOPTtCoefficient;
@@ -154,18 +169,21 @@ namespace ForestDamageAssessment.Models
             {
                 foreach (var model in modelList)
                 {
+                    // Поиск данных по таблице средних диаметров: по породе
                     var breedDiameter = await _context.BreedDiameterModel.FirstOrDefaultAsync(x => x.Breed == model.Breed);
 
                     if (breedDiameter == null)
                     {
                         continue;
                     }
-
+                    // Процент диаметра
                     double DimeterPercent =
                         double.Parse(breedDiameter.C1) * Math.Pow(model.H, double.Parse(breedDiameter.C2))
                         - double.Parse(breedDiameter.C3) * Math.Exp(-double.Parse(breedDiameter.C4) * model.H);
 
+                    // Расчитанный диаметр
                     model.CalculatedDiameter = Math.Round(((model.Diameter * 100) / DimeterPercent));
+                    // Ступень толщины
                     model.ThicknessLevel = await GetThicknessLevelAsync(model.CalculatedDiameter);
                 }
             }
