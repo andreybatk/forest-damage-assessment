@@ -1,10 +1,7 @@
-﻿using ForestDamageAssessment.DB;
-using ForestDamageAssessment.DB.Models;
+﻿using ForestDamageAssessment.DB.Models;
 using ForestDamageAssessment.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.IO;
 
 namespace ForestDamageAssessment.Controllers
 {
@@ -24,7 +21,7 @@ namespace ForestDamageAssessment.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> BreedsData(string[] breed, string[] diameter, string[] h, string[] rankH,
-			string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+            string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
 
             var modelList = new List<Violation1ViewModel>();
@@ -55,25 +52,25 @@ namespace ForestDamageAssessment.Controllers
         {
             var area = new ForestArea { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
 
-            if (uploadedFile != null)
+            if (uploadedFile == null)
             {
-                if(!uploadedFile.FileName.ToLower().EndsWith(".txt") && !uploadedFile.FileName.ToLower().EndsWith(".csv"))
-                {
-					return NotFound();
-				}
-
-                string path = _appEnvironment.WebRootPath + "/Files/" + uploadedFile.FileName;
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-
-                FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
-
-                return View("BreedsData", await _violation1Calculate.CalculateFromFileAsync(file, area));
+                return NotFound();
             }
 
-            return NotFound();  
+            if (!uploadedFile.FileName.ToLower().EndsWith(".txt") && !uploadedFile.FileName.ToLower().EndsWith(".csv"))
+            {
+                return NotFound();
+            }
+
+            string path = _appEnvironment.WebRootPath + "/Files/" + uploadedFile.FileName;
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await uploadedFile.CopyToAsync(fileStream);
+            }
+
+            FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
+
+            return View("BreedsData", await _violation1Calculate.CalculateFromFileAsync(file, area));
         }
         [HttpPost]
         public IActionResult BreedsDataDetails([FromBody] Violation1ViewModel model)
