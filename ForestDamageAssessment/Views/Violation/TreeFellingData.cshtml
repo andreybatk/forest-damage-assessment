@@ -1,0 +1,101 @@
+﻿@using ForestDamageAssessment.Infrastructure;
+@model List<ITreeViewModel>
+@{
+    ViewData["Title"] = "Данные о насаждениях";
+
+    var TotalRootStock = Model.Select(x => x.Stock)
+                   .Select(x => x.RootStock)
+                   .Sum();
+    var TotalLiquidStock = Model.Select(x => x.Stock)
+                   .Select(x => x.LiquidStock)
+                   .Sum();
+    var TotalBusinessMoney = Model.Select(x => x.Money)
+                  .Select(x => x.Business)
+                  .Sum();
+    var TotalFirewoodMoney = Model.Select(x => x.Money)
+                  .Select(x => x.Firewood)
+                  .Sum();
+    var TotalMoney = TotalBusinessMoney + TotalFirewoodMoney;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Расчет данных о насаждениях</h1>
+</div>
+
+<div class="table-responsive text-center">
+    <table class="table rounded-3 overflow-hidden">
+        <thead>
+            <tr>
+                <th>Общий штраф</th>
+                <th>Общий корневой запас</th>
+                <th>Общий ликвидный запас</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>@String.Format("{0:C2}",TotalMoney)</th>
+                <td>@String.Format("{0:f2}",TotalRootStock)</td>
+                <td>@String.Format("{0:f2}",TotalLiquidStock)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <h1 class="display-6">Расчет данных по каждому пню</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered border">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Порода</th>
+                <th>Штраф</th>
+                <th>Корневой запас</th>
+                <th>Ликвидный запас</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < @Model.Count; i++)
+            {
+                <tr>
+                    <th>@(i + 1)</th>
+                    <td>@Model[i].Breed</td>
+                    <td>@String.Format("{0:C2}",Model[i].Money.Business + @Model[i].Money.Firewood)</td>
+                    <td>@String.Format("{0:f2}",Model[i]?.Stock?.RootStock)</td>
+                    <td>@String.Format("{0:f2}",Model[i]?.Stock?.LiquidStock)</td>
+                    <td>
+                        <div class="text-center">
+                            <button class="btn btn-outline-dark" data-item=@Json.Serialize(Model[i]) onclick="showDetails(this)">
+                                Подробнее
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="modal" class="modal fade">
+    <div id="modal-content" class="modal-dialog"></div>
+</div>
+
+<script>
+    function showDetails(button) {
+        var model = $(button).data("item");
+        $.ajaxSetup({ cache: false });
+        $.ajax({
+            url: "TreeFellingDataDetails",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(model),
+            success: function (data) {
+                $("#modal-content").html(data);
+                $("#modal").modal('show');
+            }
+        });
+    }
+</script>

@@ -1,11 +1,6 @@
 ﻿using ForestDamageAssessment.DB.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForestDamageAssessment.DB
 {
@@ -16,9 +11,11 @@ namespace ForestDamageAssessment.DB
 
     public class ApplicationDbContext : IdentityDbContext
     {
-        /// <summary>
-        /// Локальные файлы в wwwroot
-        /// </summary>
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<FileModel> Files { get; set; }
         public DbSet<Assortment> Assortment { get; set; }
         public DbSet<AssortmentExtra> AssortmentExtra { get; set; }
@@ -28,15 +25,5 @@ namespace ForestDamageAssessment.DB
         public DbSet<Regions> Regions { get; set; }
         public DbSet<STD> STD { get; set; }
         public DbSet<TaxPrice> TaxPrice { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
-        }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    //modelBuilder.Entity<Person>();
-        //}
     }
 }

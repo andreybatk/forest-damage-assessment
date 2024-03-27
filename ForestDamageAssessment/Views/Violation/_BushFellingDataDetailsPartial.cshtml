@@ -1,0 +1,39 @@
+﻿@using ForestDamageAssessment.Infrastructure;
+@model IBushViewModel
+
+<div class="modal-dialog">
+    <div id="modal-content" class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Подробные данные: @Model.BreedBush (@Model.BushCount)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-grid gap-3">
+                <div class="p-2 bg-light border form-floating mb-3">
+                    <p>Общий штраф : @String.Format("{0:C2}", Model.Money.Business + @Model.Money.Firewood)</p>
+                    <p>Штраф за деловую древесину : @String.Format("{0:C2}", Model.Money.Business)</p>
+                    <p>Штраф за дрова : @String.Format("{0:C2}", Model.Money.Firewood)</p>
+                </div>
+                <div class="p-2 bg-light border form-floating mb-3">
+                    <p>Лесообразующая порода : @Model.Breed</p>
+                    <p>Тип кустарника : @Model.BushType</p>
+                    <p>Разряд высот : @Model.RankH</p>
+                    <p>Ступень толщины : @Model.ThicknessLevel</p>
+                </div>
+                <div class="p-2 bg-light border">
+                    <p>Корневой запас: @String.Format("{0:f2}", Model?.Stock?.RootStock)</p>
+                    <p2>Крупная: @String.Format("{0:f2}", Model?.Stock?.SumLarge)</p2>
+                    <p2>Средняя: @String.Format("{0:f2}", Model?.Stock?.SumAverage)</p2>
+                    <p2>Мелкая: @String.Format("{0:f2}", Model?.Stock?.SumSmall)</p2>
+                    <p2>Дрова: @String.Format("{0:f2}", Model?.Stock?.SumFirewood)</p2>
+                    <p2>Отходы: @String.Format("{0:f2}", Model?.Stock?.SumWaste)</p2>
+                </div>
+                <div class="p-2 bg-light border">
+                    <p>Ликвидный запас: @String.Format("{0:f2}", Model?.Stock?.LiquidStock)</p>
+                    <p2>Деловая: @String.Format("{0:f2}", Model?.Stock?.SumBusiness)</p2>
+                    <p2>Дрова: @String.Format("{0:f2}", Model?.Stock?.SumFirewood)</p2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

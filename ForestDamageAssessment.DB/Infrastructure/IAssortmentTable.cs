@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ForestDamageAssessment.DB.Infrastructure
+﻿namespace ForestDamageAssessment.DB.Infrastructure
 {
     public interface IAssortmentTable
     {
@@ -35,7 +29,7 @@ namespace ForestDamageAssessment.DB.Infrastructure
         /// <summary>
         /// Технологическое сырье
         /// </summary>
-        //string TechnologicalRawMaterials { get; set; }
+        string TechnologicalRawMaterials { get; set; }
         /// <summary>
         /// Дрова топливные
         /// </summary>

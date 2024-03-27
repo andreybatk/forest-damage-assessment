@@ -1,4 +1,5 @@
-﻿using ForestDamageAssessment.DB.Models;
+﻿using ForestDamageAssessment.Data;
+using ForestDamageAssessment.Infrastructure;
 using ForestDamageAssessment.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
@@ -7,25 +8,27 @@ namespace ForestDamageAssessment.Controllers
 {
     public class ViolationController : Controller
     {
-        private readonly Violation1Calculate _violation1Calculate;
-        private readonly IWebHostEnvironment _appEnvironment;
-        public ViolationController(Violation1Calculate violation1Calculate, IWebHostEnvironment appEnvironment)
+        private readonly IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel> _treeFellingViolationCalculate;
+        private readonly IViolationCalculate<BushFellingViolationCalculate, IBushViewModel> _bushFellingViolationCalculate;
+
+        public ViolationController(IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel> treeFellingViolationCalculate,
+            IViolationCalculate<BushFellingViolationCalculate, IBushViewModel> bushFellingViolationCalculate)
         {
-            _violation1Calculate = violation1Calculate;
-            _appEnvironment = appEnvironment;
+            _treeFellingViolationCalculate = treeFellingViolationCalculate;
+            _bushFellingViolationCalculate = bushFellingViolationCalculate;
         }
+
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult TreeFelling()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> BreedsData(string[] breed, string[] diameter, string[] h, string[] rankH,
+        public async Task<IActionResult> TreeFellingData(string[] breed, string[] diameter, string[] h, string[] rankH,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
-
-            var modelList = new List<Violation1ViewModel>();
-            var area = new ForestArea { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
+            var modelList = new List<ITreeViewModel>();
+            var forestArea = new ForestArea { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
             var culture = new CultureInfo("en-us");
 
             for (int i = 0; i < breed.Length; i++)
@@ -34,53 +37,71 @@ namespace ForestDamageAssessment.Controllers
                 double.TryParse(h[i], culture, out double resultH);
                 double.TryParse(rankH[i], culture, out double resultRankH);
 
-                var viewModel = new Violation1ViewModel { Breed = breed[i], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
+                var viewModel = new TreeViewModel { Breed = breed[i], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
 
                 modelList.Add(viewModel);
             }
 
-            if (modelList.Count > 0)
-            {
-                return View(await _violation1Calculate.CalculateAsync(modelList, area));
-            }
-
-            return NotFound();
+            return View(await _treeFellingViolationCalculate.CalculateAsync(modelList, forestArea));
         }
         [HttpPost]
-        public async Task<IActionResult> BreedsDataFromFile(IFormFile uploadedFile,
+        public async Task<IActionResult> TreeFellingDataFromFile(IFormFile uploadedFile,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
-            var area = new ForestArea { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
+            var fileModel = await _treeFellingViolationCalculate.GetFileModel(uploadedFile);
+            var forestArea = _treeFellingViolationCalculate.GetForestArea(region, year, isOZU, isProtectiveForests, isOOPT);
 
-            if (uploadedFile == null)
-            {
-                return NotFound();
-            }
-
-            if (!uploadedFile.FileName.ToLower().EndsWith(".txt") && !uploadedFile.FileName.ToLower().EndsWith(".csv"))
-            {
-                return NotFound();
-            }
-
-            string path = _appEnvironment.WebRootPath + "/Files/" + uploadedFile.FileName;
-            using (var fileStream = new FileStream(path, FileMode.Create))
-            {
-                await uploadedFile.CopyToAsync(fileStream);
-            }
-
-            FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
-
-            return View("BreedsData", await _violation1Calculate.CalculateFromFileAsync(file, area));
+            return View("TreeFellingData", await _treeFellingViolationCalculate.CalculateFromFileAsync(fileModel, forestArea));
         }
         [HttpPost]
-        public IActionResult BreedsDataDetails([FromBody] Violation1ViewModel model)
+        public IActionResult TreeFellingDataDetails([FromBody] TreeViewModel model)
         {
             if (model == null)
             {
                 return NotFound();
             }
 
-            return PartialView("_BreedsDataDetailsPartial", model);
+            return PartialView("_TreeFellingDataDetailsPartial", model);
+        }
+        [HttpGet]
+        public IActionResult BushFelling()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> BushFellingData(int[] count, string[] breed, string[] breedBush, string[] bushType,
+            string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+        {
+            var modelList = new List<IBushViewModel>();
+            var forestArea = new ForestArea { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
+
+            for (int i = 0; i < breed.Length; i++)
+            {
+                var viewModel = new BushViewModel { Breed = breed[i], BushCount = count[i], BreedBush = breedBush[i], BushType = bushType[i] };
+
+                modelList.Add(viewModel);
+            }
+
+            return View(await _bushFellingViolationCalculate.CalculateAsync(modelList, forestArea));
+        }
+        [HttpPost]
+        public async Task<IActionResult> BushFellingDataFromFile(IFormFile uploadedFile,
+            string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+        {
+            var fileModel = await _bushFellingViolationCalculate.GetFileModel(uploadedFile);
+            var forestArea = _bushFellingViolationCalculate.GetForestArea(region, year, isOZU, isProtectiveForests, isOOPT);
+
+            return View("BushFellingData", await _bushFellingViolationCalculate.CalculateFromFileAsync(fileModel, forestArea));
+        }
+        [HttpPost]
+        public IActionResult BushFellingDataDetails([FromBody] BushViewModel model)
+        {
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_BushFellingDataDetailsPartial", model);
         }
     }
 }

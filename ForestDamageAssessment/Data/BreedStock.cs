@@ -1,7 +1,11 @@
-﻿namespace ForestDamageAssessment.Models
+﻿namespace ForestDamageAssessment.Data
 {
     public class BreedStock
     {
+        /// <summary>
+        /// Объем в коре
+        /// </summary>
+        public double VInBark { get; set; }
         /// <summary>
         /// Ликвидный запас
         /// </summary>

@@ -1,4 +1,5 @@
-﻿@model List<Violation1ViewModel>
+﻿@using ForestDamageAssessment.Infrastructure;
+@model List<IBushViewModel>
 @{
     ViewData["Title"] = "Данные о насаждениях";
 
@@ -41,7 +42,7 @@
 </div>
 
 <div class="text-center">
-    <h1 class="display-6">Расчет данных по каждому пню</h1>
+    <h1 class="display-6">Расчет данных по каждому кустарнику</h1>
 </div>
 
 <div class="table-responsive">
@@ -61,7 +62,7 @@
             {
                 <tr>
                     <th>@(i + 1)</th>
-                    <td>@Model[i].Breed</td>
+                    <td>@Model[i].BreedBush</td>
                     <td>@String.Format("{0:C2}",Model[i].Money.Business + @Model[i].Money.Firewood)</td>
                     <td>@String.Format("{0:f2}",Model[i]?.Stock?.RootStock)</td>
                     <td>@String.Format("{0:f2}",Model[i]?.Stock?.LiquidStock)</td>
@@ -87,7 +88,7 @@
         var model = $(button).data("item");
         $.ajaxSetup({ cache: false });
         $.ajax({
-            url: "BreedsDataDetails",
+            url: "BushFellingDataDetails",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(model),
