@@ -62,7 +62,7 @@ namespace ForestDamageAssessment.Data
             {
                 foreach (var model in modelList)
                 {
-                    var table = await _context.TaxPrice.FirstOrDefaultAsync(
+                    var table = await _context.TaxPrices.FirstOrDefaultAsync(
                         x => x.SubjectRF == forestArea.Region && x.Breed == model.Breed);
 
                     if (table == null)
@@ -106,7 +106,7 @@ namespace ForestDamageAssessment.Data
             {
                 foreach (var model in modelList)
                 {
-                    var breedDiameter = await _context.BreedDiameterModel.FirstOrDefaultAsync(x => x.Breed == model.Breed);
+                    var breedDiameter = await _context.BreedDiameterModels.FirstOrDefaultAsync(x => x.Breed == model.Breed);
 
                     if (breedDiameter == null)
                     {
@@ -123,7 +123,6 @@ namespace ForestDamageAssessment.Data
             }
             catch (Exception ex)
             {
-
                 //TODO LOGGER
             }
         }
@@ -134,7 +133,7 @@ namespace ForestDamageAssessment.Data
                 return null;
             }
 
-            var thicknessLevel = await _context.STD.FirstOrDefaultAsync(x => x.ThicknessLevel == diameter || x.ThicknessLevel == diameter + 1 || x.ThicknessLevel == diameter + 2 || x.ThicknessLevel == diameter + 3 || x.ThicknessLevel == diameter + 4);
+            var thicknessLevel = await _context.STDs.FirstOrDefaultAsync(x => x.ThicknessLevel == diameter || x.ThicknessLevel == diameter + 1 || x.ThicknessLevel == diameter + 2 || x.ThicknessLevel == diameter + 3 || x.ThicknessLevel == diameter + 4);
             return thicknessLevel?.ThicknessLevel;
         }
     }

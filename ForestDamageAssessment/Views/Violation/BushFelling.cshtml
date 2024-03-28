@@ -23,7 +23,7 @@
                                 <option selected>Республика Марий Эл</option>
                             </select>
                             <select class="form-select-sm" name="year">
-                                <option selected>2023</option>
+                                <option selected>2024</option>
                             </select>
                         </div>
                         <div class="input-group">
@@ -60,15 +60,15 @@
                             </thead>
                             <tbody id="inputs">
                                 <tr>
-                                    <td><input type="number" step="1" min="1" name="count[]" required></td>
-                                    <td><input list="breeds" name="breedBush[]" placeholder="не обязательно"></td>
+                                    <td><input class="form-control" type="number" step="1" min="1" name="count[]" required></td>
+                                    <td><input class="form-control" list="breeds" name="breedBush[]" placeholder="не обязательно"></td>
                                     <td>
-                                        <select class="form-select-sm mr-3" name="bushType[]">
+                                        <select class="form-select" name="bushType[]">
                                             <option selected>Хвойная</option>
                                             <option>Лиственная</option>
                                         </select>
                                     </td>
-                                    <td><input list="breeds" name="breed[]" required></td>
+                                    <td><input class="form-control" list="breeds" name="breed[]" required></td>
                                     <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
                                 </tr>
                             </tbody>

@@ -9,8 +9,8 @@ namespace ForestDamageAssessment.Data
 {
     public class BushFellingViolationCalculate : ViolationCalculate, IViolationCalculate<BushFellingViolationCalculate, IBushViewModel>
     {
-        private const string coniferous = "Хвойная";
-        private const string deciduous = "Лиственная";
+        private const string _coniferous = "Хвойная";
+        private const string _deciduous = "Лиственная";
 
         public BushFellingViolationCalculate(ApplicationDbContext context, IWebHostEnvironment appEnvironment) : base(context, appEnvironment)
         {
@@ -66,7 +66,7 @@ namespace ForestDamageAssessment.Data
             {
                 foreach (var model in modelList)
                 {
-                    var table = await _context.TaxPrice.FirstOrDefaultAsync(
+                    var table = await _context.TaxPrices.FirstOrDefaultAsync(
                         x => x.SubjectRF == forestArea.Region && x.Breed == model.Breed);
 
                     if (table == null)
@@ -105,18 +105,18 @@ namespace ForestDamageAssessment.Data
                 //TODO LOGGER
             }
         }
-        private void InitDefaultValues(List<IBushViewModel> modelList)
+        private static void InitDefaultValues(List<IBushViewModel> modelList)
         {
             try
             {
                 foreach (var model in modelList)
                 {
                     model.RankH = 1D;
-                    if (model.BushType == coniferous)
+                    if (model.BushType == _coniferous)
                     {
                         model.ThicknessLevel = 16;
                     }
-                    if (model.BushType == deciduous)
+                    if (model.BushType == _deciduous)
                     {
                         model.ThicknessLevel = 20;
                     }

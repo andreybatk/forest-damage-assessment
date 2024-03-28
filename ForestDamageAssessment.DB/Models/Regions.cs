@@ -1,8 +1,8 @@
 ﻿namespace ForestDamageAssessment.DB.Models
 {
-    public class Regions
+    public class Region
     {
         public int ID { get; set; }
-        public string? Region { get; set; }
+        public string? RegionRF { get; set; }
     }
 }

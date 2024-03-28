@@ -10,12 +10,14 @@ namespace ForestDamageAssessment.Controllers
     {
         private readonly IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel> _treeFellingViolationCalculate;
         private readonly IViolationCalculate<BushFellingViolationCalculate, IBushViewModel> _bushFellingViolationCalculate;
-
+        private readonly IWebHostEnvironment _appEnvironment;
         public ViolationController(IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel> treeFellingViolationCalculate,
-            IViolationCalculate<BushFellingViolationCalculate, IBushViewModel> bushFellingViolationCalculate)
+            IViolationCalculate<BushFellingViolationCalculate, IBushViewModel> bushFellingViolationCalculate,
+            IWebHostEnvironment appEnvironment)
         {
             _treeFellingViolationCalculate = treeFellingViolationCalculate;
             _bushFellingViolationCalculate = bushFellingViolationCalculate;
+            _appEnvironment = appEnvironment;
         }
 
         [HttpGet]
@@ -48,7 +50,7 @@ namespace ForestDamageAssessment.Controllers
         public async Task<IActionResult> TreeFellingDataFromFile(IFormFile uploadedFile,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
-            var fileModel = await _treeFellingViolationCalculate.GetFileModel(uploadedFile);
+            var fileModel = await _treeFellingViolationCalculate.GetFileModelAsync(uploadedFile);
             var forestArea = _treeFellingViolationCalculate.GetForestArea(region, year, isOZU, isProtectiveForests, isOOPT);
 
             return View("TreeFellingData", await _treeFellingViolationCalculate.CalculateFromFileAsync(fileModel, forestArea));
@@ -88,7 +90,7 @@ namespace ForestDamageAssessment.Controllers
         public async Task<IActionResult> BushFellingDataFromFile(IFormFile uploadedFile,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
-            var fileModel = await _bushFellingViolationCalculate.GetFileModel(uploadedFile);
+            var fileModel = await _bushFellingViolationCalculate.GetFileModelAsync(uploadedFile);
             var forestArea = _bushFellingViolationCalculate.GetForestArea(region, year, isOZU, isProtectiveForests, isOOPT);
 
             return View("BushFellingData", await _bushFellingViolationCalculate.CalculateFromFileAsync(fileModel, forestArea));
@@ -102,6 +104,15 @@ namespace ForestDamageAssessment.Controllers
             }
 
             return PartialView("_BushFellingDataDetailsPartial", model);
+        }
+        [HttpGet]
+        public IActionResult GetStream()
+        {
+            string path = _appEnvironment.WebRootPath + "/Files/" + "диплом.txt";
+            FileStream fs = new FileStream(path, FileMode.Open);
+            string file_type = "text/plain";
+            string file_name = "Сформированный файл диплом.txt";
+            return File(fs, file_type, file_name);
         }
     }
 }

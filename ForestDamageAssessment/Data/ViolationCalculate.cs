@@ -37,12 +37,17 @@ namespace ForestDamageAssessment.Data
                 {
                     if (model.Breed.ToLower() == "липа")
                     {
-                        table = await _context.AssortmentLinden.FirstOrDefaultAsync(
+                        table = await _context.AssortmentsLinden.FirstOrDefaultAsync(
+                            x => x.ThicknessLevel == model.ThicknessLevel.ToString() && x.RankH == model.RankH.ToString());
+                    }
+                    else if (model.Breed.ToLower() == "ива древовидная" || (model.Breed.ToLower() == "ольха черная") || (model.Breed.ToLower() == "осокорь"))
+                    {
+                        table = await _context.AssortmentsExtra.FirstOrDefaultAsync(
                             x => x.ThicknessLevel == model.ThicknessLevel.ToString() && x.RankH == model.RankH.ToString());
                     }
                     else
                     {
-                        table = await _context.Assortment.FirstOrDefaultAsync(
+                        table = await _context.Assortments.FirstOrDefaultAsync(
                             x => x.Breed == model.Breed && x.ThicknessLevel == model.ThicknessLevel.ToString());
                     }
 
@@ -75,11 +80,10 @@ namespace ForestDamageAssessment.Data
             }
             catch (Exception ex)
             {
-
                 //TODO LOGGER
             }
         }
-        public async Task<FileModel> GetFileModel(IFormFile uploadedFile)
+        public async Task<FileModel> GetFileModelAsync(IFormFile uploadedFile)
         {
             var fileModel = new FileModel();
 

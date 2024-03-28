@@ -1,6 +1,6 @@
 ﻿namespace ForestDamageAssessment.DB.Models
 {
-    public class RankHeights
+    public class RankHeight
     {
         public int ID { get; set; }
         public string? Breed { get; set; }
