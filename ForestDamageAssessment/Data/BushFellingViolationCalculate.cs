@@ -12,28 +12,31 @@ namespace ForestDamageAssessment.Data
         private const string _coniferous = "Хвойная";
         private const string _deciduous = "Лиственная";
 
-        public BushFellingViolationCalculate(ApplicationDbContext context, IWebHostEnvironment appEnvironment) : base(context, appEnvironment)
+        public BushFellingViolationCalculate(ApplicationDbContext context) : base(context)
         {
         }
 
         protected override double MainCoefficient => 10D;
+        protected virtual int ConiferousDiameter { get; } = 16;
+        protected virtual int DeciduousDiameter { get; } = 20;
 
-        public async Task<List<IBushViewModel>> CalculateAsync(List<IBushViewModel> modelList, ForestArea forestArea)
+        public async Task<ForestAreaViewModel<IBushViewModel>> CalculateAsync(ForestAreaViewModel<IBushViewModel> forestArea)
         {
-            InitDefaultValues(modelList);
-            await CalculateStockAsync(modelList);
-            await CalculateMoneyPunishmentAsync(modelList, forestArea);
+            InitDefaultValues(forestArea.ModelList);
+            await CalculateStockAsync(forestArea.ModelList);
+            await CalculateMoneyPunishmentAsync(forestArea);
+            CalculateTotalMoneyPunishment(forestArea.ModelList, forestArea.ForestData);
 
-            return modelList;
+            return forestArea;
         }
-        public async Task<List<IBushViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestArea forestArea)
+        public async Task<ForestAreaViewModel<IBushViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestAreaViewModel<IBushViewModel> forestArea)
         {
-            var modelList = new List<IBushViewModel>();
+            forestArea.ModelList = new List<IBushViewModel>();
             var culture = new CultureInfo("en-us");
 
             if (fileModel == null)
             {
-                return modelList;
+                return forestArea;
             }
 
             using (StreamReader reader = new StreamReader(fileModel.Path))
@@ -50,24 +53,25 @@ namespace ForestDamageAssessment.Data
                     int.TryParse(data[0], culture, out int count);
 
                     var viewModel = new BushViewModel { BushCount = count, BreedBush = data[1], BushType = data[2], Breed = data[3] };
-                    modelList.Add(viewModel);
+                    forestArea.ModelList.Add(viewModel);
                 }
             }
 
-            InitDefaultValues(modelList);
-            await CalculateStockAsync(modelList);
-            await CalculateMoneyPunishmentAsync(modelList, forestArea);
+            InitDefaultValues(forestArea.ModelList);
+            await CalculateStockAsync(forestArea.ModelList);
+            await CalculateMoneyPunishmentAsync(forestArea);
+            CalculateTotalMoneyPunishment(forestArea.ModelList, forestArea.ForestData);
 
-            return modelList;
+            return forestArea;
         }
-        private async Task CalculateMoneyPunishmentAsync(List<IBushViewModel> modelList, ForestArea forestArea)
+        private async Task CalculateMoneyPunishmentAsync(ForestAreaViewModel<IBushViewModel> forestArea)
         {
             try
             {
-                foreach (var model in modelList)
+                foreach (var model in forestArea.ModelList)
                 {
                     var table = await _context.TaxPrices.FirstOrDefaultAsync(
-                        x => x.SubjectRF == forestArea.Region && x.Breed == model.Breed);
+                        x => x.SubjectRF == forestArea.ForestData.Region && x.Breed == model.Breed);
 
                     if (table == null)
                     {
@@ -80,24 +84,11 @@ namespace ForestDamageAssessment.Data
                     double.TryParse(table.Firewood, culture, out double priceFirewood);
                     double bushCount = Convert.ToDouble(model.BushCount);
 
-                    model.Money.Business = priceAverage * model.Stock.SumBusiness * MainCoefficient * Year2024Coefficient * bushCount;
-                    model.Money.Firewood = priceFirewood * model.Stock.SumFirewood * MainCoefficient * Year2024Coefficient * bushCount;
-
-                    if (forestArea.IsOZU)
-                    {
-                        model.Money.Business *= OZUCoefficient;
-                        model.Money.Firewood *= OZUCoefficient;
-                    }
-                    if (forestArea.IsProtectiveForests)
-                    {
-                        model.Money.Business *= ProtectiveForestsCoefficient;
-                        model.Money.Firewood *= ProtectiveForestsCoefficient;
-                    }
-                    if (forestArea.IsOOPT)
-                    {
-                        model.Money.Business *= OOPTtCoefficient;
-                        model.Money.Firewood *= OOPTtCoefficient;
-                    }
+                    model.Money.TaxPriceBusiness = priceAverage;
+                    model.Money.TaxPriceFirewood = priceFirewood;
+                    model.Money.Business = priceAverage * model.Stock.SumBusiness * bushCount;
+                    model.Money.Firewood = priceFirewood * model.Stock.SumFirewood * bushCount;
+                    model.Money.BusinessAndFirewood = model.Money.Business + model.Money.Firewood;
                 }
             }
             catch (Exception ex)
@@ -105,7 +96,7 @@ namespace ForestDamageAssessment.Data
                 //TODO LOGGER
             }
         }
-        private static void InitDefaultValues(List<IBushViewModel> modelList)
+        private void InitDefaultValues(List<IBushViewModel> modelList)
         {
             try
             {
@@ -114,11 +105,13 @@ namespace ForestDamageAssessment.Data
                     model.RankH = 1D;
                     if (model.BushType == _coniferous)
                     {
-                        model.ThicknessLevel = 16;
+                        model.Breed = "Сосна"; // наибольшая ставка платы среди хвойных пород
+                        model.ThicknessLevel = ConiferousDiameter;
                     }
                     if (model.BushType == _deciduous)
                     {
-                        model.ThicknessLevel = 20;
+                        model.Breed = "Клен"; // наибольшая ставка платы среди лиственных пород
+                        model.ThicknessLevel = DeciduousDiameter;
                     }
                 }
             }

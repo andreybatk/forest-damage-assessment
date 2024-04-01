@@ -1,6 +1,5 @@
 ﻿using ForestDamageAssessment.DB;
 using ForestDamageAssessment.DB.Infrastructure;
-using ForestDamageAssessment.DB.Models;
 using ForestDamageAssessment.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -9,12 +8,9 @@ namespace ForestDamageAssessment.Data
 {
     public abstract class ViolationCalculate
     {
-        private readonly IWebHostEnvironment _appEnvironment;
-
-        public ViolationCalculate(ApplicationDbContext context, IWebHostEnvironment appEnvironment)
+        public ViolationCalculate(ApplicationDbContext context)
         {
             _context = context;
-            _appEnvironment = appEnvironment;
         }
 
         protected readonly ApplicationDbContext _context;
@@ -74,8 +70,7 @@ namespace ForestDamageAssessment.Data
                     model.Stock.SumWaste = waste * vInBark / 100;
 
                     model.Stock.LiquidStock = model.Stock.SumBusiness + model.Stock.SumFirewood;
-                    model.Stock.RootStock = model.Stock.SumLarge + model.Stock.SumAverage + model.Stock.SumSmall
-                        + model.Stock.SumFirewood + model.Stock.SumWaste;
+                    model.Stock.RootStock = model.Stock.SumBusiness + model.Stock.SumFirewood + model.Stock.SumWaste;
                 }
             }
             catch (Exception ex)
@@ -83,34 +78,53 @@ namespace ForestDamageAssessment.Data
                 //TODO LOGGER
             }
         }
-        public async Task<FileModel> GetFileModelAsync(IFormFile uploadedFile)
+        public void CalculateTotalMoneyPunishment<T>(List<T> modelList, ForestAreaData? forestAreaData)
         {
-            var fileModel = new FileModel();
-
-            if (uploadedFile == null)
+            if (forestAreaData == null)
             {
-                return fileModel;
+                return;
             }
 
-            if (!uploadedFile.FileName.ToLower().EndsWith(".txt") && !uploadedFile.FileName.ToLower().EndsWith(".csv"))
+            List<IViolationViewModel> currentModelList = modelList.Cast<IViolationViewModel>().ToList();
+
+            forestAreaData.TotalRootStock = currentModelList.Select(x => x.Stock)
+                .Select(x => x.RootStock)
+                .Sum();
+            forestAreaData.TotalLiquidStock = currentModelList.Select(x => x.Stock)
+                .Select(x => x.LiquidStock)
+                .Sum();
+            forestAreaData.TotalBusinessMoney = currentModelList.Select(x => x.Money)
+                .Select(x => x.Business)
+                .Sum();
+            forestAreaData.TotalFirewoodMoney = currentModelList.Select(x => x.Money)
+                .Select(x => x.Firewood)
+                .Sum();
+            forestAreaData.TotalBusinessAndFirewoodMoney = currentModelList.Select(x => x.Money)
+                .Select(x => x.BusinessAndFirewood)
+                .Sum();
+            forestAreaData.TotalMoney = forestAreaData.TotalBusinessAndFirewoodMoney;
+
+            if (forestAreaData.IsOZU)
             {
-                return fileModel;
+                forestAreaData.TotalMoney *= OZUCoefficient;
+                forestAreaData.Coefficients.Add($"Коэффициент за ОЗУ ({OZUCoefficient}):", forestAreaData.TotalMoney);
+            }
+            if (forestAreaData.IsProtectiveForests)
+            {
+                forestAreaData.TotalMoney *= ProtectiveForestsCoefficient;
+                forestAreaData.Coefficients.Add($"Коэффициент за Защитные леса ({ProtectiveForestsCoefficient}):", forestAreaData.TotalMoney);
+            }
+            if (forestAreaData.IsOOPT)
+            {
+                forestAreaData.TotalMoney *= OOPTtCoefficient;
+                forestAreaData.Coefficients.Add($"Коэффициент за ООПТ ({OOPTtCoefficient}):", forestAreaData.TotalMoney);
             }
 
-            string path = _appEnvironment.WebRootPath + "/Files/" + uploadedFile.FileName;
-            using (var fileStream = new FileStream(path, FileMode.Create))
-            {
-                await uploadedFile.CopyToAsync(fileStream);
-            }
+            forestAreaData.TotalMoney *= Year2024Coefficient;
+            forestAreaData.Coefficients.Add($"Коэффициент за 2024 год ({Year2024Coefficient}):", forestAreaData.TotalMoney);
 
-            fileModel.Name = uploadedFile.FileName;
-            fileModel.Path = path;
-            return fileModel;
-        }
-        public ForestArea GetForestArea(string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
-        {
-            var forestArea = new ForestArea { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
-            return forestArea;
+            forestAreaData.TotalMoney *= MainCoefficient;
+            forestAreaData.Coefficients.Add($"Размер ущерба при {MainCoefficient}-кратном увеличении:", forestAreaData.TotalMoney);
         }
     }
 }

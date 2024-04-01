@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Вход";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Вход</h1>
+    <p>Введите свою почту и пароль.</p>
+</div>
+
+<form asp-controller="Account" asp-action="Login" method="post">
+    <div class="container">
+        <div class="mb-3">
+            <div class="col">
+                <label>Электронная почта</label>
+                <input type="email" class="form-control" placeholder="E-mail" aria-label="E-mail" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label>Пароль</label>
+            <div class="col">
+                <input type="password" class="form-control" placeholder="Пароль" aria-label="Пароль" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Войти" />
+        </div>
+        <p>Нет аккаунта? <a asp-controller="Account" asp-action="Register">Зарегистрируйтесь</a>.</p>
+    </div>
+</form>

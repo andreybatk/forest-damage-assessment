@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Расчет по незаконной рубке деревьев";
+    ViewData["Title"] = "Расчет по повреждениям деревьев";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Расчет по незаконной рубке деревьев</h1>
-    <h1 class="display-6">Повреждение до степени прекращения роста деревьев</h1>
+    <h1 class="display-4">Расчет по повреждениям деревьев</h1>
+    <h1 class="display-6">Повреждение, не влекущее прекращения роста деревьев</h1>
 </div>
 
 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -16,7 +16,7 @@
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body border">
-                <form asp-action="TreeFellingData" asp-controller="Violation" method="post">
+                <form asp-action="TreeFelling2Data" asp-controller="Violation" method="post">
                     <div class="mb-3">
                         <h4 class="text-black-50">Информация об участке леса</h4>
                         <div>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <h4 class="text-center">Информация о вырубленных насаждениях</h4>
+                    <h4 class="text-center">Информация о поврежденных насаждениях</h4>
                     <div class="table-responsive">
                         <table class="table table-bordered border">
                             <thead>
@@ -84,7 +84,7 @@
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body border">
-                <form asp-action="TreeFellingDataFromFile" asp-controller="Violation" method="post" enctype="multipart/form-data">
+                <form asp-action="TreeFelling2DataFromFile" asp-controller="Violation" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <h4 class="text-black-50">Информация об участке леса</h4>
                         <div>
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Информация о вырубленных насаждениях</label>
+                        <label for="formFile" class="form-label">Информация о поврежденных насаждениях</label>
                         <input class="form-control" type="file" name="uploadedFile" accept=".txt, .csv" required />
                         <button class="btn btn-secondary mt-3" type="button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                             Посмотреть пример

@@ -1,48 +1,11 @@
 ﻿@using ForestDamageAssessment.Infrastructure;
-@model List<IBushViewModel>
+@model ForestAreaViewModel<IBushViewModel>
 @{
     ViewData["Title"] = "Данные о насаждениях";
-
-    var TotalRootStock = Model.Select(x => x.Stock)
-                   .Select(x => x.RootStock)
-                   .Sum();
-    var TotalLiquidStock = Model.Select(x => x.Stock)
-                   .Select(x => x.LiquidStock)
-                   .Sum();
-    var TotalBusinessMoney = Model.Select(x => x.Money)
-                  .Select(x => x.Business)
-                  .Sum();
-    var TotalFirewoodMoney = Model.Select(x => x.Money)
-                  .Select(x => x.Firewood)
-                  .Sum();
-    var TotalMoney = TotalBusinessMoney + TotalFirewoodMoney;
 }
 
 <div class="text-center">
     <h1 class="display-4">Расчет данных о насаждениях</h1>
-</div>
-
-<div class="table-responsive text-center">
-    <table class="table rounded-3 overflow-hidden">
-        <thead>
-            <tr>
-                <th>Общий штраф</th>
-                <th>Общий корневой запас</th>
-                <th>Общий ликвидный запас</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>@String.Format("{0:C2}",TotalMoney)</th>
-                <td>@String.Format("{0:f2}",TotalRootStock)</td>
-                <td>@String.Format("{0:f2}",TotalLiquidStock)</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="text-center">
-    <h1 class="display-6">Расчет данных по каждому кустарнику</h1>
 </div>
 
 <div class="table-responsive">
@@ -51,31 +14,67 @@
             <tr>
                 <th>#</th>
                 <th>Порода</th>
-                <th>Штраф</th>
-                <th>Корневой запас</th>
-                <th>Ликвидный запас</th>
+                <th>Объем ствола в коре</th>
+                <th class="text-center" colspan="3">Деловая древесина</th>
+                <th class="text-center" colspan="3">Дровяная древесина</th>
+                <th>Общий размер ущерба</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Древесина</th>
+                <th>Ставка платы</th>
+                <th>Размер ущерба</th>
+                <th>Дрова</th>
+                <th>Ставка платы</th>
+                <th>Размер ущерба</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @for (var i = 0; i < @Model.Count; i++)
+            @for (var i = 0; i < Model?.ModelList?.Count; i++)
             {
                 <tr>
                     <th>@(i + 1)</th>
-                    <td>@Model[i].BreedBush</td>
-                    <td>@String.Format("{0:C2}",Model[i].Money.Business + @Model[i].Money.Firewood)</td>
-                    <td>@String.Format("{0:f2}",Model[i]?.Stock?.RootStock)</td>
-                    <td>@String.Format("{0:f2}",Model[i]?.Stock?.LiquidStock)</td>
+                    <td>@Model?.ModelList[i].BreedBush (@Model?.ModelList[i].BushCount)</td>
+                    <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.VInBark)</td>
+                    <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.SumBusiness)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.TaxPriceBusiness)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.Business)</td>
+                    <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.SumFirewood)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.TaxPriceFirewood)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.Firewood)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.BusinessAndFirewood)</td>
                     <td>
                         <div class="text-center">
-                            <button class="btn btn-outline-dark" data-item=@Json.Serialize(Model[i]) onclick="showDetails(this)">
-                                Подробнее
+                            <button class="btn bi bi-info-square" data-item=@Json.Serialize(Model?.ModelList[i]) onclick="showDetails(this)">
                             </button>
                         </div>
                     </td>
                 </tr>
             }
         </tbody>
+        <tfoot class="table-dark">
+            <tr>
+                <td colspan="5">Итого по лесосеке</td>
+                <td>@String.Format("{0:C2}", Model?.ForestData?.TotalBusinessMoney)</td>
+                <td></td>
+                <td></td>
+                <td>@String.Format("{0:C2}", Model?.ForestData?.TotalFirewoodMoney)</td>
+                <td colspan="2">@String.Format("{0:C2}", Model?.ForestData?.TotalBusinessAndFirewoodMoney)</td>
+            </tr>
+            @foreach (var item in Model.ForestData.Coefficients)
+            {
+                <tr>
+                    <td colspan="5">@item.Key</td>
+                    <td colspan="4"></td>
+                    <td colspan="2">@String.Format("{0:C2}", @item.Value)</td>
+                </tr>
+            }
+        </tfoot>
     </table>
 </div>
 

@@ -9,18 +9,27 @@ namespace ForestDamageAssessment.Data
 {
     public class TreeFellingViolationCalculate : ViolationCalculate, IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel>
     {
-        public TreeFellingViolationCalculate(ApplicationDbContext context, IWebHostEnvironment appEnvironment) : base(context, appEnvironment)
+        public TreeFellingViolationCalculate(ApplicationDbContext context) : base(context)
         {
         }
 
-        public async Task<List<ITreeViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestArea forestArea)
+        public async Task<ForestAreaViewModel<ITreeViewModel>> CalculateAsync(ForestAreaViewModel<ITreeViewModel> forestArea)
         {
-            var modelList = new List<ITreeViewModel>();
+            await CalculateDiameterAsync(forestArea.ModelList);
+            await CalculateStockAsync(forestArea.ModelList);
+            await CalculateMoneyPunishmentAsync(forestArea);
+            CalculateTotalMoneyPunishment(forestArea.ModelList, forestArea.ForestData);
+
+            return forestArea;
+        }
+        public async Task<ForestAreaViewModel<ITreeViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestAreaViewModel<ITreeViewModel> forestArea)
+        {
+            forestArea.ModelList = new List<ITreeViewModel>();
             var culture = new CultureInfo("en-us");
 
             if (fileModel == null)
             {
-                return modelList;
+                return forestArea;
             }
 
             using (StreamReader reader = new StreamReader(fileModel.Path))
@@ -38,32 +47,25 @@ namespace ForestDamageAssessment.Data
                     double.TryParse(data[3], culture, out double resultRankH);
 
                     var viewModel = new TreeViewModel { Breed = data[0], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
-                    modelList.Add(viewModel);
+                    forestArea.ModelList.Add(viewModel);
                 }
             }
 
-            await CalculateDiameterAsync(modelList);
-            await CalculateStockAsync(modelList);
-            await CalculateMoneyPunishmentAsync(modelList, forestArea);
+            await CalculateDiameterAsync(forestArea.ModelList);
+            await CalculateStockAsync(forestArea.ModelList);
+            await CalculateMoneyPunishmentAsync(forestArea);
+            CalculateTotalMoneyPunishment(forestArea.ModelList, forestArea.ForestData);
 
-            return modelList;
+            return forestArea;
         }
-        public async Task<List<ITreeViewModel>> CalculateAsync(List<ITreeViewModel> modelList, ForestArea forestArea)
-        {
-            await CalculateDiameterAsync(modelList);
-            await CalculateStockAsync(modelList);
-            await CalculateMoneyPunishmentAsync(modelList, forestArea);
-
-            return modelList;
-        }
-        private async Task CalculateMoneyPunishmentAsync(List<ITreeViewModel> modelList, ForestArea forestArea)
+        private async Task CalculateMoneyPunishmentAsync(ForestAreaViewModel<ITreeViewModel> forestArea)
         {
             try
             {
-                foreach (var model in modelList)
+                foreach (var model in forestArea.ModelList)
                 {
                     var table = await _context.TaxPrices.FirstOrDefaultAsync(
-                        x => x.SubjectRF == forestArea.Region && x.Breed == model.Breed);
+                        x => x.SubjectRF == forestArea.ForestData.Region && x.Breed == model.Breed);
 
                     if (table == null)
                     {
@@ -75,25 +77,14 @@ namespace ForestDamageAssessment.Data
                     double.TryParse(table.PriceAverage, culture, out double priceAverage);
                     double.TryParse(table.Firewood, culture, out double priceFirewood);
 
-                    model.Money.Business = priceAverage * model.Stock.SumBusiness * MainCoefficient * Year2024Coefficient;
-                    model.Money.Firewood = priceFirewood * model.Stock.SumFirewood * MainCoefficient * Year2024Coefficient;
-
-                    if (forestArea.IsOZU)
-                    {
-                        model.Money.Business *= OZUCoefficient;
-                        model.Money.Firewood *= OZUCoefficient;
-                    }
-                    if (forestArea.IsProtectiveForests)
-                    {
-                        model.Money.Business *= ProtectiveForestsCoefficient;
-                        model.Money.Firewood *= ProtectiveForestsCoefficient;
-                    }
-                    if (forestArea.IsOOPT)
-                    {
-                        model.Money.Business *= OOPTtCoefficient;
-                        model.Money.Firewood *= OOPTtCoefficient;
-                    }
+                    model.Money.TaxPriceBusiness = priceAverage;
+                    model.Money.TaxPriceFirewood = priceFirewood;
+                    model.Money.Business = priceAverage * model.Stock.SumBusiness;
+                    model.Money.Firewood = priceFirewood * model.Stock.SumFirewood;
+                    model.Money.BusinessAndFirewood = model.Money.Business + model.Money.Firewood;
                 }
+
+
             }
             catch (Exception ex)
             {

@@ -4,6 +4,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Расчет по незаконной рубке кустарников и лиан</h1>
+    <h1 class="display-6">Повреждение до степени прекращения роста кустарников и лиан</h1>
 </div>
 
 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -53,22 +54,20 @@
                             <thead>
                                 <tr>
                                     <th>Кол-во</th>
-                                    <th>Порода кустарника</th>
+                                    <th class="text-muted">Порода кустарника</th>
                                     <th>Тип кустарника</th>
-                                    <th>Лесообразующая порода</th>
                                 </tr>
                             </thead>
                             <tbody id="inputs">
                                 <tr>
                                     <td><input class="form-control" type="number" step="1" min="1" name="count[]" required></td>
-                                    <td><input class="form-control" list="breeds" name="breedBush[]" placeholder="не обязательно"></td>
+                                    <td><input class="form-control" list="breeds" name="breedBush[]"></td>
                                     <td>
                                         <select class="form-select" name="bushType[]">
                                             <option selected>Хвойная</option>
                                             <option>Лиственная</option>
                                         </select>
                                     </td>
-                                    <td><input class="form-control" list="breeds" name="breed[]" required></td>
                                     <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
                                 </tr>
                             </tbody>
@@ -131,18 +130,18 @@
                 </form>
                 <div class="collapse" id="collapseExample">
                     <div class="p-2 bg-light border">
-                        <p class="text-black-50">Кол-во | Порода | Тип | Лесообразующая порода</p>
+                        <p class="text-black-50">Кол-во | Порода (Не обязательно) | Тип</p>
                         <code>
                             Пример 1:<br />
-                            10;барбарис;Хвойная;Сосна;<br />
-                            15;можжевельник;Лиственная;Береза;<br />
-                            5;жасмин;Хвойная;Пихта<br />
+                            10;барбарис;Хвойная;<br />
+                            15;можжевельник;Лиственная;<br />
+                            5;жасмин;Хвойная;<br />
                         </code>
                         <code>
                             Пример 2:<br />
-                            10;;Хвойная;Сосна<br />
-                            15;-;Лиственная;Береза<br />
-                            5;;Хвойная;Пихта<br />
+                            10;;Хвойная<br />
+                            15;-;Лиственная<br />
+                            5;;Хвойная<br />
                         </code>
                     </div>
                 </div>

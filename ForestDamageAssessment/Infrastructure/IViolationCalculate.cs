@@ -1,13 +1,11 @@
-﻿using ForestDamageAssessment.Data;
-using ForestDamageAssessment.DB.Models;
+﻿using ForestDamageAssessment.DB.Models;
+using ForestDamageAssessment.Models;
 
 namespace ForestDamageAssessment.Infrastructure
 {
     public interface IViolationCalculate<T, TViewModel>
     {
-        Task<List<TViewModel>> CalculateAsync(List<TViewModel> modelList, ForestArea forestArea);
-        Task<List<TViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestArea forestArea);
-        Task<FileModel> GetFileModelAsync(IFormFile uploadedFile);
-        ForestArea GetForestArea(string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT);
+        Task<ForestAreaViewModel<TViewModel>> CalculateAsync(ForestAreaViewModel<TViewModel> forestArea);
+        Task<ForestAreaViewModel<TViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestAreaViewModel<TViewModel> forestArea);
     }
 }

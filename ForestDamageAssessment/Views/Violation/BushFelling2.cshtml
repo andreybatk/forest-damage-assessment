@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Расчет по незаконной рубке деревьев";
+    ViewData["Title"] = "Расчет по повреждениям кустарников и лиан";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Расчет по незаконной рубке деревьев</h1>
-    <h1 class="display-6">Повреждение до степени прекращения роста деревьев</h1>
+    <h1 class="display-4">Расчет по повреждениям кустарников и лиан</h1>
+    <h1 class="display-6">Повреждение, не влекущее прекращения роста кустарников и лиан</h1>
 </div>
 
 <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -16,7 +16,7 @@
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body border">
-                <form asp-action="TreeFellingData" asp-controller="Violation" method="post">
+                <form asp-action="BushFelling2Data" asp-controller="Violation" method="post">
                     <div class="mb-3">
                         <h4 class="text-black-50">Информация об участке леса</h4>
                         <div>
@@ -48,23 +48,26 @@
                             </div>
                         </div>
                     </div>
-                    <h4 class="text-center">Информация о вырубленных насаждениях</h4>
+                    <h4 class="text-center">Информация о поврежденных насаждениях</h4>
                     <div class="table-responsive">
                         <table class="table table-bordered border">
                             <thead>
                                 <tr>
-                                    <th>Порода</th>
-                                    <th>Диаметр пня, см</th>
-                                    <th>Высота пня, см</th>
-                                    <th>Разряд высот</th>
+                                    <th>Кол-во</th>
+                                    <th class="text-muted">Порода кустарника</th>
+                                    <th>Тип кустарника</th>
                                 </tr>
                             </thead>
                             <tbody id="inputs">
                                 <tr>
-                                    <td><input list="breeds" name="breed[]" required></td>
-                                    <td><input type="number" step="0.01" min="1" name="diameter[]" required></td>
-                                    <td><input type="number" step="0.01" min="1" name="h[]" required></td>
-                                    <td><input type="number" step="1" min="1" name="rankH[]" required></td>
+                                    <td><input class="form-control" type="number" step="1" min="1" name="count[]" required></td>
+                                    <td><input class="form-control" list="breeds" name="breedBush[]"></td>
+                                    <td>
+                                        <select class="form-select" name="bushType[]">
+                                            <option selected>Хвойная</option>
+                                            <option>Лиственная</option>
+                                        </select>
+                                    </td>
                                     <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
                                 </tr>
                             </tbody>
@@ -84,7 +87,7 @@
         </h2>
         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body border">
-                <form asp-action="TreeFellingDataFromFile" asp-controller="Violation" method="post" enctype="multipart/form-data">
+                <form asp-action="BushFelling2DataFromFile" asp-controller="Violation" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <h4 class="text-black-50">Информация об участке леса</h4>
                         <div>
@@ -117,7 +120,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Информация о вырубленных насаждениях</label>
+                        <label for="formFile" class="form-label">Информация о поврежденных насаждениях</label>
                         <input class="form-control" type="file" name="uploadedFile" accept=".txt, .csv" required />
                         <button class="btn btn-secondary mt-3" type="button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                             Посмотреть пример
@@ -127,18 +130,18 @@
                 </form>
                 <div class="collapse" id="collapseExample">
                     <div class="p-2 bg-light border">
-                        <p class="text-black-50">Порода | Диаметр пня, см | Высота пня, см | Разряд высот</p>
+                        <p class="text-black-50">Кол-во | Порода (Не обязательно) | Тип</p>
                         <code>
                             Пример 1:<br />
-                            Сосна;40;20;2;<br />
-                            Береза;44;25,3;1;<br />
-                            Пихта;40;20,0;2;<br />
+                            10;барбарис;Хвойная;<br />
+                            15;можжевельник;Лиственная;<br />
+                            5;жасмин;Хвойная;<br />
                         </code>
                         <code>
                             Пример 2:<br />
-                            Сосна;40;20,5;2<br />
-                            Береза;44;25;1<br />
-                            Пихта;40,4;20;2<br />
+                            10;;Хвойная<br />
+                            15;-;Лиственная<br />
+                            5;;Хвойная<br />
                         </code>
                     </div>
                 </div>

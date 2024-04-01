@@ -1,8 +1,9 @@
+using ForestDamageAssessment.Data;
+using ForestDamageAssessment.DB;
+using ForestDamageAssessment.Infrastructure;
+using ForestDamageAssessment.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ForestDamageAssessment.DB;
-using ForestDamageAssessment.Data;
-using ForestDamageAssessment.Infrastructure;
 
 namespace ForestDamageAssessment
 {
@@ -17,13 +18,27 @@ namespace ForestDamageAssessment
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.AddTransient<IMessageService, FileMessageService>();
+            builder.Services.AddTransient<IForestAreaViewModelService, ForestAreaViewModelService>();
+            builder.Services.AddTransient<IFileModelService, FileModelService>();
             builder.Services.AddTransient(typeof(IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel>), typeof(TreeFellingViolationCalculate));
             builder.Services.AddTransient(typeof(IViolationCalculate<BushFellingViolationCalculate, IBushViewModel>), typeof(BushFellingViolationCalculate));
+            builder.Services.AddTransient(typeof(IViolationCalculate<TreeFellingViolation2Calculate, ITreeViewModel>), typeof(TreeFellingViolation2Calculate));
+            builder.Services.AddTransient(typeof(IViolationCalculate<BushFellingViolation2Calculate, IBushViewModel>), typeof(BushFellingViolation2Calculate));
 
             var app = builder.Build();
 
