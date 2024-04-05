@@ -32,13 +32,7 @@ namespace ForestDamageAssessment
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-            builder.Services.AddTransient<IMessageService, FileMessageService>();
-            builder.Services.AddTransient<IForestAreaViewModelService, ForestAreaViewModelService>();
-            builder.Services.AddTransient<IFileModelService, FileModelService>();
-            builder.Services.AddTransient(typeof(IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel>), typeof(TreeFellingViolationCalculate));
-            builder.Services.AddTransient(typeof(IViolationCalculate<BushFellingViolationCalculate, IBushViewModel>), typeof(BushFellingViolationCalculate));
-            builder.Services.AddTransient(typeof(IViolationCalculate<TreeFellingViolation2Calculate, ITreeViewModel>), typeof(TreeFellingViolation2Calculate));
-            builder.Services.AddTransient(typeof(IViolationCalculate<BushFellingViolation2Calculate, IBushViewModel>), typeof(BushFellingViolation2Calculate));
+            
 
             var app = builder.Build();
 

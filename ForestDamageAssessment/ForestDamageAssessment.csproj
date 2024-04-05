@@ -17,11 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ForestDamageAssessment.DB\ForestDamageAssessment.DB.csproj" />
+    <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\" />
+    <ProjectReference Include="..\ForestDamageAssessment.BL\ForestDamageAssessment.BL.csproj" />
+    <ProjectReference Include="..\ForestDamageAssessment.DB\ForestDamageAssessment.DB.csproj" />
   </ItemGroup>
 
 </Project>

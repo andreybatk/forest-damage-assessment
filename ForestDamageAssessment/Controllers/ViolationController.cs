@@ -1,23 +1,20 @@
-﻿using ForestDamageAssessment.Data;
-using ForestDamageAssessment.Infrastructure;
-using ForestDamageAssessment.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ForestDamageAssessment.Controllers
 {
     public class ViolationController : Controller
     {
-        private readonly IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel> _treeFellingViolationCalculate;
-        private readonly IViolationCalculate<TreeFellingViolation2Calculate, ITreeViewModel> _treeFellingViolation2Calculate;
-        private readonly IViolationCalculate<BushFellingViolationCalculate, IBushViewModel> _bushFellingViolationCalculate;
-        private readonly IViolationCalculate<BushFellingViolation2Calculate, IBushViewModel> _bushFellingViolation2Calculate;
+        private readonly IViolationService<TreeFellingViolationCalculate, ITreeViewModel> _treeFellingViolationCalculate;
+        private readonly IViolationService<TreeFellingViolation2Calculate, ITreeViewModel> _treeFellingViolation2Calculate;
+        private readonly IViolationService<BushFellingViolationCalculate, IBushViewModel> _bushFellingViolationCalculate;
+        private readonly IViolationService<BushFellingViolation2Calculate, IBushViewModel> _bushFellingViolation2Calculate;
         private readonly IForestAreaViewModelService _forestAreaViewModelService;
         private readonly IFileModelService _fileModelService;
 
-        public ViolationController(IViolationCalculate<TreeFellingViolationCalculate, ITreeViewModel> treeFellingViolationCalculate,
-            IViolationCalculate<TreeFellingViolation2Calculate, ITreeViewModel> treeFellingViolation2Calculate,
-            IViolationCalculate<BushFellingViolationCalculate, IBushViewModel> bushFellingViolationCalculate,
-            IViolationCalculate<BushFellingViolation2Calculate, IBushViewModel> bushFellingViolation2Calculate,
+        public ViolationController(IViolationService<TreeFellingViolationCalculate, ITreeViewModel> treeFellingViolationCalculate,
+            IViolationService<TreeFellingViolation2Calculate, ITreeViewModel> treeFellingViolation2Calculate,
+            IViolationService<BushFellingViolationCalculate, IBushViewModel> bushFellingViolationCalculate,
+            IViolationService<BushFellingViolation2Calculate, IBushViewModel> bushFellingViolation2Calculate,
             IForestAreaViewModelService forestAreaViewModelService,
             IFileModelService fileModelService)
         {
@@ -47,7 +44,7 @@ namespace ForestDamageAssessment.Controllers
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
             var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
-            var forestArea = new ForestAreaViewModel<ITreeViewModel> { ForestData = forestData };
+            var forestArea = new ForestAreaModel<ITreeViewModel> { ForestData = forestData };
             var fileModel = await _fileModelService.CreateFileModelAsync(uploadedFile);
 
             return View("TreeFellingData", await _treeFellingViolationCalculate.CalculateFromFileAsync(fileModel, forestArea));
@@ -80,7 +77,7 @@ namespace ForestDamageAssessment.Controllers
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
             var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
-            var forestArea = new ForestAreaViewModel<ITreeViewModel> { ForestData = forestData };
+            var forestArea = new ForestAreaModel<ITreeViewModel> { ForestData = forestData };
             var fileModel = await _fileModelService.CreateFileModelAsync(uploadedFile);
 
             return View("TreeFellingData", await _treeFellingViolation2Calculate.CalculateFromFileAsync(fileModel, forestArea));
@@ -103,7 +100,7 @@ namespace ForestDamageAssessment.Controllers
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
             var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
-            var forestArea = new ForestAreaViewModel<IBushViewModel> { ForestData = forestData };
+            var forestArea = new ForestAreaModel<IBushViewModel> { ForestData = forestData };
             var fileModel = await _fileModelService.CreateFileModelAsync(uploadedFile);
 
             return View("BushFellingData", await _bushFellingViolationCalculate.CalculateFromFileAsync(fileModel, forestArea));
@@ -136,7 +133,7 @@ namespace ForestDamageAssessment.Controllers
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
             var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
-            var forestArea = new ForestAreaViewModel<IBushViewModel> { ForestData = forestData };
+            var forestArea = new ForestAreaModel<IBushViewModel> { ForestData = forestData };
             var fileModel = await _fileModelService.CreateFileModelAsync(uploadedFile);
 
             return View("BushFellingData", await _bushFellingViolation2Calculate.CalculateFromFileAsync(fileModel, forestArea));

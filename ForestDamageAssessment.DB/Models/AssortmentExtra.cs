@@ -1,8 +1,8 @@
-﻿using ForestDamageAssessment.DB.Infrastructure;
+﻿using ForestDamageAssessment.DB.Interfaces;
 
 namespace ForestDamageAssessment.DB.Models
 {
-    public class AssortmentExtra : IAssortmentTable
+    public class AssortmentExtra : IAssortment
     {
         public int ID { get; set; }
         public string? Breed { get; set; }
