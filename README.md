@@ -7,6 +7,6 @@
 - MSSQL
 
 ## Слои
-ForestDamageAssessment - ASP NET CORE MVC
-ForestDamageAssessment.BL - Business Logic
-ForestDamageAssessment.DB - Data Access
+- ForestDamageAssessment - ASP NET CORE MVC
+- ForestDamageAssessment.BL - Business Logic
+- ForestDamageAssessment.DB - Data Access
