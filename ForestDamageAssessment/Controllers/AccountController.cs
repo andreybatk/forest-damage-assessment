@@ -1,4 +1,4 @@
-﻿using ForestDamageAssessment.Infrastructure;
+﻿using ForestDamageAssessment.BL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

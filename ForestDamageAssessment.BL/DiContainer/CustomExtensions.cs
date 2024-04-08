@@ -13,13 +13,15 @@ namespace ForestDamageAssessment.BL.DiContainer
             services.AddTransient<IMessageService, FileMessageService>();
             services.AddTransient<IForestAreaModelService, ForestAreaModelService>();
             services.AddTransient<IFileModelService, FileModelService>();
-            services.AddTransient(typeof(IViolationService<TreeFellingViolationCalculate, ITreeViewModel>), typeof(TreeFellingViolationCalculate));
-            services.AddTransient(typeof(IViolationService<BushFellingViolationCalculate, IBushViewModel>), typeof(BushFellingViolationCalculate));
-            services.AddTransient(typeof(IViolationService<TreeFellingViolation2Calculate, ITreeViewModel>), typeof(TreeFellingViolation2Calculate));
-            services.AddTransient(typeof(IViolationService<BushFellingViolation2Calculate, IBushViewModel>), typeof(BushFellingViolation2Calculate));
+            services.AddTransient(typeof(IViolationService<TreeFellingViolationService, ITreeViewModel>), typeof(TreeFellingViolationService));
+            services.AddTransient(typeof(IViolationService<BushFellingViolationService, IBushViewModel>), typeof(BushFellingViolationService));
+            services.AddTransient(typeof(IViolationService<TreeFellingViolation2Service, ITreeViewModel>), typeof(TreeFellingViolation2Service));
+            services.AddTransient(typeof(IViolationService<BushFellingViolation2Service, IBushViewModel>), typeof(BushFellingViolation2Service));
 
             services.AddScoped<IAssortmentRepository, AssortmentRepository>();
             services.AddScoped<ITaxPriceRepository, TaxPriceRepository>();
+            services.AddScoped<IBreedDiameterModelRepository, BreedDiameterModelRepository>();
+            services.AddScoped<ISTDRepository, STDRepository>();
         }
     }
 }

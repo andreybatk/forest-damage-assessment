@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ForestDamageAssessment.BL\ForestDamageAssessment.BL.csproj" />
-    <ProjectReference Include="..\ForestDamageAssessment.DB\ForestDamageAssessment.DB.csproj" />
   </ItemGroup>
 
 </Project>

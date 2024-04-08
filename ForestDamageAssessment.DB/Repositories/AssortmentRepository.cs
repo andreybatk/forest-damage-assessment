@@ -17,7 +17,6 @@ namespace ForestDamageAssessment.DB.Repositories
             var currentBreed = breed.ToLower();
             IAssortment? assortment;
 
-
             if (currentBreed == "липа")
             {
                 assortment = await _context.AssortmentsLinden.FirstOrDefaultAsync(

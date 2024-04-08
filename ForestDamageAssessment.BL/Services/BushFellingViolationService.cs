@@ -114,12 +114,12 @@ namespace ForestDamageAssessment.BL.Services
                 model.RankH = 1D;
                 if (model.BushType == _coniferous)
                 {
-                    model.Breed = "Сосна"; // наибольшая ставка платы среди хвойных пород
+                    model.Breed = "Сосна";
                     model.ThicknessLevel = ConiferousDiameter;
                 }
                 if (model.BushType == _deciduous)
                 {
-                    model.Breed = "Клен"; // наибольшая ставка платы среди лиственных пород
+                    model.Breed = "Клен";
                     model.ThicknessLevel = DeciduousDiameter;
                 }
             }

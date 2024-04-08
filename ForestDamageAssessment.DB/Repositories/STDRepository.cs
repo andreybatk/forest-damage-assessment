@@ -15,7 +15,7 @@ namespace ForestDamageAssessment.DB.Repositories
 
         public async Task<STD?> GetSTDAsync(double diameter)
         {
-           return await _context.STDs.FirstOrDefaultAsync(x => x.ThicknessLevel == diameter || x.ThicknessLevel == diameter + 1 || x.ThicknessLevel == diameter + 2 || x.ThicknessLevel == diameter + 3 || x.ThicknessLevel == diameter + 4);
+            return await _context.STDs.FirstOrDefaultAsync(x => x.ThicknessLevel == diameter || x.ThicknessLevel == diameter + 1 || x.ThicknessLevel == diameter + 2 || x.ThicknessLevel == diameter + 3 || x.ThicknessLevel == diameter + 4);
         }
     }
 }

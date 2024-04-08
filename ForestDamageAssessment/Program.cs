@@ -1,7 +1,5 @@
-using ForestDamageAssessment.Data;
 using ForestDamageAssessment.DB;
-using ForestDamageAssessment.Infrastructure;
-using ForestDamageAssessment.Services;
+using ForestDamageAssessment.BL.DiContainer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,7 +30,7 @@ namespace ForestDamageAssessment
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-            
+            builder.Services.AddDependencies();
 
             var app = builder.Build();
 
