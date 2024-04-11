@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForestDamageAssessment", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForestDamageAssessment.DB", "ForestDamageAssessment.DB\ForestDamageAssessment.DB.csproj", "{A76C23B8-355C-4B20-AE4D-8E3D1CFA5A0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForestDamageAssessment.BL", "ForestDamageAssessment.BL\ForestDamageAssessment.BL.csproj", "{4CF7420C-4D8E-429E-B8DD-81C4F2248A1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForestDamageAssessment.BL", "ForestDamageAssessment.BL\ForestDamageAssessment.BL.csproj", "{4CF7420C-4D8E-429E-B8DD-81C4F2248A1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForestDamageAssessment.NTests", "ForestDamageAssessment.NTests\ForestDamageAssessment.NTests.csproj", "{8CB13765-9717-46EB-934B-D91B09459808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{4CF7420C-4D8E-429E-B8DD-81C4F2248A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CF7420C-4D8E-429E-B8DD-81C4F2248A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CF7420C-4D8E-429E-B8DD-81C4F2248A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CB13765-9717-46EB-934B-D91B09459808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CB13765-9717-46EB-934B-D91B09459808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CB13765-9717-46EB-934B-D91B09459808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CB13765-9717-46EB-934B-D91B09459808}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

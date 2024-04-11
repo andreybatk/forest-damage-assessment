@@ -1,4 +1,5 @@
-﻿using ForestDamageAssessment.BL.Interfaces;
+﻿using ForestDamageAssessment.BL.Exceptions;
+using ForestDamageAssessment.BL.Interfaces;
 using ForestDamageAssessment.DB.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,14 +19,14 @@ namespace ForestDamageAssessment.BL.Services
         {
             var fileModel = new FileModel();
 
-            if (uploadedFile == null)
+            if (uploadedFile is null)
             {
-                return fileModel;
+                throw new ArgumentNullException(nameof(uploadedFile));
             }
 
             if (!uploadedFile.FileName.ToLower().EndsWith(".txt") && !uploadedFile.FileName.ToLower().EndsWith(".csv"))
             {
-                return fileModel;
+                throw new FileModelFormatException(nameof(uploadedFile));
             }
 
             string path = _appEnvironment.WebRootPath + "/Files/" + uploadedFile.FileName;

@@ -5,7 +5,7 @@ namespace ForestDamageAssessment.BL.Interfaces
 {
     public interface IViolationService<T, TViewModel>
     {
-        Task<ForestAreaModel<TViewModel>> CalculateAsync(ForestAreaModel<TViewModel> forestArea);
-        Task<ForestAreaModel<TViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestAreaModel<TViewModel> forestArea);
+        Task<ForestArea<TViewModel>> CalculateAsync(ForestArea<TViewModel> forestArea);
+        Task<ForestArea<TViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestArea<TViewModel> forestArea);
     }
 }

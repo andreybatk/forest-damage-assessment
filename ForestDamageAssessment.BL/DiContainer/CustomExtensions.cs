@@ -11,7 +11,7 @@ namespace ForestDamageAssessment.BL.DiContainer
         public static void AddDependencies(this IServiceCollection services)
         {
             services.AddTransient<IMessageService, FileMessageService>();
-            services.AddTransient<IForestAreaModelService, ForestAreaModelService>();
+            services.AddTransient<IForestAreaService, ForestAreaService>();
             services.AddTransient<IFileModelService, FileModelService>();
             services.AddTransient(typeof(IViolationService<TreeFellingViolationService, ITreeViewModel>), typeof(TreeFellingViolationService));
             services.AddTransient(typeof(IViolationService<BushFellingViolationService, IBushViewModel>), typeof(BushFellingViolationService));

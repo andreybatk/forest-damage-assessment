@@ -4,14 +4,14 @@ using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
 {
-    public class ForestAreaModelService : IForestAreaModelService
+    public class ForestAreaService : IForestAreaService
     {
-        public ForestAreaModel<ITreeViewModel> CreateForestAreaViewModel(string[] breed, string[] diameter, string[] h, string[] rankH,
+        public ForestArea<ITreeViewModel> CreateForestArea(string[] breed, string[] diameter, string[] h, string[] rankH,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
-            var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
-            var forestArea = new ForestAreaModel<ITreeViewModel> { ForestData = forestData };
             var culture = new CultureInfo("en-us");
+            var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
+            var forestArea = new ForestArea<ITreeViewModel> { ForestData = forestData };
             forestArea.ModelList = new List<ITreeViewModel>();
 
             for (int i = 0; i < breed.Length; i++)
@@ -26,11 +26,11 @@ namespace ForestDamageAssessment.BL.Services
 
             return forestArea;
         }
-        public ForestAreaModel<IBushViewModel> CreateForestAreaViewModel(int[] count, string[] breedBush, string[] bushType,
+        public ForestArea<IBushViewModel> CreateForestArea(int[] count, string[] breedBush, string[] bushType,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
             var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
-            var forestArea = new ForestAreaModel<IBushViewModel> { ForestData = forestData };
+            var forestArea = new ForestArea<IBushViewModel> { ForestData = forestData };
             forestArea.ModelList = new List<IBushViewModel>();
 
             for (int i = 0; i < count.Length; i++)

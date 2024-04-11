@@ -21,56 +21,53 @@ namespace ForestDamageAssessment.BL.Abstractions
 
         public async Task CalculateStockAsync<T>(List<T>? modelList)
         {
-            try
+            if (modelList is null)
             {
-                if (modelList == null)
-                {
-                    return;
-                }
-
-                var culture = new CultureInfo("en-us");
-                List<IViolationViewModel> currentModelList = modelList.Cast<IViolationViewModel>().ToList();
-
-                foreach (var model in currentModelList)
-                {
-                    var assortment = await _assortmentRepository.GetAssortmentAsync(model.Breed, model.ThicknessLevel.ToString(), model.RankH.ToString());
-
-                    if (assortment == null)
-                    {
-                        continue;
-                    }
-
-                    double.TryParse(assortment.LargeTotal, culture, out double largeTotal);
-                    double.TryParse(assortment.VInBark, culture, out double vInBark);
-                    double.TryParse(assortment.Average1Total, culture, out double average1Total);
-                    double.TryParse(assortment.Average2Total, culture, out double average2Total);
-                    double.TryParse(assortment.SmallTotal, culture, out double smallTotal);
-                    double.TryParse(assortment.AllBusiness, culture, out double allBusiness);
-                    double.TryParse(assortment.FirewoodFuel, culture, out double firewoodFuel);
-                    double.TryParse(assortment.Waste, culture, out double waste);
-
-                    model.Stock.VInBark = vInBark;
-                    model.Stock.SumLarge = largeTotal * vInBark / 100;
-                    model.Stock.SumAverage = (average1Total + average2Total) * vInBark / 100;
-                    model.Stock.SumSmall = smallTotal * vInBark / 100;
-                    model.Stock.SumBusiness = allBusiness * vInBark / 100;
-                    model.Stock.SumFirewood = (firewoodFuel + waste) * vInBark / 100;
-                    model.Stock.SumWaste = waste * vInBark / 100;
-
-                    model.Stock.LiquidStock = model.Stock.SumBusiness + model.Stock.SumFirewood;
-                    model.Stock.RootStock = model.Stock.SumBusiness + model.Stock.SumFirewood + model.Stock.SumWaste;
-                }
+                throw new ArgumentNullException(nameof(modelList));
             }
-            catch (Exception ex)
+
+            var culture = new CultureInfo("en-us");
+            List<IViolationViewModel> currentModelList = modelList.Cast<IViolationViewModel>().ToList();
+
+            foreach (var model in currentModelList)
             {
-                //TODO LOGGER
+                var assortment = await _assortmentRepository.GetAssortmentAsync(model.Breed, model.ThicknessLevel.ToString(), model.RankH.ToString());
+
+                if (assortment == null)
+                {
+                    continue;
+                }
+
+                double.TryParse(assortment.LargeTotal, culture, out double largeTotal);
+                double.TryParse(assortment.VInBark, culture, out double vInBark);
+                double.TryParse(assortment.Average1Total, culture, out double average1Total);
+                double.TryParse(assortment.Average2Total, culture, out double average2Total);
+                double.TryParse(assortment.SmallTotal, culture, out double smallTotal);
+                double.TryParse(assortment.AllBusiness, culture, out double allBusiness);
+                double.TryParse(assortment.FirewoodFuel, culture, out double firewoodFuel);
+                double.TryParse(assortment.Waste, culture, out double waste);
+
+                model.Stock.VInBark = vInBark;
+                model.Stock.SumLarge = largeTotal * vInBark / 100;
+                model.Stock.SumAverage = (average1Total + average2Total) * vInBark / 100;
+                model.Stock.SumSmall = smallTotal * vInBark / 100;
+                model.Stock.SumBusiness = allBusiness * vInBark / 100;
+                model.Stock.SumFirewood = (firewoodFuel + waste) * vInBark / 100;
+                model.Stock.SumWaste = waste * vInBark / 100;
+
+                model.Stock.LiquidStock = model.Stock.SumBusiness + model.Stock.SumFirewood;
+                model.Stock.RootStock = model.Stock.SumBusiness + model.Stock.SumFirewood + model.Stock.SumWaste;
             }
         }
         public void CalculateTotalMoneyPunishment<T>(List<T>? modelList, ForestAreaData? forestAreaData)
         {
-            if (modelList == null || forestAreaData == null)
+            if (modelList == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(modelList));
+            }
+            if (forestAreaData == null)
+            {
+                throw new ArgumentNullException(nameof(forestAreaData));
             }
 
             List<IViolationViewModel> currentModelList = modelList.Cast<IViolationViewModel>().ToList();

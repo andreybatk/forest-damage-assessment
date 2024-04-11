@@ -16,6 +16,7 @@ namespace ForestDamageAssessment.Controllers
             _signInManager = signInManager;
             _messageService = messageService;
         }
+
         [HttpGet]
         public IActionResult Register()
         {

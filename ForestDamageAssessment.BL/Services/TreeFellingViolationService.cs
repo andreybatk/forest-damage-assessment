@@ -1,4 +1,5 @@
 ﻿using ForestDamageAssessment.BL.Abstractions;
+using ForestDamageAssessment.BL.Exceptions;
 using ForestDamageAssessment.BL.Interfaces;
 using ForestDamageAssessment.BL.Models;
 using ForestDamageAssessment.DB.Interfaces;
@@ -21,7 +22,7 @@ namespace ForestDamageAssessment.BL.Services
             _sTDRepository = sTDRepository;
         }
 
-        public async Task<ForestAreaModel<ITreeViewModel>> CalculateAsync(ForestAreaModel<ITreeViewModel> forestArea)
+        public async Task<ForestArea<ITreeViewModel>> CalculateAsync(ForestArea<ITreeViewModel> forestArea)
         {
             await CalculateDiameterAsync(forestArea.ModelList);
             await CalculateStockAsync(forestArea.ModelList);
@@ -30,33 +31,47 @@ namespace ForestDamageAssessment.BL.Services
 
             return forestArea;
         }
-        public async Task<ForestAreaModel<ITreeViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestAreaModel<ITreeViewModel> forestArea)
+        public async Task<ForestArea<ITreeViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestArea<ITreeViewModel> forestArea)
         {
             forestArea.ModelList = new List<ITreeViewModel>();
             var culture = new CultureInfo("en-us");
 
-            if (fileModel == null)
+            if (fileModel is null)
             {
-                return forestArea;
+                throw new ArgumentNullException(nameof(fileModel));
             }
 
-            using (StreamReader reader = new StreamReader(fileModel.Path))
+            if (!File.Exists(fileModel.Path))
             {
-                string? line;
-                while ((line = await reader.ReadLineAsync()) != null)
-                {
-                    var data = line.Split(';');
-                    if (data.Length < 3)
-                    {
-                        continue;
-                    }
-                    double.TryParse(data[1], culture, out double resultDiameter);
-                    double.TryParse(data[2], culture, out double resultH);
-                    double.TryParse(data[3], culture, out double resultRankH);
+                throw new FileNotFoundException(nameof(fileModel));
+            }
 
-                    var viewModel = new TreeViewModel { Breed = data[0], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
-                    forestArea.ModelList.Add(viewModel);
+            try
+            {
+                using (StreamReader reader = new StreamReader(fileModel.Path))
+                {
+                    string? line;
+                    while ((line = await reader.ReadLineAsync()) != null)
+                    {
+                        var data = line.Trim(';').Split(';');
+
+                        if (data.Length != 4)
+                        {
+                            throw new FileModelFormatDataException(nameof(fileModel));
+                        }
+
+                        double.TryParse(data[1], culture, out double resultDiameter);
+                        double.TryParse(data[2], culture, out double resultH);
+                        double.TryParse(data[3], culture, out double resultRankH);
+
+                        var viewModel = new TreeViewModel { Breed = data[0], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
+                        forestArea.ModelList.Add(viewModel);
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                //TODO LOGGER
             }
 
             await CalculateDiameterAsync(forestArea.ModelList);
@@ -66,14 +81,14 @@ namespace ForestDamageAssessment.BL.Services
 
             return forestArea;
         }
-        private async Task CalculateMoneyPunishmentAsync(ForestAreaModel<ITreeViewModel> forestArea)
+        private async Task CalculateMoneyPunishmentAsync(ForestArea<ITreeViewModel> forestArea)
         {
+            if (forestArea.ModelList is null)
+            {
+                throw new ArgumentNullException(nameof(forestArea.ModelList));
+            }
             try
             {
-                if (forestArea.ModelList == null)
-                {
-                    return;
-                }
 
                 foreach (var model in forestArea.ModelList)
                 {
@@ -103,13 +118,12 @@ namespace ForestDamageAssessment.BL.Services
         }
         private async Task CalculateDiameterAsync(List<ITreeViewModel>? modelList)
         {
+            if (modelList is null)
+            {
+                throw new ArgumentNullException(nameof(modelList));
+            }
             try
             {
-                if (modelList == null)
-                {
-                    return;
-                }
-
                 foreach (var model in modelList)
                 {
                     var breedDiameter = await _breedDiameterModelRepository.GetBreedDiameterModelAsync(model.Breed);

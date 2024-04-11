@@ -1,4 +1,5 @@
 ﻿using ForestDamageAssessment.BL.Abstractions;
+using ForestDamageAssessment.BL.Exceptions;
 using ForestDamageAssessment.BL.Interfaces;
 using ForestDamageAssessment.BL.Models;
 using ForestDamageAssessment.DB.Interfaces;
@@ -22,7 +23,7 @@ namespace ForestDamageAssessment.BL.Services
         protected virtual int ConiferousDiameter { get; } = 16;
         protected virtual int DeciduousDiameter { get; } = 20;
 
-        public async Task<ForestAreaModel<IBushViewModel>> CalculateAsync(ForestAreaModel<IBushViewModel> forestArea)
+        public async Task<ForestArea<IBushViewModel>> CalculateAsync(ForestArea<IBushViewModel> forestArea)
         {
             InitDefaultValues(forestArea.ModelList);
             await CalculateStockAsync(forestArea.ModelList);
@@ -31,32 +32,45 @@ namespace ForestDamageAssessment.BL.Services
 
             return forestArea;
         }
-        public async Task<ForestAreaModel<IBushViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestAreaModel<IBushViewModel> forestArea)
+        public async Task<ForestArea<IBushViewModel>> CalculateFromFileAsync(FileModel fileModel, ForestArea<IBushViewModel> forestArea)
         {
             forestArea.ModelList = new List<IBushViewModel>();
             var culture = new CultureInfo("en-us");
 
-            if (fileModel == null)
+            if (fileModel is null)
             {
-                return forestArea;
+                throw new ArgumentNullException(nameof(fileModel));
             }
 
-            using (StreamReader reader = new StreamReader(fileModel.Path))
+            if (!File.Exists(fileModel.Path))
             {
-                string? line;
-                while ((line = await reader.ReadLineAsync()) != null)
+                throw new FileNotFoundException(nameof(fileModel));
+            }
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(fileModel.Path))
                 {
-                    var data = line.Split(';');
-                    if (data.Length < 3)
+                    string? line;
+                    while ((line = await reader.ReadLineAsync()) != null)
                     {
-                        continue;
+                        var data = line.Trim(';').Split(';');
+
+                        if (data.Length != 4)
+                        {
+                            throw new FileModelFormatDataException(nameof(fileModel) + data.Length);
+                        }
+
+                        int.TryParse(data[0], culture, out int count);
+
+                        var viewModel = new BushViewModel { BushCount = count, BreedBush = data[1], BushType = data[2], Breed = data[3] };
+                        forestArea.ModelList.Add(viewModel);
                     }
-
-                    int.TryParse(data[0], culture, out int count);
-
-                    var viewModel = new BushViewModel { BushCount = count, BreedBush = data[1], BushType = data[2], Breed = data[3] };
-                    forestArea.ModelList.Add(viewModel);
                 }
+            }
+            catch (Exception)
+            {
+                //TODO LOGGER
             }
 
             InitDefaultValues(forestArea.ModelList);
@@ -66,15 +80,14 @@ namespace ForestDamageAssessment.BL.Services
 
             return forestArea;
         }
-        private async Task CalculateMoneyPunishmentAsync(ForestAreaModel<IBushViewModel> forestArea)
+        private async Task CalculateMoneyPunishmentAsync(ForestArea<IBushViewModel> forestArea)
         {
+            if (forestArea.ModelList is null)
+            {
+                throw new ArgumentNullException(nameof(forestArea.ModelList));
+            }
             try
             {
-                if (forestArea.ModelList == null)
-                {
-                    return;
-                }
-
                 foreach (var model in forestArea.ModelList)
                 {
                     var taxPrice = await _taxPriceRepository.GetTaxPriceAsync(model.Breed, forestArea.ForestData.Region);
@@ -97,16 +110,16 @@ namespace ForestDamageAssessment.BL.Services
                     model.Money.BusinessAndFirewood = model.Money.Business + model.Money.Firewood;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //TODO LOGGER
             }
         }
         private void InitDefaultValues(List<IBushViewModel>? modelList)
         {
-            if (modelList == null)
+            if (modelList is null)
             {
-                return;
+                throw new ArgumentNullException(nameof(modelList));
             }
 
             foreach (var model in modelList)

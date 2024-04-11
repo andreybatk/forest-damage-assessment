@@ -1,6 +1,6 @@
 ﻿namespace ForestDamageAssessment.BL.Models
 {
-    public class ForestAreaModel<T>
+    public class ForestArea<T>
     {
         /// <summary>
         /// Общие данные о лесном участке
