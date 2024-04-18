@@ -81,6 +81,15 @@ namespace ForestDamageAssessment.BL.Abstractions
             forestAreaData.TotalBusinessMoney = currentModelList.Select(x => x.Money)
                 .Select(x => x.Business)
                 .Sum();
+            forestAreaData.TotalLargeMoney = currentModelList.Select(x => x.Money)
+               .Select(x => x.Large)
+               .Sum();
+            forestAreaData.TotalAverageMoney = currentModelList.Select(x => x.Money)
+               .Select(x => x.Average)
+               .Sum();
+            forestAreaData.TotalSmallMoney = currentModelList.Select(x => x.Money)
+               .Select(x => x.Small)
+               .Sum();
             forestAreaData.TotalFirewoodMoney = currentModelList.Select(x => x.Money)
                 .Select(x => x.Firewood)
                 .Sum();

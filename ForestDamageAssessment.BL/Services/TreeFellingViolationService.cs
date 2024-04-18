@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
 {
-    public class TreeFellingViolationService : ViolationService, IViolationService<TreeFellingViolationService, ITreeViewModel>
+    public class TreeFellingViolationService : ViolationService, IExtendedViolationService<TreeFellingViolationService, ITreeViewModel>
     {
         private readonly ITaxPriceRepository _taxPriceRepository;
         private readonly IBreedDiameterModelRepository _breedDiameterModelRepository;
@@ -89,7 +89,6 @@ namespace ForestDamageAssessment.BL.Services
             }
             try
             {
-
                 foreach (var model in forestArea.ModelList)
                 {
                     var taxPrice = await _taxPriceRepository.GetTaxPriceAsync(model.Breed, forestArea.ForestData.Region);
@@ -102,11 +101,18 @@ namespace ForestDamageAssessment.BL.Services
                     var culture = new CultureInfo("en-us");
 
                     double.TryParse(taxPrice.PriceAverage, culture, out double priceAverage);
+                    double.TryParse(taxPrice.PriceLarge, culture, out double priceLarge);
+                    double.TryParse(taxPrice.PriceSmall, culture, out double priceSmall);
                     double.TryParse(taxPrice.Firewood, culture, out double priceFirewood);
 
-                    model.Money.TaxPriceBusiness = priceAverage;
+                    model.Money.TaxPriceSmall = priceSmall;
+                    model.Money.TaxPriceLarge = priceLarge;
+                    model.Money.TaxPriceAverage = priceAverage;
                     model.Money.TaxPriceFirewood = priceFirewood;
-                    model.Money.Business = priceAverage * model.Stock.SumBusiness;
+                    model.Money.Large = priceAverage * model.Stock.SumAverage;
+                    model.Money.Average = priceLarge * model.Stock.SumLarge;
+                    model.Money.Small = priceSmall * model.Stock.SumSmall;
+                    model.Money.Business = model.Money.Large + model.Money.Average + model.Money.Small;
                     model.Money.Firewood = priceFirewood * model.Stock.SumFirewood;
                     model.Money.BusinessAndFirewood = model.Money.Business + model.Money.Firewood;
                 }

@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Расчет по незаконной рубке кустарников и лиан";
+    ViewData["Title"] = "Расчет ущерба по незаконной рубке кустарников и лиан";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Расчет по незаконной рубке кустарников и лиан</h1>
+    <h1 class="display-4">Расчет ущерба по незаконной рубке кустарников и лиан</h1>
     <h1 class="display-6">Повреждение до степени прекращения роста кустарников и лиан</h1>
 </div>
 
@@ -47,6 +47,7 @@
                                 </label>
                             </div>
                         </div>
+                        <input class="form-control w-50" list="breeds" name="mainForestBreed" placeholder="Основная лесообразующая порода" required>
                     </div>
                     <h4 class="text-center">Информация о вырубленных насаждениях</h4>
                     <div class="table-responsive">
@@ -54,7 +55,7 @@
                             <thead>
                                 <tr>
                                     <th>Кол-во</th>
-                                    <th class="text-muted">Порода кустарника</th>
+                                    <th>Порода кустарника</th>
                                     <th>Тип кустарника</th>
                                 </tr>
                             </thead>
@@ -118,6 +119,7 @@
                                 </label>
                             </div>
                         </div>
+                        <input class="form-control w-50" list="breeds" name="mainForestBreed" placeholder="Основная лесообразующая порода" required>
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Информация о вырубленных насаждениях</label>
@@ -130,7 +132,7 @@
                 </form>
                 <div class="collapse" id="collapseExample">
                     <div class="p-2 bg-light border">
-                        <p class="text-black-50">Кол-во | Порода (Не обязательно) | Тип</p>
+                        <p class="text-black-50">Кол-во | Порода кустарника | Тип</p>
                         <code>
                             Пример 1:<br />
                             10;барбарис;Хвойная;<br />

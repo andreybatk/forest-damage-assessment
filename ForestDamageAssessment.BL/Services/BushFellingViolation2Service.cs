@@ -3,7 +3,7 @@ using ForestDamageAssessment.DB.Interfaces;
 
 namespace ForestDamageAssessment.BL.Services
 {
-    public class BushFellingViolation2Service : BushFellingViolationService, IViolationService<BushFellingViolation2Service, IBushViewModel>
+    public class BushFellingViolation2Service : BushFellingViolationService, IExtendedViolationService<BushFellingViolation2Service, IBushViewModel>
     {
         public BushFellingViolation2Service(IAssortmentRepository assortmentRepository, ITaxPriceRepository taxPriceRepository)
             : base(assortmentRepository, taxPriceRepository)

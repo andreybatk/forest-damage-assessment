@@ -16,22 +16,26 @@
                 <th>#</th>
                 <th>Порода</th>
                 <th>Объем ствола в коре</th>
-                <th class="text-center" colspan="3">Деловая древесина</th>
+                <th class="text-center" colspan="9">Деловая древесина</th>
                 <th class="text-center" colspan="3">Дровяная древесина</th>
-                <th>Общий размер ущерба</th>
-                <th></th>
+                <th colspan="2">Общий размер ущерба</th>
             </tr>
             <tr>
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>Древесина</th>
+                <th>Крупная</th>
+                <th>Ставка платы</th>
+                <th>Размер ущерба</th>
+                <th>Средняя</th>
+                <th>Ставка платы</th>
+                <th>Размер ущерба</th>
+                <th>Мелкая</th>
                 <th>Ставка платы</th>
                 <th>Размер ущерба</th>
                 <th>Дрова</th>
                 <th>Ставка платы</th>
                 <th>Размер ущерба</th>
-                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -42,9 +46,15 @@
                     <th>@(i + 1)</th>
                     <td>@Model?.ModelList[i].Breed</td>
                     <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.VInBark)</td>
-                    <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.SumBusiness)</td>
-                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.TaxPriceBusiness)</td>
-                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.Business)</td>
+                    <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.SumLarge)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.TaxPriceLarge)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.Large)</td>
+                    <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.SumAverage)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.TaxPriceAverage)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.Average)</td>
+                    <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.SumSmall)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.TaxPriceSmall)</td>
+                    <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.Small)</td>
                     <td>@String.Format("{0:f2}", Model?.ModelList[i].Stock.SumFirewood)</td>
                     <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.TaxPriceFirewood)</td>
                     <td>@String.Format("{0:C2}", Model?.ModelList[i].Money.Firewood)</td>
@@ -61,7 +71,13 @@
         <tfoot class="table-dark">
             <tr>
                 <td colspan="5">Итого по лесосеке</td>
-                <td>@String.Format("{0:C2}", Model?.ForestData?.TotalBusinessMoney)</td>
+                <td>@String.Format("{0:C2}", Model?.ForestData?.TotalLargeMoney)</td>
+                <td></td>
+                <td></td>
+                <td>@String.Format("{0:C2}", Model?.ForestData?.TotalAverageMoney)</td>
+                <td></td>
+                <td></td>
+                <td>@String.Format("{0:C2}", Model?.ForestData?.TotalSmallMoney)</td>
                 <td></td>
                 <td></td>
                 <td>@String.Format("{0:C2}", Model?.ForestData?.TotalFirewoodMoney)</td>
@@ -71,7 +87,7 @@
             {
                 <tr>
                     <td colspan="5">@item.Key</td>
-                    <td colspan="4"></td>
+                    <td colspan="10"></td>
                     <td colspan="2">@String.Format("{0:C2}", @item.Value)</td>
                 </tr>
             }

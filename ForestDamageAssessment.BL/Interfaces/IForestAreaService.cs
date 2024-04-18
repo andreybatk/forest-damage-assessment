@@ -6,7 +6,8 @@ namespace ForestDamageAssessment.BL.Interfaces
     {
         ForestArea<ITreeViewModel> CreateForestArea(string[] breed, string[] diameter, string[] h, string[] rankH,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT);
-        ForestArea<IBushViewModel> CreateForestArea(int[] count, string[] breedBush, string[] bushType,
+        ForestArea<IBushViewModel> CreateForestArea(int[] count, string breed, string[] breedBush, string[] bushType,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT);
+        ForestArea<IBushViewModel> CreateForestArea(string mainForestBreed, string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT);
     }
 }

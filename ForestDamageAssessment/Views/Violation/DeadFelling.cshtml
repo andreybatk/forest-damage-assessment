@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "Расчет ущерба по незаконной рубке сухостойных деревьев";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Расчет ущерба по незаконной рубке сухостойных деревьев</h1>
+    <h1 class="display-6">Присвоение (хищение) древесины буреломных, ветровальных деревьев</h1>
+</div>
+
+<form asp-action="DeadFellingData" asp-controller="Violation" method="post">
+    <div class="mb-3">
+        <h4 class="text-black-50">Информация об участке леса</h4>
+        <div>
+            <select class="form-select-sm mr-3" name="region">
+                <option selected>Республика Марий Эл</option>
+            </select>
+            <select class="form-select-sm" name="year">
+                <option selected>2024</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="true" id="OZU" name="isOZU">
+                <label class="form-check-label" for="OZU">
+                    ОЗУ
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="true" id="protectiveForests" name="isProtectiveForests">
+                <label class="form-check-label" for="protectiveForests">
+                    Защитные леса
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" value="true" id="OOPT" name="isOOPT">
+                <label class="form-check-label" for="OOPT">
+                    ООПТ
+                </label>
+            </div>
+        </div>
+    </div>
+    <h4 class="text-center">Информация о вырубленных насаждениях</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered border">
+            <thead>
+                <tr>
+                    <th>Порода</th>
+                    <th>Диаметр пня, см</th>
+                    <th>Высота пня, см</th>
+                    <th>Разряд высот</th>
+                </tr>
+            </thead>
+            <tbody id="inputs">
+                <tr>
+                    <td><input list="breeds" name="breed[]" required></td>
+                    <td><input type="number" step="0.01" min="1" name="diameter[]" required></td>
+                    <td><input type="number" step="0.01" min="1" name="h[]" required></td>
+                    <td><input type="number" step="1" min="1" name="rankH[]" required></td>
+                    <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" onclick="addRow()" type="button">Добавить данные</button>
+        <input class="btn btn-success" type="submit" value="Отправить" />
+    </div>
+</form>
+
+<datalist id="breeds">
+    <option>Береза</option>
+    <option>Ель</option>
+    <option>Липа</option>
+    <option>Осина</option>
+    <option>Пихта</option>
+    <option>Сосна</option>
+    <option disabled>Ольха черная</option>
+    <option disabled>Дуб порослевой</option>
+    <option disabled>Дуб семенной</option>
+    <option disabled>Ива древовидная</option>
+    <option disabled>Ильм (вяз)</option>
+    <option disabled>Кедр</option>
+    <option disabled>Клен</option>
+    <option disabled>Осокорь</option>
+    <option disabled>Сосна после подсочки</option>
+</datalist>
+
+<script>
+    function addRow() {
+        try {
+            event.preventDefault();
+            var parent = document.getElementById("inputs");
+            var clone = parent.children[0].cloneNode(true);
+            parent.appendChild(clone);
+
+            var inputs = clone.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+            }
+        } catch (e) { alert(e); }
+
+    }
+    function deleteRow(currentRow) {
+        try {
+            var table = document.getElementById('inputs');
+            var rowCount = table.rows.length;
+            for (var i = 0; i < rowCount; i++) {
+                var row = table.rows[i];
+
+                if (row == currentRow.parentNode.parentNode) {
+                    if (rowCount <= 1) {
+                        alert("Нельзя удалить все строки.");
+                        break;
+                    }
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) { alert(e); }
+    }
+</script>

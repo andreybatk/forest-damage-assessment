@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
 {
-    public class BushFellingViolationService : ViolationService, IViolationService<BushFellingViolationService, IBushViewModel>
+    public class BushFellingViolationService : ViolationService, IExtendedViolationService<BushFellingViolationService, IBushViewModel>
     {
         private const string _coniferous = "Хвойная";
         private const string _deciduous = "Лиственная";
@@ -56,14 +56,14 @@ namespace ForestDamageAssessment.BL.Services
                     {
                         var data = line.Trim(';').Split(';');
 
-                        if (data.Length != 4)
+                        if (data.Length != 3)
                         {
-                            throw new FileModelFormatDataException(nameof(fileModel) + data.Length);
+                            throw new FileModelFormatDataException(nameof(fileModel));
                         }
 
                         int.TryParse(data[0], culture, out int count);
 
-                        var viewModel = new BushViewModel { BushCount = count, BreedBush = data[1], BushType = data[2], Breed = data[3] };
+                        var viewModel = new BushViewModel { BushCount = count, BreedBush = data[1], BushType = data[2], Breed = forestArea.ForestData.MainForestBreed };
                         forestArea.ModelList.Add(viewModel);
                     }
                 }
@@ -99,13 +99,21 @@ namespace ForestDamageAssessment.BL.Services
 
                     var culture = new CultureInfo("en-us");
 
-                    double.TryParse(taxPrice.PriceAverage, culture, out double priceAverage);
-                    double.TryParse(taxPrice.Firewood, culture, out double priceFirewood);
                     double bushCount = Convert.ToDouble(model.BushCount);
 
-                    model.Money.TaxPriceBusiness = priceAverage;
+                    //double.TryParse(taxPrice.PriceAverage, culture, out double priceAverage);
+                    //double.TryParse(taxPrice.PriceSmall, culture, out double priceSmall);
+                    double.TryParse(taxPrice.PriceLarge, culture, out double priceLarge);
+                    double.TryParse(taxPrice.Firewood, culture, out double priceFirewood);
+
+                    //model.Money.TaxPriceSmall = priceSmall;
+                    //model.Money.TaxPriceAverage = priceAverage;
+                    //model.Money.Large = priceAverage * model.Stock.SumAverage;
+                    //model.Money.Average = priceLarge * model.Stock.SumLarge;
+                    //model.Money.Small = priceSmall * model.Stock.SumSmall;
+                    model.Money.TaxPriceLarge = priceLarge;
                     model.Money.TaxPriceFirewood = priceFirewood;
-                    model.Money.Business = priceAverage * model.Stock.SumBusiness * bushCount;
+                    model.Money.Business = model.Stock.SumBusiness * priceLarge * bushCount;
                     model.Money.Firewood = priceFirewood * model.Stock.SumFirewood * bushCount;
                     model.Money.BusinessAndFirewood = model.Money.Business + model.Money.Firewood;
                 }
@@ -127,12 +135,10 @@ namespace ForestDamageAssessment.BL.Services
                 model.RankH = 1D;
                 if (model.BushType == _coniferous)
                 {
-                    model.Breed = "Сосна";
                     model.ThicknessLevel = ConiferousDiameter;
                 }
                 if (model.BushType == _deciduous)
                 {
-                    model.Breed = "Клен";
                     model.ThicknessLevel = DeciduousDiameter;
                 }
             }

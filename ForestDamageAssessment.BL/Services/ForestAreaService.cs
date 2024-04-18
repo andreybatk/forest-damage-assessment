@@ -26,20 +26,25 @@ namespace ForestDamageAssessment.BL.Services
 
             return forestArea;
         }
-        public ForestArea<IBushViewModel> CreateForestArea(int[] count, string[] breedBush, string[] bushType,
+        public ForestArea<IBushViewModel> CreateForestArea(int[] count, string mainForestBreed, string[] breedBush, string[] bushType,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
-            var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
+            var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT, MainForestBreed = mainForestBreed };
             var forestArea = new ForestArea<IBushViewModel> { ForestData = forestData };
             forestArea.ModelList = new List<IBushViewModel>();
 
             for (int i = 0; i < count.Length; i++)
             {
-                var viewModel = new BushViewModel { BushCount = count[i], BreedBush = breedBush[i], BushType = bushType[i] };
+                var viewModel = new BushViewModel { Breed = mainForestBreed, BushCount = count[i], BreedBush = breedBush[i], BushType = bushType[i] };
                 forestArea.ModelList.Add(viewModel);
             }
 
             return forestArea;
+        }
+        public ForestArea<IBushViewModel> CreateForestArea(string mainForestBreed, string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+        {
+            var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT, MainForestBreed = mainForestBreed };
+            return new ForestArea<IBushViewModel> { ForestData = forestData };
         }
     }
 }

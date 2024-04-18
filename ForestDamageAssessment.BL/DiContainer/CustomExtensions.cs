@@ -13,10 +13,12 @@ namespace ForestDamageAssessment.BL.DiContainer
             services.AddTransient<IMessageService, FileMessageService>();
             services.AddTransient<IForestAreaService, ForestAreaService>();
             services.AddTransient<IFileModelService, FileModelService>();
-            services.AddTransient(typeof(IViolationService<TreeFellingViolationService, ITreeViewModel>), typeof(TreeFellingViolationService));
-            services.AddTransient(typeof(IViolationService<BushFellingViolationService, IBushViewModel>), typeof(BushFellingViolationService));
-            services.AddTransient(typeof(IViolationService<TreeFellingViolation2Service, ITreeViewModel>), typeof(TreeFellingViolation2Service));
-            services.AddTransient(typeof(IViolationService<BushFellingViolation2Service, IBushViewModel>), typeof(BushFellingViolation2Service));
+            services.AddTransient<ISeedlingsService, SeedlingsService>();
+            services.AddTransient(typeof(IExtendedViolationService<TreeFellingViolationService, ITreeViewModel>), typeof(TreeFellingViolationService));
+            services.AddTransient(typeof(IExtendedViolationService<BushFellingViolationService, IBushViewModel>), typeof(BushFellingViolationService));
+            services.AddTransient(typeof(IExtendedViolationService<TreeFellingViolation2Service, ITreeViewModel>), typeof(TreeFellingViolation2Service));
+            services.AddTransient(typeof(IExtendedViolationService<BushFellingViolation2Service, IBushViewModel>), typeof(BushFellingViolation2Service));
+            services.AddTransient(typeof(IViolationService<DeadFellingViolationService, ITreeViewModel>), typeof(DeadFellingViolationService));
 
             services.AddScoped<IAssortmentRepository, AssortmentRepository>();
             services.AddScoped<ITaxPriceRepository, TaxPriceRepository>();

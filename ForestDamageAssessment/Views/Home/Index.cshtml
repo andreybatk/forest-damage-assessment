@@ -5,44 +5,36 @@
 <div class="text-center">
     <h1 class="display-4">Оценка размера ущерба от незаконно заготовленной древесины и иных лесных ресурсов</h1>
 </div>
-
-<div class="card-group">
-    <div class="row">
-        <div class="col-6">
-            <div class="card border-dark mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Незаконная рубка деревьев</h5>
-                    <p class="card-text">Незаконные рубка, выкапывание, уничтожение или повреждение до степени прекращения роста деревьев</p>
-                    <a class="btn btn-success" asp-area="" asp-controller="Violation" asp-action="TreeFelling">Перейти к расчету</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card border-dark mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Незаконная рубка кустарников, лиан</h5>
-                    <p class="card-text">Незаконные рубка, выкапывание, уничтожение или повреждение до степени прекращения роста кустарников и лиан</p>
-                    <a class="btn btn-success" asp-area="" asp-controller="Violation" asp-action="BushFelling">Перейти к расчету</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card border-dark mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Повреждение деревьев</h5>
-                    <p class="card-text">Повреждение, не влекущее прекращения роста деревьев</p>
-                    <a class="btn btn-success" asp-area="" asp-controller="Violation" asp-action="TreeFelling2">Перейти к расчету</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card border-dark mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Повреждение кустарников, лиан</h5>
-                    <p class="card-text">Повреждение, не влекущее прекращения роста кустарников и лиан</p>
-                    <a class="btn btn-success" asp-area="" asp-controller="Violation" asp-action="BushFelling2">Перейти к расчету</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="list-group">
+    <h4 class="text-uppercase">Незаконная рубка</h4>
+    <a asp-area="" asp-controller="Violation" asp-action="TreeFelling" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Деревьев</h4>
+        <p>Незаконные рубка, выкапывание, уничтожение или повреждение до степени прекращения роста деревьев.</p>
+    </a>
+    <a asp-area="" asp-controller="Violation" asp-action="BushFelling" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Кустарников, лиан</h4>
+        <p>Незаконные рубка, выкапывание, уничтожение или повреждение до степени прекращения роста кустарников и лиан.</p>
+    </a>
+    <a asp-area="" asp-controller="Violation" asp-action="DeadFelling" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Сухостойных деревьев</h4>
+        <p>Присвоение (хищение) древесины буреломных, ветровальных деревьев.</p>
+    </a>
+</div>
+<div class="list-group">
+    <h4 class="text-uppercase">Повреждение</h4>
+    <a asp-area="" asp-controller="Violation" asp-action="TreeFelling2" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Деревьев</h4>
+        <p>Повреждение, не влекущее прекращения роста деревьев.</p>
+    </a>
+    <a asp-area="" asp-controller="Violation" asp-action="BushFelling2" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Кустарников, лиан</h4>
+        <p>Повреждение, не влекущее прекращения роста кустарников и лиан.</p>
+    </a>
+</div>
+<div class="list-group">
+    <h4 class="text-uppercase">Уничтожение или повреждение</h4>
+    <a asp-area="" asp-controller="Violation" asp-action="SeedlingsFelling" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Сеянцев либо саженцев</h4>
+        <p>Уничтожение или повреждение сеянцев либо саженцев в лесных питомниках.</p>
+    </a>
 </div>

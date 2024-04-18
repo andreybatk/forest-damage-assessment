@@ -21,6 +21,7 @@ namespace ForestDamageAssessment.NTests
 
             var count = fixture.Create<int[]>();
             var breedBush = fixture.Create<string[]>();
+            var mainForestBreed = fixture.Create<string>();
             var bushType = fixture.Create<string[]>();
             var region = fixture.Create<string>();
             var year = fixture.Create<string>();
@@ -29,7 +30,7 @@ namespace ForestDamageAssessment.NTests
             var isOOPT = fixture.Create<bool>();
 
             //act
-            var result = _service.CreateForestArea(count, breedBush, bushType, region, year, isOZU, isProtectiveForests, isOOPT);
+            var result = _service.CreateForestArea(count, mainForestBreed, breedBush, bushType, region, year, isOZU, isProtectiveForests, isOOPT);
 
             //assert
             Assert.That(result, Is.Not.Null);

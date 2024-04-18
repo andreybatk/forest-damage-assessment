@@ -36,6 +36,18 @@
         /// </summary>
         public double TotalBusinessMoney { get; set; }
         /// <summary>
+        /// Общий штраф за крупную древесину на лесном участке
+        /// </summary>
+        public double TotalLargeMoney { get; set; }
+        /// <summary>
+        /// Общий штраф за среднюю древесину на лесном участке
+        /// </summary>
+        public double TotalAverageMoney { get; set; }
+        /// <summary>
+        /// Общий штраф за мелкую древесину на лесном участке
+        /// </summary>
+        public double TotalSmallMoney { get; set; }
+        /// <summary>
         /// Общий штраф за дровяную древесину на лесном участке
         /// </summary>
         public double TotalFirewoodMoney { get; set; }
@@ -55,5 +67,6 @@
         /// Коэффициенты и размер ущерба
         /// </summary>
         public Dictionary<string, double> Coefficients { get; set; }
+        public string? MainForestBreed { get; set; }
     }
 }
