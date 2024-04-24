@@ -26,6 +26,26 @@ namespace ForestDamageAssessment.BL.Services
 
             return forestArea;
         }
+        public ForestArea<ITreeViewModel> CreateForestArea(string[] breed, string[] diameter,
+            string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+        {
+            var culture = new CultureInfo("en-us");
+            var forestData = new ForestAreaData { Region = region, Year = year, IsOZU = isOZU, IsProtectiveForests = isProtectiveForests, IsOOPT = isOOPT };
+            var forestArea = new ForestArea<ITreeViewModel> { ForestData = forestData };
+            forestArea.ModelList = new List<ITreeViewModel>();
+
+            const double resultH = 130D;
+            const double resultRankH = 1D;
+            for (int i = 0; i < breed.Length; i++)
+            {
+                double.TryParse(diameter[i], culture, out double resultDiameter);
+
+                var viewModel = new TreeViewModel { Breed = breed[i], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
+                forestArea.ModelList.Add(viewModel);
+            }
+
+            return forestArea;
+        }
         public ForestArea<IBushViewModel> CreateForestArea(int[] count, string mainForestBreed, string[] breedBush, string[] bushType,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {

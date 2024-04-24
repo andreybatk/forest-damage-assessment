@@ -13,6 +13,7 @@ namespace ForestDamageAssessment.Controllers
         private readonly IExtendedViolationService<BushFellingViolation2Service, IBushViewModel> _bushFellingViolation2Service;
         private readonly IViolationService<DeadFellingViolationService, ITreeViewModel> _deadFellingViolationService;
         private readonly ISeedlingsService _seedlingsService;
+        private readonly IPlantationFellingService _plantationFellingService;
         private readonly IForestAreaService _forestAreaViewModelService;
         private readonly IFileModelService _fileModelService;
 
@@ -22,6 +23,7 @@ namespace ForestDamageAssessment.Controllers
             IExtendedViolationService<BushFellingViolation2Service, IBushViewModel> bushFellingViolation2Service,
             IViolationService<DeadFellingViolationService, ITreeViewModel> deadFellingViolationService,
             ISeedlingsService seedlingsService,
+            IPlantationFellingService plantationFellingService,
             IForestAreaService forestAreaViewModelService,
             IFileModelService fileModelService)
         {
@@ -31,6 +33,7 @@ namespace ForestDamageAssessment.Controllers
             _bushFellingViolation2Service = bushFellingViolation2Service;
             _deadFellingViolationService = deadFellingViolationService;
             _seedlingsService = seedlingsService;
+            _plantationFellingService = plantationFellingService;
             _forestAreaViewModelService = forestAreaViewModelService;
             _fileModelService = fileModelService;
         }
@@ -151,10 +154,10 @@ namespace ForestDamageAssessment.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> DeadFellingData(string[] breed, string[] diameter, string[] h, string[] rankH,
+        public async Task<IActionResult> DeadFellingData(string[] breed, string[] diameter,
             string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
         {
-            var forestArea = _forestAreaViewModelService.CreateForestArea(breed, diameter, h, rankH, region, year, isOZU, isProtectiveForests, isOOPT);
+            var forestArea = _forestAreaViewModelService.CreateForestArea(breed, diameter, region, year, isOZU, isProtectiveForests, isOOPT);
 
             return View(await _deadFellingViolationService.CalculateAsync(forestArea));
         }
@@ -167,6 +170,16 @@ namespace ForestDamageAssessment.Controllers
         public IActionResult SeedlingsFellingData(int[] count, string[] breed, string[] price)
         {
             return View(_seedlingsService.Calculate(count, breed, price));
+        }
+        [HttpGet]
+        public IActionResult PlantationFelling()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult PlantationFellingData(string[] square, string[] price, int[] coeff)
+        {
+            return View(_plantationFellingService.Calculate(square, price, coeff));
         }
     }
 }

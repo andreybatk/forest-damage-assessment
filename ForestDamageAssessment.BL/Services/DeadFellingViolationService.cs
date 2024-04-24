@@ -66,6 +66,7 @@ namespace ForestDamageAssessment.BL.Services
             {
                 foreach (var model in modelList)
                 {
+                    model.CalculatedDiameter = model.Diameter;
                     model.ThicknessLevel = await GetThicknessLevelAsync(model.Diameter);
                 }
             }

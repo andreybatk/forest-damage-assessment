@@ -1,0 +1,42 @@
+﻿@using ForestDamageAssessment.BL.Interfaces;
+@using ForestDamageAssessment.BL.Models;
+@model PlantationData
+@{
+    ViewData["Title"] = "Данные о насаждениях";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Расчет данных о насаждениях</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered border">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Площадь (га)</th>
+                <th>Цена за гектар</th>
+                <th>Коэффициент</th>
+                <th>Общий размер ущерба</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model?.ModelList?.Count; i++)
+            {
+                <tr>
+                    <th>@(i + 1)</th>
+                    <td>@String.Format("{0:f2}", @Model?.ModelList[i].Square)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Price)</td>
+                    <td>@String.Format("{0:f2}", @Model?.ModelList[i].Coeff)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Money)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-dark">
+            <tr>
+                <td colspan="4">Итого по лесосеке</td>
+                <td>@String.Format("{0:C2}", Model.TotalMoney)</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
