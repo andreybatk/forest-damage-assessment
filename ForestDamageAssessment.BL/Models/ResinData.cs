@@ -2,17 +2,21 @@
 
 namespace ForestDamageAssessment.BL.Models
 {
-    public class SeedlingData
+    public class ResinData
     {
-        public SeedlingData()
+        public ResinData()
         {
             Coefficients = new Dictionary<string, double>();
         }
 
         /// <summary>
+        /// Регион
+        /// </summary>
+        public string Region { get; set; }
+        /// <summary>
         /// Модели
         /// </summary>
-        public List<SeedlingViewModel>? ModelList;
+        public List<ResinViewModel>? ModelList;
         /// <summary>
         /// Коэффициенты и размер ущерба
         /// </summary>

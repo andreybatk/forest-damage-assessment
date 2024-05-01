@@ -15,6 +15,7 @@ namespace ForestDamageAssessment.BL.DiContainer
             services.AddScoped<IFileModelService, FileModelService>();
             services.AddScoped<ISeedlingsService, SeedlingsService>();
             services.AddScoped<IPlantationFellingService, PlantationFellingService>();
+            services.AddScoped<IResinFellingService, ResinFellingService>();
             services.AddScoped(typeof(IExtendedViolationService<TreeFellingViolationService, ITreeViewModel>), typeof(TreeFellingViolationService));
             services.AddScoped(typeof(IExtendedViolationService<BushFellingViolationService, IBushViewModel>), typeof(BushFellingViolationService));
             services.AddScoped(typeof(IExtendedViolationService<TreeFellingViolation2Service, ITreeViewModel>), typeof(TreeFellingViolation2Service));
@@ -23,8 +24,10 @@ namespace ForestDamageAssessment.BL.DiContainer
 
             services.AddScoped<IAssortmentRepository, AssortmentRepository>();
             services.AddScoped<ITaxPriceRepository, TaxPriceRepository>();
+            services.AddScoped<ITaxPriceResinRepository, TaxPriceResinRepository>();
             services.AddScoped<IBreedDiameterModelRepository, BreedDiameterModelRepository>();
             services.AddScoped<ISTDRepository, STDRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
         }
     }
 }

@@ -5,19 +5,22 @@ using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Abstractions
 {
-    public abstract class ViolationService
+    public abstract class ViolationServiceBase
     {
-        public ViolationService(IAssortmentRepository assortmentRepository)
+        public ViolationServiceBase(IAssortmentRepository assortmentRepository, IArticleRepository articleRepository)
         {
             _assortmentRepository = assortmentRepository;
+            _articleRepository = articleRepository;
         }
 
         protected readonly IAssortmentRepository _assortmentRepository;
+        protected readonly IArticleRepository _articleRepository;
         protected virtual double MainCoefficient { get; } = 50D;
         protected virtual double Year2024Coefficient { get; } = 3.14;
         protected virtual double OZUCoefficient { get; } = 3D;
         protected virtual double ProtectiveForestsCoefficient { get; } = 2D;
         protected virtual double OOPTtCoefficient { get; } = 5D;
+        protected virtual int ArticleID { get; } = 1;
 
         public async Task CalculateStockAsync<T>(List<T>? modelList)
         {
@@ -119,6 +122,15 @@ namespace ForestDamageAssessment.BL.Abstractions
 
             forestAreaData.TotalMoney *= MainCoefficient;
             forestAreaData.Coefficients.Add($"Размер ущерба при {MainCoefficient}-кратном увеличении:", forestAreaData.TotalMoney);
+        }
+        public async Task GetArticleInfo(ForestAreaData? forestAreaData)
+        {
+            if (forestAreaData is null)
+            {
+                throw new ArgumentNullException(nameof(forestAreaData));
+            }
+
+            forestAreaData.ViolationArticle = await _articleRepository.GetArticleAsync(ArticleID);
         }
     }
 }

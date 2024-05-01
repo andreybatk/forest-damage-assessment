@@ -167,9 +167,9 @@ namespace ForestDamageAssessment.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult SeedlingsFellingData(int[] count, string[] breed, string[] price)
+        public async Task<IActionResult> SeedlingsFellingData(int[] count, string[] breed, string[] price)
         {
-            return View(_seedlingsService.Calculate(count, breed, price));
+            return View(await _seedlingsService.Calculate(count, breed, price));
         }
         [HttpGet]
         public IActionResult PlantationFelling()
@@ -177,9 +177,9 @@ namespace ForestDamageAssessment.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult PlantationFellingData(string[] square, string[] price, int[] coeff)
+        public async Task<IActionResult> PlantationFellingData(string[] square, string[] price, int[] coeff)
         {
-            return View(_plantationFellingService.Calculate(square, price, coeff));
+            return View(await _plantationFellingService.Calculate(square, price, coeff));
         }
     }
 }

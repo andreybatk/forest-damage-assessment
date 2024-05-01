@@ -2,11 +2,11 @@
 @using ForestDamageAssessment.BL.Models;
 @model ForestArea<ITreeViewModel>
 @{
-    ViewData["Title"] = "Данные о насаждениях";
+    ViewData["Title"] = "Расчет данных о насаждениях";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Расчет данных о насаждениях</h1>
+    <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
 
 <div class="table-responsive">
@@ -65,6 +65,14 @@
             }
         </tfoot>
     </table>
+</div>
+
+<div class="form-text">
+    <p>Вид нарушения (прил. @Model.ForestData.ViolationArticle.AppendixNumber п. @Model.ForestData.ViolationArticle.ArticleNumber):<br />@Model.ForestData.ViolationArticle.Title</p>
+    <p>Размер ущерба:<br />@Model.ForestData.ViolationArticle.Punish</p>
+    <p>Описание:<br />@Model.ForestData.ViolationArticle.Description</p>
+    <a class="link-secondary" href=" https: //base.garant.ru/72141810/">Постановление Правительства РФ №1730</a>
+    <a class="link-secondary" href="https://base.garant.ru/12153804/b89690251be5277812a78962f6302560/">Постановление Правительства РФ №310</a>
 </div>
 
 <div id="modal" class="modal fade">

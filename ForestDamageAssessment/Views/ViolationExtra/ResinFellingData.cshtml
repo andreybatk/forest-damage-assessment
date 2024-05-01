@@ -1,6 +1,6 @@
 ﻿@using ForestDamageAssessment.BL.Interfaces;
 @using ForestDamageAssessment.BL.Models;
-@model PlantationData
+@model ResinData
 @{
     ViewData["Title"] = "Расчет данных о насаждениях";
 }
@@ -14,9 +14,9 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Площадь (га)</th>
-                <th>Цена за гектар</th>
-                <th>Коэффициент</th>
+                <th>Порода</th>
+                <th>Кол-во тонн</th>
+                <th>Ставка платы</th>
                 <th>Общий размер ущерба</th>
             </tr>
         </thead>
@@ -25,9 +25,9 @@
             {
                 <tr>
                     <th>@(i + 1)</th>
-                    <td>@String.Format("{0:f2}", @Model?.ModelList[i].Square)</td>
+                    <td>@Model?.ModelList[i].Breed</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].CountTon)</td>
                     <td>@String.Format("{0:C2}", @Model?.ModelList[i].Price)</td>
-                    <td>@String.Format("{0:f2}", @Model?.ModelList[i].Coeff)</td>
                     <td>@String.Format("{0:C2}", @Model?.ModelList[i].Money)</td>
                 </tr>
             }
@@ -37,6 +37,13 @@
                 <td colspan="4">Итого по лесосеке</td>
                 <td>@String.Format("{0:C2}", Model.TotalMoney)</td>
             </tr>
+            @foreach (var item in Model.Coefficients)
+            {
+                <tr>
+                    <td colspan="4">@item.Key</td>
+                    <td>@String.Format("{0:C2}", @item.Value)</td>
+                </tr>
+            }
         </tfoot>
     </table>
 </div>

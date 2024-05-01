@@ -3,7 +3,7 @@ using ForestDamageAssessment.BL.Interfaces;
 
 namespace ForestDamageAssessment.BL.Models
 {
-    public class BushViewModel : ViolationViewModel, IBushViewModel
+    public class BushViewModel : ViolationViewModelBase, IBushViewModel
     {
         public int? BushCount { get; set; }
         public string? BreedBush { get; set; }

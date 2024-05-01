@@ -16,15 +16,14 @@ namespace ForestDamageAssessment.DB
         {
         }
 
-        public DbSet<FileModel> Files { get; set; }
         public DbSet<Assortment> Assortments { get; set; }
         public DbSet<AssortmentExtra> AssortmentsExtra { get; set; }
         public DbSet<AssortmentLinden> AssortmentsLinden { get; set; }
         public DbSet<BreedDiameterModel> BreedDiameterModels { get; set; }
-        public DbSet<RankHeight> RankHeights { get; set; }
-        public DbSet<Region> Regions { get; set; }
         public DbSet<STD> STDs { get; set; }
         public DbSet<TaxPrice> TaxPrices { get; set; }
-        public DbSet<TaxPriceExtra> TaxPricesExtra { get; set; }
+        public DbSet<TaxPriceForestResource> TaxPricesForestResource { get; set; }
+        public DbSet<TaxPriceResin> TaxPricesResin { get; set; }
+        public DbSet<Article> Articles { get; set; }
     }
 }

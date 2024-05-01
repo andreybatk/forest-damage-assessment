@@ -8,23 +8,26 @@ using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
 {
-    public class BushFellingViolationService : ViolationService, IExtendedViolationService<BushFellingViolationService, IBushViewModel>
+    public class BushFellingViolationService : ViolationServiceBase, IExtendedViolationService<BushFellingViolationService, IBushViewModel>
     {
         private const string _coniferous = "Хвойная";
         private const string _deciduous = "Лиственная";
         private readonly ITaxPriceRepository _taxPriceRepository;
 
-        public BushFellingViolationService(IAssortmentRepository assortmentRepository, ITaxPriceRepository taxPriceRepository) : base(assortmentRepository)
+        public BushFellingViolationService(ITaxPriceRepository taxPriceRepository, IAssortmentRepository assortmentRepository, IArticleRepository articleRepository)
+            : base(assortmentRepository, articleRepository)
         {
             _taxPriceRepository = taxPriceRepository;
         }
 
         protected override double MainCoefficient => 10D;
+        protected override int ArticleID => 2;
         protected virtual int ConiferousDiameter { get; } = 16;
         protected virtual int DeciduousDiameter { get; } = 20;
 
         public async Task<ForestArea<IBushViewModel>> CalculateAsync(ForestArea<IBushViewModel> forestArea)
         {
+            await GetArticleInfo(forestArea.ForestData);
             InitDefaultValues(forestArea.ModelList);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);
@@ -73,6 +76,7 @@ namespace ForestDamageAssessment.BL.Services
                 //TODO LOGGER
             }
 
+            await GetArticleInfo(forestArea.ForestData);
             InitDefaultValues(forestArea.ModelList);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);

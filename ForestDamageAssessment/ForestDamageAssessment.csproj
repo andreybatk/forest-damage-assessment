@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\ViolationExtra\" />
     <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 

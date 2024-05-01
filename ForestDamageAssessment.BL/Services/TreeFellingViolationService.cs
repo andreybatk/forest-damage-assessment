@@ -8,14 +8,14 @@ using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
 {
-    public class TreeFellingViolationService : ViolationService, IExtendedViolationService<TreeFellingViolationService, ITreeViewModel>
+    public class TreeFellingViolationService : ViolationServiceBase, IExtendedViolationService<TreeFellingViolationService, ITreeViewModel>
     {
         private readonly ITaxPriceRepository _taxPriceRepository;
         private readonly IBreedDiameterModelRepository _breedDiameterModelRepository;
         private readonly ISTDRepository _sTDRepository;
 
-        public TreeFellingViolationService(IAssortmentRepository assortmentRepository, ITaxPriceRepository taxPriceRepository, IBreedDiameterModelRepository breedDiameterModelRepository, ISTDRepository sTDRepository)
-            : base(assortmentRepository)
+        public TreeFellingViolationService(IAssortmentRepository assortmentRepository, ITaxPriceRepository taxPriceRepository, IBreedDiameterModelRepository breedDiameterModelRepository, ISTDRepository sTDRepository, IArticleRepository articleRepository)
+            : base(assortmentRepository, articleRepository)
         {
             _taxPriceRepository = taxPriceRepository;
             _breedDiameterModelRepository = breedDiameterModelRepository;
@@ -24,6 +24,7 @@ namespace ForestDamageAssessment.BL.Services
 
         public async Task<ForestArea<ITreeViewModel>> CalculateAsync(ForestArea<ITreeViewModel> forestArea)
         {
+            await GetArticleInfo(forestArea.ForestData);
             await CalculateDiameterAsync(forestArea.ModelList);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);
@@ -74,6 +75,7 @@ namespace ForestDamageAssessment.BL.Services
                 //TODO LOGGER
             }
 
+            await GetArticleInfo(forestArea.ForestData);
             await CalculateDiameterAsync(forestArea.ModelList);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);

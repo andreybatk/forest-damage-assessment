@@ -2561,6 +2561,290 @@ INSERT INTO TaxPrices (TaxPriceCode, SubjectRF, Area, TaxPriceDesc, Breed, RankT
 ('60', 'Сахалинская область', 'Сахалинский лесотаксовый район', '', 'Тополь', 1, 'до 10', '11.52', '8.46', '4.50', '0.36');
 
 -- --------------------------------------------------------
+DROP TABLE IF EXISTS TaxPricesExtra;
+CREATE TABLE TaxPricesExtra 
+(
+    ID INT IDENTITY (1, 1) NOT NULL,
+    SubjectRF	NVARCHAR(60),
+    TreeCessationOfGrowth	NVARCHAR(40),
+    TreeWithoutCessationOfGrowth NVARCHAR(40),
+    BushCessationOfGrowth	NVARCHAR(40),
+    BushWithoutCessationOfGrowth NVARCHAR(40)
+);
+
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Адыгея', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Алтай', '8244.00', '1648.80', '280.30', '131.90');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Башкортостан', '8100.00', '1620.00', '275.40', '129.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Бурятия', '3280.00', '656.00', '111.50', '52.50');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Дагестан', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Ингушетия', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Кабардино-Балкарская Республика', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Калмыкия', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Карачаево-Черкесская Республика', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Карелия', '12348.00', '2469.60', '419.80', '197.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Коми', '5190.00', '1038.00', '176.50', '83.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Крым и г. Севастополь', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Марий Эл', '10782.00', '2156.40', '366.60', '172.50');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Мордовия', '10782.00', '2156.40', '366.60', '172.50');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Саха (Якутия)', '2050.00', '410.00', '69.70', '32.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Северная Осетия - Алания', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Татарстан', '10782.00', '2156.40', '366.60', '172.50');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Тыва', '4110.00', '822.00', '139.70', '65.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Удмуртская Республика', '8560.00', '1712.00', '291.00', '137.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Республика Хакасия', '7380.00', '1476.00', '250.90', '118.10');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Чеченская Республика', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Чувашская Республика', '11124.00', '2224.80', '378.20', '178.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Алтайский край', '8244.00', '1648.80', '280.30', '131.90');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Забайкальский край', '2880.00', '576.00', '97.90', '46.10');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Камчатский край', '3690.00', '738.00', '125.50', '59.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Краснодарский край', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Красноярский край', '4110.00', '822.00', '139.70', '65.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Пермский край', '5320.00', '1064.00', '180.90', '85.10');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Приморский край', '8856.00', '1771.20', '301.10', '141.70');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ставропольский край', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Хабаровский край', '7038.00', '1407.60', '239.30', '112.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Амурская область', '6642.00', '1328.40', '225.80', '106.30');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Архангельская область', '8172.00', '1634.40', '277.80', '130.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Астраханская область', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Белгородская область', '12000.00', '2400.00', '408.00', '192.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Брянская область', '6552.00', '1310.40', '222.80', '104.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Владимирская область', '9864.00', '1972.80', '335.40', '157.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Волгоградская область', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Вологодская область', '4536.00', '907.20', '154.20', '72.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Воронежская область', '12474.00', '2494.80', '424.10', '199.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ивановская область', '4914.00', '982.80', '167.10', '78.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Иркутская область', '4110.00', '822.00', '139.70', '65.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Калининградская область', '13600.00', '2720.00', '462.40', '217.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Калужская область', '6552.00', '1310.40', '222.80', '104.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Кемеровская область', '7398.00', '1479.60', '251.50', '118.40');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Кировская область', '4824.00', '964.80', '164.00', '77.20');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Костромская область', '4824.00', '964.80', '164.00', '77.20');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Курганская область', '5742.00', '1148.40', '195.20', '91.90');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Курская область', '12000.00', '2400.00', '408.00', '192.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ленинградская область и г. Санкт-Петербург', '15812.00', '3162.40', '537.60', '253.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Липецкая область', '12000.00', '2400.00', '408.00', '192.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Магаданская область', '5298.00', '1059.60', '180.10', '84.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Московская область и г. Москва', '18500.00', '3700.00', '629.00', '296.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Мурманская область', '11034.00', '2206.80', '375.20', '176.50');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Нижегородская область', '11124.00', '2224.80', '378.20', '178.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Новгородская область', '6174.00', '1234.80', '209.90', '98.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Новосибирская область', '5310.00', '1062.00', '180.50', '85.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Омская область', '4770.00', '954.00', '162.20', '76.30');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Оренбургская область', '12100.00', '2420.00', '411.40', '193.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Орловская область', '6570.00', '1314.00', '223.40', '105.10');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Пензенская область', '12582.00', '2516.40', '427.80', '201.30');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Псковская область', '12294.00', '2458.80', '418.00', '196.70');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ростовская область', '14562.00', '2912.40', '495.10', '233.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Рязанская область', '9864.00', '1972.80', '335.40', '157.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Самарская область', '12582.00', '2516.40', '427.80', '201.30');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Саратовская область', '12582.00', '2516.40', '427.80', '201.30');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Сахалинская область', '7686.00', '1537.20', '261.30', '123.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Свердловская область', '6238.00', '1247.60', '212.10', '99.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Смоленская область', '6552.00', '1310.40', '222.80', '104.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Тамбовская область', '12000.00', '2400.00', '408.00', '192.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Тверская область', '6174.00', '1234.80', '209.90', '98.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Томская область', '4558.00', '911.60', '155.00', '72.90');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Тульская область', '6570.00', '1314.00', '223.40', '105.10');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Тюменская область', '4320.00', '864.00', '146.90', '69.10');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ульяновская область', '12582.00', '2516.40', '427.80', '201.30');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Челябинская область', '5742.00', '1148.40', '195.20', '91.90');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ярославская область', '4914.00', '982.80', '167.10', '78.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Еврейская автономная область', '7038.00', '1407.60', '239.30', '112.60');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ненецкий автономный округ', '5190.00', '1038.00', '176.50', '83.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ханты-Мансийский автономный округ - Югра', '7440.00', '1488.00', '253.00', '119.00');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Чукотский автономный округ', '5298.00', '1059.60', '180.10', '84.80');
+INSERT INTO TaxPricesExtra (SubjectRF, TreeCessationOfGrowth, TreeWithoutCessationOfGrowth, BushCessationOfGrowth, BushWithoutCessationOfGrowth) VALUES ('Ямало-Ненецкий автономный округ', '5190.00', '1038.00', '176.50', '83.00');
+
+DROP TABLE IF EXISTS TaxPricesResin;
+CREATE TABLE TaxPricesResin (
+  ID INT IDENTITY (1, 1) NOT NULL,
+  Breed	VARCHAR(512),
+  SubjectRF	VARCHAR(512),
+  Price	nvarchar(40)
+)
+
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Алтай', '42.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Башкортостан', '74.9');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Бурятия', '85.6');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Карелия', '66.34');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Коми', '107');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Марий Эл', '816.41');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Мордовия', '1412');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Саха (Якутия)', '494.34');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Татарстан', '374.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Тыва', '53.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Хакасия', '149.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Удмуртская Республика', '175.48');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Чувашская Республика', '96.3');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Алтайский край', '42.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Пермский край', '535');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Красноярский край', '203.3');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Хабаровский край', '535');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Амурская область', '492.2');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Архангельская область', '107');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Брянская область', '1070');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Владимирская область', '385.2');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Вологодская область', '74.9');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Ивановская область', '1284');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Иркутская область', '494.34');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Кировская область', '321');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Костромская область', '684.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Курганская область', '107');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Ленинградская область', '160.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Новгородская область', '160.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Новосибирская область', '53.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Нижегородская область', '107');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Пензенская область', '1070');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Псковская область', '160.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Рязанская область', '1605');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Самарская область', '856');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Свердловская область', '70.62');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Смоленская область', '1070');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Тамбовская область', '321');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Тверская область', '2192.43');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Томская область', '2140');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Тюменская область', '749');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Ульяновская область', '149.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Челябинская область', '377.71');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Ярославская область', '856');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Еврейская автономная область', '2140');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Ханты-Мансийский автономный округ - Югра', '588.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Республика Марий Эл', '668.75');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Удмуртская Республика', '79.18');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Красноярский край', '100.58');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Пермский край', '856');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Архангельская область', '107');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Вологодская область', '42.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Иркутская область', '111.28');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Баррас сосновый', 'Тверская область', '1863.94');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Лиственница', 'Республика Алтай', '42.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Лиственница', 'Республика Саха (Якутия)', '494.34');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Лиственница', 'Алтайский край', '42.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Лиственница', 'Красноярский край', '203.3');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Пихта', 'Республика Алтай', '8560');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Пихта', 'Красноярский край', '149.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Пихта', 'Пермский край', '420');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Пихта', 'Алтайский край', '8560');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Пихта', 'Кемеровская область', '8560');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Пихта', 'Омская область', '8560');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Пихта', 'Челябинская область', '365.94');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Республика Марий Эл', '796.08');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Удмуртская Республика', '79.18');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Красноярский край', '100.58');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Пермский край', '428');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Хабаровский край', '321');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Архангельская область', '428');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Вологодская область', '42.8');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Кировская область', '428');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Ленинградская область', '78.11');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Тверская область', '984.4');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Челябинская область', '160.5');
+INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Еврейская автономная область', '3210');
+
+
+DROP TABLE IF EXISTS TaxPricesForestResource;
+CREATE TABLE TaxPricesForestResource 
+(
+    ID INT IDENTITY (1, 1) NOT NULL,
+    SubjectRF	VARCHAR(512),
+    StumpsPrice 	NVARCHAR(64),
+    BarkPrice	NVARCHAR(64),
+    LubPrice	NVARCHAR(64),
+    BirchBarkPrice	NVARCHAR(64),
+    FirPawPrice	NVARCHAR(64),
+    PinePawPrice	NVARCHAR(64),
+    SprucePawPrice	NVARCHAR(64),
+    BrushwoodPrice	NVARCHAR(64),
+    ForestFloorPrice	NVARCHAR(64),
+);
+
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Адыгея', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Алтай', '5.35', '428', '321', '1070', '535', '535', '535', '7.49', '0.54');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Башкортостан', '6', '11.77', '56.19', '14.48', '7.8', '7.8', '7.8', '7.8', '0.16');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Бурятия', '4.14', '1070', '321', '2140', '321', '321', '321', '12.84', '0.11');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Дагестан', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Донецкая Народная Республика', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.11');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Ингушетия', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Кабардино-Балкарская Республика', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Калмыкия', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.11');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Карачаево-Черкесская Республика', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Карелия', '1.71', '14.98', '14.98', '33.17', '7.49', '7.49', '7.49', '11.64', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Коми', '1.71', '107', '42.8', '53.5', '7.49', '7.49', '7.49', '11.64', '0.54');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Крым', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '3.21');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Луганская Народная Республика', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.11');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Марий Эл', '5.35', '1177', '56.19', '434.42', '264.29', '264.29', '264.29', '67.41', '0.7');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Мордовия', '5.35', '11.77', '23.54', '11.77', '35.74', '35.74', '35.74', '17.12', '0.54');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Саха (Якутия)', '5.35', '492.2', '321', '492.2', '1294.7', '1294.7', '1294.7', '24.08', '0.16');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Северная Осетия - Алания', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Татарстан', '2.19', '34.24', '56.19', '10.7', '428', '428', '428', '17.12', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Тыва', '1.07', '420', '321', '321', '181.9', '181.9', '181.9', '10.7', '0.11');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Удмуртская Республика', '2.19', '56.19', '56.19', '56.19', '35.74', '35.74', '35.74', '5.65', '0.54');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Республика Хакасия', '1.07', '7490', '321', '267.5', '181.9', '181.9', '181.9', '10.7', '0.05');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Чеченская Республика', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.05');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Чувашская Республика', '5.35', '96.3', '56.19', '11.77', '64.2', '64.2', '64.2', '17.12', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Алтайский край', '5.35', '642', '321', '1070', '642', '642', '642', '7.49', '0.05');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Забайкальский край', '4.14', '2.78', '32.1', '2.78', '11.66', '11.66', '11.66', '12.84', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Камчатский край', '4.28', '214', '321', '214', '588', '588', '588', '60.35', '0.54');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Краснодарский край', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '3.21');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Красноярский край', '4.14', '7490', '321', '26.59', '181.9', '181.9', '181.9', '1.58', '0.05');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Пермский край', '5.35', '34.24', '56.19', '10.7', '23.54', '23.54', '23.54', '21.4', '0.21');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Приморский край', '5.35', '58.85', '32.1', '94.16', '588.5', '588.5', '588.5', '11.77', '0.11');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Ставропольский край', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Хабаровский край', '5.35', '214', '321', '214', '588.5', '588.5', '588.5', '24.08', '0.16');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Амурская область', '5.35', '2996', '2996', '214', '214', '214', '214', '1.07', '0.64');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Архангельская область', '1.71', '321', '142.8', '428', '214', '214', '214', '11.64', '0.16');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Астраханская область', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.15');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Белгородская область', '1.69', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Брянская область', '1,69 за 1 куб. м', '2140', '160.5', '2140', '2140', '2140', '2140', '21.4', '5.35');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Владимирская область', '1.69', '77.04', '77.04', '107', '37.45', '37.45', '37.45', '10.7', '5.35');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Волгоградская область', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Вологодская область', '1,71 за 1 куб м', '21.4', '42.8', '42.8', '21.4', '21.4', '21.4', '11.64', '0.02');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Воронежская область', '1.69', '1647.8', '77.04', '3210', '2675', '2675', '2675', '21.4', '0.32');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Запорожская область', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.11');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Ивановская область', '1.69', '53.5', '53.5', '107', '64.2', '64.2', '64.2', '21.4', '0.54');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Иркутская область', '4.14', '2.78', '32.1', '2.78', '11.66', '11.66', '11.66', '1.58', '0.05');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Калининградская область', '1.71', '321', '42.8', '428', '54.61', '54.61', '54.61', '11.64', '0.1');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES ('Калужская область', '1.69', '3210', '3210', '3210', '2140', '2140', '2140', '21.4', '7.49');
+INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPrice, BirchBarkPrice, FirPawPrice, PinePawPrice, SprucePawPrice, BrushwoodPrice, ForestFloorPrice) VALUES
+('Кемеровская область', '1.07', '7490', '321', '3210', '535', '535', '535', '7.49', '0.05'),
+('Кировская область', '5.35', '139.1', '214', '321', '12.84', '12.84', '12.84', '18.19', '0.21'),
+('Костромская область', '1.69', '53.5', '321', '107', '37.45', '37.45', '37.45', '21.4', '0.8'),
+('Курская область', '1.69', '1647.8', '3210', '3210', '267.5', '267.5', '267.5', '21.4', '0.32'),
+('Курганская область', '7.49', '409.6', '316.61', '546.02', '136.53', '136.53', '136.53', '4.5', '0.21'),
+('Ленинградская область', '1.71', '14.98', '42.8', '33.17', '54.61', '54.61', '54.61', '11.64', '0.32'),
+('Липецкая область', '1.69', '1647.8', '3210', '3210', '267.5', '267.5', '267.5', '21.4', '0.54'),
+('Магаданская область', '5.35', '214', '321', '214', '588', '588', '588', '60.35', '0.11'),
+('Московская область', '1.69', '3210', '3210', '3210', '2140', '2140', '2140', '21.4', '1.1'),
+('Мурманская область', '1.71', '353.1', '42.8', '192.6', '588.5', '588.5', '588.5', '3.21', '0.21'),
+('Нижегородская область', '1.28', '214', '535', '374.5', '12.84', '12.84', '12.84', '67.41', '0.11'),
+('Новгородская область', '1.71', '535', '160.5', '428', '39.59', '39.59', '39.59', '3.21', '1.1'),
+('Новосибирская область', '5.35', '749', '321', '1070', '642', '642', '642', '7.5', '0.11'),
+('Омская область', '7.49', '7490', '321', '3210', '642', '642', '642', '7.49', '0.05'),
+('Оренбургская область', '5.35', '535', '56.19', '535', '535', '535', '535', '7.8', '0.32'),
+('Орловская область', '1.69', '1647.8', '53.5', '3210', '2675', '2675', '2675', '21.4', '0.32'),
+('Пензенская область', '10', '535', '535', '535', '535', '535', '535', '17', '1.07'),
+('Псковская область', '11.71', '52.43', '42.8', '428', '39.59', '39.59', '39.59', '12.84', '0.75'),
+('Ростовская область', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.11'),
+('Рязанская область', '1.69', '53.5', '53.5', '321', '53.5', '53.5', '53.5', '21.4', '0.54'),
+('Самарская область', '2.19', '34.24', '56.19', '10.7', '428', '428', '428', '17.12', '0.43'),
+('Саратовская область', '5.35', '34.24', '36.38', '10.7', '428', '428', '428', '17.12', '0.11'),
+('Сахалинская область', '5.35', '1070', '321', '1070', '2140', '2140', '2140', '60.35', '0.27'),
+('Свердловская область', '7.49', '409.6', '409.6', '546.02', '136.53', '136.53', '136.53', '1.5', '0.96'),
+('Смоленская область', '1.69', '3210', '53.5', '3210', '2140', '2140', '2140', '21.4', '0.54'),
+('Тамбовская область', '1.69', '1647.8', '53.5', '3210', '2675', '2675', '2675', '21.4', '0.32'),
+('Тверская область', '1.69', '607', '3210', '107', '107', '107', '107', '6.1', '6.42'),
+('Томская область', '4.14', '96.3', '321', '930.9', '535', '535', '535', '1.58', '0.05'),
+('Тульская область', '1.69', '1647.8', '3210', '3210', '2140', '2140', '2140', '6.1', '0.54'),
+('Тюменская область', '7.49', '316.61', '316.61', '395.47', '395.47', '395.47', '395.47', '7.5', '0.27'),
+('Ульяновская область', '5.35', '214', '214', '535', '642', '642', '642', '10.7', '10.7'),
+('Херсонская область', '4.28', '1647.8', '160.5', '3210', '2675', '2675', '2675', '21.4', '0.11'),
+('Челябинская область', '7.49', '535', '316.61', '374.5', '107', '107', '107', '4.49', '0.21'),
+('Ярославская область', '1.69', '107', '107', '107', '107', '107', '107', '6.1', '7.49'),
+('Еврейская автономная область', '5.35', '321', '321', '321', '550', '550', '550', '53.5', '2.14'),
+('Ненецкий автономный округ', '1.71', '321', '142.8', '428', '214', '214', '214', '11.64', '0.16'),
+('Ханты-Мансийский автономный округ - Югра', '7.49', '941.6', '941.6', '1177', '423.72', '423.72', '423.72', '58.85', '0.11'),
+('Чукотский автономный округ', '4.28', '214', '321', '214', '522', '522', '522', '60.35', '0.54'),
+('Ямало-Ненецкий автономный округ', '7.49', '941', '941.6', '342', '3424', '3424', '3424', '6.96', '3.42');
 
 --
 -- Структура таблицы Regions
@@ -2571,14 +2855,14 @@ INSERT INTO TaxPrices (TaxPriceCode, SubjectRF, Area, TaxPriceDesc, Breed, RankT
 DROP TABLE IF EXISTS Regions;
 CREATE TABLE Regions (
   ID INT IDENTITY (1, 1) NOT NULL,
-  RegionRF nvarchar(40) COLLATE Cyrillic_General_CI_AS DEFAULT NULL
+  SubjectRF nvarchar(40) COLLATE Cyrillic_General_CI_AS DEFAULT NULL
 )
 
 --
 -- Дамп данных таблицы Regions
 --
 
-INSERT INTO Regions (RegionRF) VALUES
+INSERT INTO Regions (SubjectRF) VALUES
 ('Алтайский край'),
 ('Амурская область'),
 ('Архангельская область'),
@@ -4931,3 +5215,21 @@ INSERT INTO AssortmentsExtra (Breed, RankH, ThicknessLevel, H, VInBark, UnitOfMe
 ('Осокорь', '5', '76', '26', '4.8', '%', '56', '', '', '', '56', '21.4', '34.6', '', '', '', '17.9', '13.1', '13', '51.5', '35.5', '13', '18.2'),
 ('Осокорь', '5', '80', '26', '5.32', 'м3', '2.926', '', '', '', '2.926', '1.064', '1.862', '', '', '', '1', '0.724', '0.67', '2.751', '1.899', '0.67', '0.968'),
 ('Осокорь', '5', '80', '26', '5.32', '%', '55', '', '', '', '55', '20', '35', '', '', '', '18.8', '13.6', '12.6', '51.7', '35.7', '12.6', '18.2');
+
+DROP TABLE IF EXISTS BreedDiameterModels;
+CREATE TABLE BreedDiameterModels (
+  ID INT IDENTITY (1, 1) NOT NULL,
+  Breed nvarchar(40) DEFAULT NULL,
+  C1 nvarchar(10) DEFAULT NULL,
+  C2 nvarchar(10) DEFAULT NULL,
+  C3 nvarchar(10) DEFAULT NULL,
+  C4 nvarchar(10) DEFAULT NULL,
+)
+INSERT INTO BreedDiameterModels (Breed, C1, C2, C3, C4) VALUES
+('Ель', '92,166', '-4,025', '-99,75', '-0,0077'),
+('Береза', '80,735', '-3,897', '-99,65', '-0,0057'),
+('Липа', '80,207', '-4,373', '-99,63', '0,0033'),
+('Пихта', '70,912', '-4,251', '-100,00', '-0,0106'),
+('Ольха серая', '64,191', '-4,178', '-100,25', '-0,0209'),
+('Осина', '68,248', '-4,621', '-99,95', '-0,0023'),
+('Сосна', '36,594', '-2,756', '-99,45', '-0,0171');

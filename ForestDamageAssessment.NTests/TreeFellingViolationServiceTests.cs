@@ -14,6 +14,7 @@ namespace ForestDamageAssessment.NTests
         private Mock<ITaxPriceRepository> _taxPriceRepository;
         private Mock<IBreedDiameterModelRepository> _breedDiameterModelRepository;
         private Mock<ISTDRepository> _sTDRepository;
+        private Mock<IArticleRepository> _articleRepository;
         private TreeFellingViolationService _service;
 
         [SetUp]
@@ -23,7 +24,8 @@ namespace ForestDamageAssessment.NTests
             _breedDiameterModelRepository = new Mock<IBreedDiameterModelRepository>();
             _sTDRepository = new Mock<ISTDRepository>();
             _assortmentRepository = new Mock<IAssortmentRepository>();
-            _service = new TreeFellingViolationService(_assortmentRepository.Object, _taxPriceRepository.Object, _breedDiameterModelRepository.Object, _sTDRepository.Object);
+            _articleRepository = new Mock<IArticleRepository>();
+            _service = new TreeFellingViolationService(_assortmentRepository.Object, _taxPriceRepository.Object, _breedDiameterModelRepository.Object, _sTDRepository.Object, _articleRepository.Object);
         }
 
         [Test]

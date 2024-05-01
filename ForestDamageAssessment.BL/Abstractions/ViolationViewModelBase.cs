@@ -3,9 +3,9 @@ using ForestDamageAssessment.BL.Models;
 
 namespace ForestDamageAssessment.BL.Abstractions
 {
-    public abstract class ViolationViewModel : IViolationViewModel
+    public abstract class ViolationViewModelBase : IViolationViewModel
     {
-        public ViolationViewModel()
+        public ViolationViewModelBase()
         {
             Stock = new BreedStock();
             Money = new MoneyPunishment();

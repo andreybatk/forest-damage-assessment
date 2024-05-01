@@ -4,6 +4,7 @@ using ForestDamageAssessment.BL.Models;
 using ForestDamageAssessment.BL.Services;
 using ForestDamageAssessment.DB.Interfaces;
 using ForestDamageAssessment.DB.Models;
+using ForestDamageAssessment.DB.Repositories;
 using Moq;
 
 namespace ForestDamageAssessment.NTests
@@ -12,6 +13,7 @@ namespace ForestDamageAssessment.NTests
     {
         private Mock<IAssortmentRepository> _assortmentRepository;
         private Mock<ITaxPriceRepository> _taxPriceRepository;
+        private Mock<IArticleRepository> _articleRepository;
         private BushFellingViolationService _service;
 
         [SetUp]
@@ -19,7 +21,8 @@ namespace ForestDamageAssessment.NTests
         {
             _taxPriceRepository = new Mock<ITaxPriceRepository>();
             _assortmentRepository = new Mock<IAssortmentRepository>();
-            _service = new BushFellingViolationService(_assortmentRepository.Object, _taxPriceRepository.Object);
+            _articleRepository = new Mock<IArticleRepository>();
+            _service = new BushFellingViolationService(_taxPriceRepository.Object, _assortmentRepository.Object, _articleRepository.Object);
         }
 
         [Test]

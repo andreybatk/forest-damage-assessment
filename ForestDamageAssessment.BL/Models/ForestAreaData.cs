@@ -1,4 +1,6 @@
-﻿namespace ForestDamageAssessment.BL.Models
+﻿using ForestDamageAssessment.DB.Models;
+
+namespace ForestDamageAssessment.BL.Models
 {
     public class ForestAreaData
     {
@@ -10,11 +12,11 @@
         /// <summary>
         /// Регион
         /// </summary>
-        public string? Region { get; set; }
+        public string Region { get; set; }
         /// <summary>
         /// Год
         /// </summary>
-        public string? Year { get; set; }
+        public string Year { get; set; }
         /// <summary>
         /// Защитные леса
         /// </summary>
@@ -67,6 +69,13 @@
         /// Коэффициенты и размер ущерба
         /// </summary>
         public Dictionary<string, double> Coefficients { get; set; }
+        /// <summary>
+        /// Основная лесообразующая порода
+        /// </summary>
         public string? MainForestBreed { get; set; }
+        /// <summary>
+        /// Вид нарушения, приложение
+        /// </summary>
+        public Article? ViolationArticle { get; set; }
     }
 }

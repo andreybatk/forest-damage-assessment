@@ -6,20 +6,23 @@ using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
 {
-    public class DeadFellingViolationService : ViolationService, IViolationService<DeadFellingViolationService, ITreeViewModel>
+    public class DeadFellingViolationService : ViolationServiceBase, IViolationService<DeadFellingViolationService, ITreeViewModel>
     {
         private readonly ITaxPriceRepository _taxPriceRepository;
         private readonly ISTDRepository _sTDRepository;
 
-        public DeadFellingViolationService(IAssortmentRepository assortmentRepository, ITaxPriceRepository taxPriceRepository, ISTDRepository sTDRepository)
-            : base(assortmentRepository)
+        public DeadFellingViolationService(ITaxPriceRepository taxPriceRepository, ISTDRepository sTDRepository, IAssortmentRepository assortmentRepository, IArticleRepository articleRepository)
+            : base(assortmentRepository, articleRepository)
         {
             _taxPriceRepository = taxPriceRepository;
             _sTDRepository = sTDRepository;
         }
 
+        protected override int ArticleID => 5;
+
         public async Task<ForestArea<ITreeViewModel>> CalculateAsync(ForestArea<ITreeViewModel> forestArea)
         {
+            await GetArticleInfo(forestArea.ForestData);
             await CalculateDiameterAsync(forestArea.ModelList);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);
@@ -46,7 +49,7 @@ namespace ForestDamageAssessment.BL.Services
                     }
 
                     double.TryParse(taxPrice.Firewood, culture, out double priceFirewood);
-
+                    model.Money.TaxPriceFirewood = priceFirewood;
                     model.Money.Firewood = priceFirewood * model.Stock.SumFirewood;
                     model.Money.BusinessAndFirewood = model.Money.Firewood;
                 }

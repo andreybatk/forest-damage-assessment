@@ -1,12 +1,21 @@
 ﻿using ForestDamageAssessment.BL.Interfaces;
 using ForestDamageAssessment.BL.Models;
+using ForestDamageAssessment.DB.Interfaces;
 using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
 {
     public class PlantationFellingService : IPlantationFellingService
     {
-        public PlantationData Calculate(string[] square, string[] price, int[] coeff)
+        private readonly IArticleRepository _articleRepository;
+        private const int _articleID = 7;
+
+        public PlantationFellingService(IArticleRepository articleRepository)
+        {
+            _articleRepository = articleRepository;
+        }
+
+        public async Task<PlantationData> Calculate(string[] square, string[] price, int[] coeff)
         {
             var plantationData = new PlantationData();
 
@@ -18,11 +27,12 @@ namespace ForestDamageAssessment.BL.Services
                 double.TryParse(square[i], culture, out double currentSquare);
                 double.TryParse(price[i], culture, out double currentPrice);
                 var currentCoeff = Convert.ToDouble(coeff[i]);
-                var model = new PlantationViewModel { Coeff = currentCoeff, Square = currentSquare, Price = currentPrice};
+                var model = new PlantationViewModel { Coeff = currentCoeff, Square = currentSquare, Price = currentPrice };
                 plantationData.ModelList.Add(model);
             }
 
             CalculateTotalMoneyPunishment(plantationData);
+            await GetArticleInfo(plantationData);
             return plantationData;
         }
         private void CalculateTotalMoneyPunishment(PlantationData plantationData)
@@ -33,6 +43,15 @@ namespace ForestDamageAssessment.BL.Services
             }
 
             plantationData.TotalMoney = plantationData.ModelList.Select(x => x.Money).Sum();
+        }
+        public async Task GetArticleInfo(PlantationData? plantationData)
+        {
+            if (plantationData is null)
+            {
+                throw new ArgumentNullException(nameof(plantationData));
+            }
+
+            plantationData.ViolationArticle = await _articleRepository.GetArticleAsync(_articleID);
         }
     }
 }
