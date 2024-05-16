@@ -1,4 +1,5 @@
 ﻿using ForestDamageAssessment.DB.Models;
+using ForestDamageAssessment.DB.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,8 @@ namespace ForestDamageAssessment.DB
         public DbSet<STD> STDs { get; set; }
         public DbSet<TaxPrice> TaxPrices { get; set; }
         public DbSet<TaxPriceForestResource> TaxPricesForestResource { get; set; }
+        public DbSet<TaxPriceFoodResource> TaxPricesFoodResource { get; set; }
+        public DbSet<TaxPriceForestUse> TaxPricesForestUse { get; set; }
         public DbSet<TaxPriceResin> TaxPricesResin { get; set; }
         public DbSet<Article> Articles { get; set; }
     }

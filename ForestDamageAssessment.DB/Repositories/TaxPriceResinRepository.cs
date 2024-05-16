@@ -13,7 +13,7 @@ namespace ForestDamageAssessment.DB.Repositories
             _context = context;
         }
 
-        public async Task<TaxPriceResin?> GetTaxPriceResinAsync(string breed, string region)
+        public async Task<TaxPriceResin?> GetTaxPriceAsync(string breed, string region)
         {
             return await _context.TaxPricesResin.FirstOrDefaultAsync(
                        x => x.SubjectRF == region && x.Breed == breed);

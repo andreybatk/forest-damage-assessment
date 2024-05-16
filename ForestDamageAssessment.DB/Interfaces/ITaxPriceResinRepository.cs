@@ -4,6 +4,6 @@ namespace ForestDamageAssessment.DB.Interfaces
 {
     public interface ITaxPriceResinRepository
     {
-        Task<TaxPriceResin?> GetTaxPriceResinAsync(string breed, string region);
+        Task<TaxPriceResin?> GetTaxPriceAsync(string breed, string region);
     }
 }

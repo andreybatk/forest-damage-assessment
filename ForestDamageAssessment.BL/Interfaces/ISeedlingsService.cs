@@ -4,6 +4,6 @@ namespace ForestDamageAssessment.BL.Interfaces
 {
     public interface ISeedlingsService
     {
-        Task<SeedlingData> Calculate(int[] count, string[] breed, string[] price);
+        Task<SeedlingData> CalculateAsync(int[] count, string[] breed, string[] price);
     }
 }

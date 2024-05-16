@@ -8,14 +8,14 @@ namespace ForestDamageAssessment.BL.Services
     public class PlantationFellingService : IPlantationFellingService
     {
         private readonly IArticleRepository _articleRepository;
-        private const int _articleID = 7;
+        private const int ArticleID = 7;
 
         public PlantationFellingService(IArticleRepository articleRepository)
         {
             _articleRepository = articleRepository;
         }
 
-        public async Task<PlantationData> Calculate(string[] square, string[] price, int[] coeff)
+        public async Task<PlantationData> CalculateAsync(string[] square, string[] price, int[] coeff)
         {
             var plantationData = new PlantationData();
 
@@ -44,14 +44,14 @@ namespace ForestDamageAssessment.BL.Services
 
             plantationData.TotalMoney = plantationData.ModelList.Select(x => x.Money).Sum();
         }
-        public async Task GetArticleInfo(PlantationData? plantationData)
+        private async Task GetArticleInfo(PlantationData? plantationData)
         {
             if (plantationData is null)
             {
                 throw new ArgumentNullException(nameof(plantationData));
             }
 
-            plantationData.ViolationArticle = await _articleRepository.GetArticleAsync(_articleID);
+            plantationData.ViolationArticle = await _articleRepository.GetArticleAsync(ArticleID);
         }
     }
 }

@@ -8,15 +8,15 @@ namespace ForestDamageAssessment.BL.Services
     public class SeedlingsService : ISeedlingsService
     {
         private readonly IArticleRepository _articleRepository;
-        private const double _mainCoefficient = 5D;
-        private const int _articleID = 6;
+        private const double MainCoefficient = 5D;
+        private const int ArticleID = 6;
 
         public SeedlingsService(IArticleRepository articleRepository)
         {
             _articleRepository = articleRepository;
         }
 
-        public async Task<SeedlingData> Calculate(int[] count, string[] breed, string[] price)
+        public async Task<SeedlingData> CalculateAsync(int[] count, string[] breed, string[] price)
         {
             var seedlingData = new SeedlingData();
 
@@ -40,17 +40,17 @@ namespace ForestDamageAssessment.BL.Services
             seedlingData.TotalMoney = seedlingData.ModelList.Select(x => x.Money).Sum();
 
             var totalMoneyWithCoeff = seedlingData.TotalMoney;
-            totalMoneyWithCoeff *= _mainCoefficient;
-            seedlingData.Coefficients.Add($"Коэффициент основной ({_mainCoefficient}):", totalMoneyWithCoeff);
+            totalMoneyWithCoeff *= MainCoefficient;
+            seedlingData.Coefficients.Add($"Коэффициент основной ({MainCoefficient}):", totalMoneyWithCoeff);
         }
-        public async Task GetArticleInfo(SeedlingData? seedlingData)
+        private async Task GetArticleInfo(SeedlingData? seedlingData)
         {
             if (seedlingData is null)
             {
                 throw new ArgumentNullException(nameof(seedlingData));
             }
 
-            seedlingData.ViolationArticle = await _articleRepository.GetArticleAsync(_articleID);
+            seedlingData.ViolationArticle = await _articleRepository.GetArticleAsync(ArticleID);
         }
     }
 }

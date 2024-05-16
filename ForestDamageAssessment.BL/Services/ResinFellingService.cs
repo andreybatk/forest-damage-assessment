@@ -9,8 +9,8 @@ namespace ForestDamageAssessment.BL.Services
     {
         private readonly ITaxPriceResinRepository _taxPriceResinRepository;
         private readonly IArticleRepository _articleRepository;
-        private const double _mainCoefficient = 5D;
-        private const int _articleID = 8;
+        private const double MainCoefficient = 5D;
+        private const int ArticleID = 8;
 
         public ResinFellingService(ITaxPriceResinRepository taxPriceResinRepository, IArticleRepository articleRepository)
         {
@@ -18,7 +18,7 @@ namespace ForestDamageAssessment.BL.Services
             _articleRepository = articleRepository;
         }
 
-        public async Task<ResinData> Calculate(string[] countTon, string[] breed, string region)
+        public async Task<ResinData> CalculateAsync(string[] countTon, string[] breed, string region)
         {
             var resinData = new ResinData();
             resinData.Region = region;
@@ -41,7 +41,7 @@ namespace ForestDamageAssessment.BL.Services
         {
             foreach (var resin in resinData.ModelList)
             {
-                var taxPrice = await _taxPriceResinRepository.GetTaxPriceResinAsync(resin.Breed, resinData.Region);
+                var taxPrice = await _taxPriceResinRepository.GetTaxPriceAsync(resin.Breed, resinData.Region);
                 var culture = new CultureInfo("en-us");
 
                 if (taxPrice == null)
@@ -56,17 +56,17 @@ namespace ForestDamageAssessment.BL.Services
             resinData.TotalMoney = resinData.ModelList.Select(x => x.Money).Sum();
 
             var totalMoneyWithCoeff = resinData.TotalMoney;
-            totalMoneyWithCoeff *= _mainCoefficient;
-            resinData.Coefficients.Add($"Коэффициент основной ({_mainCoefficient}):", totalMoneyWithCoeff);
+            totalMoneyWithCoeff *= MainCoefficient;
+            resinData.Coefficients.Add($"Коэффициент основной ({MainCoefficient}):", totalMoneyWithCoeff);
         }
-        public async Task GetArticleInfo(ResinData? resinData)
+        private async Task GetArticleInfo(ResinData? resinData)
         {
             if (resinData is null)
             {
                 throw new ArgumentNullException(nameof(resinData));
             }
 
-            resinData.ViolationArticle = await _articleRepository.GetArticleAsync(_articleID);
+            resinData.ViolationArticle = await _articleRepository.GetArticleAsync(ArticleID);
         }
     }
 }

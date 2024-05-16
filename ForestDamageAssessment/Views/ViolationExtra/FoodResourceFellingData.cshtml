@@ -1,0 +1,79 @@
+﻿@using ForestDamageAssessment.BL.Interfaces;
+@using ForestDamageAssessment.BL.Models;
+@model FoodResourceData
+@{
+    ViewData["Title"] = "Расчет данных о насаждениях";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered border">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Древесные соки (ц)</th>
+                <th>Ставка платы</th>
+                <th>Дикорастущие плоды (кг)</th>
+                <th>Ставка платы</th>
+                <th>Дикорастущие ягоды (кг)</th>
+                <th>Ставка платы</th>
+                <th>Дикорастущие грибы (кг)</th>
+                <th>Ставка платы</th>
+                <th>Дикорастущие орехи (кг)</th>
+                <th>Ставка платы</th>
+                <th>Семена (кг)</th>
+                <th>Ставка платы</th>
+                <th>Лекарственные растения (кг)</th>
+                <th>Ставка платы</th>
+                <th>Общий размер ущерба</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model?.ModelList?.Count; i++)
+            {
+                <tr>
+                    <th>@(i + 1)</th>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].TreeSap)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].TreeSapPrice)</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].WildFuits)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].WildFuitsPrice)</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].WildBerries)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].WildBerriesPrice)</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].WildMushrooms)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].WildMushroomsPrice)</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].WildNuts)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].WildNutsPrice)</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].Seeds)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].SeedsPrice)</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].MedicinalPlants)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].MedicinalPlantsPrice)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Money)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-dark">
+            <tr>
+                <td colspan="15">Итого по лесосеке</td>
+                <td>@String.Format("{0:C2}", Model.TotalMoney)</td>
+            </tr>
+            @foreach (var item in Model.Coefficients)
+            {
+                <tr>
+                    <td colspan="15">@item.Key</td>
+                    <td>@String.Format("{0:C2}", @item.Value)</td>
+                </tr>
+            }
+        </tfoot>
+    </table>
+</div>
+
+<div class="form-text">
+    <p>Вид нарушения (прил. @Model.ViolationArticle.AppendixNumber п. @Model.ViolationArticle.ArticleNumber):<br />@Model.ViolationArticle.Title</p>
+    <p>Размер ущерба:<br />@Model.ViolationArticle.Punish</p>
+    <p>Описание:<br />@Model.ViolationArticle.Description</p>
+    <a class="link-secondary" href=" https: //base.garant.ru/72141810/">Постановление Правительства РФ №1730</a>
+    <a class="link-secondary" href="https://base.garant.ru/12153804/b89690251be5277812a78962f6302560/">Постановление Правительства РФ №310</a>
+</div>

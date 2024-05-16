@@ -4,6 +4,6 @@ namespace ForestDamageAssessment.BL.Interfaces
 {
     public interface IPlantationFellingService
     {
-        Task<PlantationData> Calculate(string[] square, string[] price, int[] coeff);
+        Task<PlantationData> CalculateAsync(string[] square, string[] price, int[] coeff);
     }
 }

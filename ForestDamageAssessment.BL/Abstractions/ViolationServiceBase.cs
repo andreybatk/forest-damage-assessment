@@ -23,6 +23,7 @@ namespace ForestDamageAssessment.BL.Abstractions
         protected virtual int ArticleID { get; } = 1;
 
         public async Task CalculateStockAsync<T>(List<T>? modelList)
+            where T : IViolationViewModel
         {
             if (modelList is null)
             {
@@ -30,9 +31,8 @@ namespace ForestDamageAssessment.BL.Abstractions
             }
 
             var culture = new CultureInfo("en-us");
-            List<IViolationViewModel> currentModelList = modelList.Cast<IViolationViewModel>().ToList();
 
-            foreach (var model in currentModelList)
+            foreach (var model in modelList)
             {
                 var assortment = await _assortmentRepository.GetAssortmentAsync(model.Breed, model.ThicknessLevel.ToString(), model.RankH.ToString());
 

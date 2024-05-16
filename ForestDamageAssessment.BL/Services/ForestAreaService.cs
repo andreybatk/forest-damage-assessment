@@ -34,13 +34,13 @@ namespace ForestDamageAssessment.BL.Services
             var forestArea = new ForestArea<ITreeViewModel> { ForestData = forestData };
             forestArea.ModelList = new List<ITreeViewModel>();
 
-            const double resultH = 130D;
-            const double resultRankH = 1D;
+            const double ResultH = 130D;
+            const double ResultRankH = 1D;
             for (int i = 0; i < breed.Length; i++)
             {
                 double.TryParse(diameter[i], culture, out double resultDiameter);
 
-                var viewModel = new TreeViewModel { Breed = breed[i], Diameter = resultDiameter, H = resultH, RankH = resultRankH };
+                var viewModel = new TreeViewModel { Breed = breed[i], Diameter = resultDiameter, H = ResultH, RankH = ResultRankH };
                 forestArea.ModelList.Add(viewModel);
             }
 

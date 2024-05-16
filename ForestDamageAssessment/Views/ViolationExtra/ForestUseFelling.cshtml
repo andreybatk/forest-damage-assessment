@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Расчет от самовольного использования лесов";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <h1 class="display-6">Самовольное использование лесов</h1>
+</div>
+
+<form asp-action="ForestUseFellingData" asp-controller="ViolationExtra" method="post">
+    <div class="mb-3">
+        <h4 class="text-black-50">Информация об участке леса</h4>
+        <div>
+            <select class="form-select-sm mr-3" name="region">
+                <option selected>Республика Марий Эл</option>
+            </select>
+            <div class="input-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="true" id="Violation1" name="isViolation1">
+                    <label class="form-check-label" for="Violation1">
+                        Нарушение 1: Часть площади лесного участка, занятая охотничьими базами, егерскими кордонами
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="true" id="Violation2" name="isViolation2">
+                    <label class="form-check-label" for="Violation2">
+                        Нарушение 2: Часть площади лесного участка, занятая вольерами, питомниками диких животных, ограждениями для содержания и разведения охотничьих ресурсов в полувольных условиях и искусственно созданной среде обитания
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="true" id="Violation3" name="isViolation3">
+                    <label class="form-check-label" for="Violation3">
+                        Нарушение 3: Часть площади лесного участка, не занятая охотничьими базами, егерскими кордонами, вольерами, питомниками диких животных, ограждениями для содержания и разведения охотничьих ресурсов в полувольных условиях и искусственно созданной среде обитания
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="text-center">Информация о насаждениях</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered border">
+            <thead>
+                <tr>
+                    <th>Площадь (га)</th>
+                    <th>Цена арендной платы</th>
+                </tr>
+            </thead>
+            <tbody id="inputs">
+                <tr>
+                    <td><input name="square[]"></td>
+                    <td><input name="price[]"></td>
+                    <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" onclick="addRow()" type="button">Добавить данные</button>
+        <input class="btn btn-success" type="submit" value="Отправить" />
+    </div>
+</form>
+
+<script>
+    function addRow() {
+        try {
+            event.preventDefault();
+            var parent = document.getElementById("inputs");
+            var clone = parent.children[0].cloneNode(true);
+            parent.appendChild(clone);
+
+            var inputs = clone.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+            }
+        } catch (e) { alert(e); }
+
+    }
+    function deleteRow(currentRow) {
+        try {
+            var table = document.getElementById('inputs');
+            var rowCount = table.rows.length;
+            for (var i = 0; i < rowCount; i++) {
+                var row = table.rows[i];
+
+                if (row == currentRow.parentNode.parentNode) {
+                    if (rowCount <= 1) {
+                        alert("Нельзя удалить все строки.");
+                        break;
+                    }
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) { alert(e); }
+    }
+</script>

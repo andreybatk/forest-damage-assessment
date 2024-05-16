@@ -1,0 +1,74 @@
+﻿@using ForestDamageAssessment.BL.Interfaces;
+@using ForestDamageAssessment.BL.Models;
+@model ForestUseData
+@{
+    ViewData["Title"] = "Расчет данных о насаждениях";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered border">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Площадь (га)</th>
+                <th>Цена арендной платы</th>
+                <th class="text-center" colspan="6">Дополнительное нарушение</th>
+                <th>Общий размер ущерба</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Нарушение 1</th>
+                <th>Ставка платы</th>
+                <th>Нарушение 2</th>
+                <th>Ставка платы</th>
+                <th>Нарушение 3</th>
+                <th>Ставка платы</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model?.ModelList?.Count; i++)
+            {
+                <tr>
+                    <th>@(i + 1)</th>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].Square)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Price)</td>
+                    <td>@(Model?.ModelList[i].IsViolation1 == true ? "Присутствует" : "Отсутствует")</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Violation1Price)</td>
+                    <td>@(Model?.ModelList[i].IsViolation2 == true ? "Присутствует" : "Отсутствует")</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Violation2Price)</td>
+                    <td>@(Model?.ModelList[i].IsViolation3 == true ? "Присутствует" : "Отсутствует")</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Violation3Price)</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Money)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-dark">
+            <tr>
+                <td colspan="9">Итого по лесосеке</td>
+                <td>@String.Format("{0:C2}", Model.TotalMoney)</td>
+            </tr>
+            @foreach (var item in Model.Coefficients)
+            {
+                <tr>
+                    <td colspan="9">@item.Key</td>
+                    <td>@String.Format("{0:C2}", @item.Value)</td>
+                </tr>
+            }
+        </tfoot>
+    </table>
+</div>
+
+<div class="form-text">
+    <p>Вид нарушения (прил. @Model.ViolationArticle.AppendixNumber п. @Model.ViolationArticle.ArticleNumber):<br />@Model.ViolationArticle.Title</p>
+    <p>Размер ущерба:<br />@Model.ViolationArticle.Punish</p>
+    <p>Описание:<br />@Model.ViolationArticle.Description</p>
+    <a class="link-secondary" href=" https: //base.garant.ru/72141810/">Постановление Правительства РФ №1730</a>
+    <a class="link-secondary" href="https://base.garant.ru/12153804/b89690251be5277812a78962f6302560/">Постановление Правительства РФ №310</a>
+</div>

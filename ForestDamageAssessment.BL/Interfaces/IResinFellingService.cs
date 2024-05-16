@@ -4,6 +4,6 @@ namespace ForestDamageAssessment.BL.Interfaces
 {
     public interface IResinFellingService
     {
-        Task<ResinData> Calculate(string[] countTon, string[] breed, string region);
+        Task<ResinData> CalculateAsync(string[] countTon, string[] breed, string region);
     }
 }

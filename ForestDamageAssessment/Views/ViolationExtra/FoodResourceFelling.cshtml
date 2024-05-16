@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Расчет от заготовки пищевых лесных ресурсов";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <h1 class="display-6">Заготовка пищевых лесных ресурсов</h1>
+</div>
+
+<form asp-action="FoodResourceFellingData" asp-controller="ViolationExtra" method="post">
+    <div class="mb-3">
+        <h4 class="text-black-50">Информация об участке леса</h4>
+        <div>
+            <select class="form-select-sm mr-3" name="region">
+                <option selected>Республика Марий Эл</option>
+            </select>
+        </div>
+    </div>
+    <h4 class="text-center">Информация о насаждениях</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered border">
+            <thead>
+                <tr>
+                    <th>Древесные соки (ц)</th>
+                    <th>Дикорастущие плоды (кг)</th>
+                    <th>Дикорастущие ягоды (кг)</th>
+                    <th>Дикорастущие грибы (кг)</th>
+                    <th>Дикорастущие орехи (кг)</th>
+                    <th>Семена (кг)</th>
+                    <th>Лекарственные растения (кг)</th>
+                </tr>
+            </thead>
+            <tbody id="inputs">
+                <tr>
+                    <td><input name="treeSap[]"></td>
+                    <td><input name="wildFuits[]"></td>
+                    <td><input name="wildBerries[]"></td>
+                    <td><input name="wildMushrooms[]"></td>
+                    <td><input name="wildNuts[]"></td>
+                    <td><input name="seeds[]"></td>
+                    <td><input name="medicinalPlants[]"></td>
+                    <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" onclick="addRow()" type="button">Добавить данные</button>
+        <input class="btn btn-success" type="submit" value="Отправить" />
+    </div>
+</form>
+
+<script>
+    function addRow() {
+        try {
+            event.preventDefault();
+            var parent = document.getElementById("inputs");
+            var clone = parent.children[0].cloneNode(true);
+            parent.appendChild(clone);
+
+            var inputs = clone.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+            }
+        } catch (e) { alert(e); }
+
+    }
+    function deleteRow(currentRow) {
+        try {
+            var table = document.getElementById('inputs');
+            var rowCount = table.rows.length;
+            for (var i = 0; i < rowCount; i++) {
+                var row = table.rows[i];
+
+                if (row == currentRow.parentNode.parentNode) {
+                    if (rowCount <= 1) {
+                        alert("Нельзя удалить все строки.");
+                        break;
+                    }
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) { alert(e); }
+    }
+</script>

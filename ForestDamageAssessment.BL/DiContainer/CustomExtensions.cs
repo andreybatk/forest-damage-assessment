@@ -16,6 +16,9 @@ namespace ForestDamageAssessment.BL.DiContainer
             services.AddScoped<ISeedlingsService, SeedlingsService>();
             services.AddScoped<IPlantationFellingService, PlantationFellingService>();
             services.AddScoped<IResinFellingService, ResinFellingService>();
+            services.AddScoped<IForestResourceFellingService, ForestResourceFellingService>();
+            services.AddScoped<IForestUseFellingService, ForestUseFellingService>();
+            services.AddScoped<IFoodResourceFellingService, FoodResourceFellingService>();
             services.AddScoped(typeof(IExtendedViolationService<TreeFellingViolationService, ITreeViewModel>), typeof(TreeFellingViolationService));
             services.AddScoped(typeof(IExtendedViolationService<BushFellingViolationService, IBushViewModel>), typeof(BushFellingViolationService));
             services.AddScoped(typeof(IExtendedViolationService<TreeFellingViolation2Service, ITreeViewModel>), typeof(TreeFellingViolation2Service));
@@ -25,6 +28,9 @@ namespace ForestDamageAssessment.BL.DiContainer
             services.AddScoped<IAssortmentRepository, AssortmentRepository>();
             services.AddScoped<ITaxPriceRepository, TaxPriceRepository>();
             services.AddScoped<ITaxPriceResinRepository, TaxPriceResinRepository>();
+            services.AddScoped<ITaxPriceForestResourceRepository, TaxPriceForestResourceRepository>();
+            services.AddScoped<ITaxPriceForestUseRepository, TaxPriceForestUseRepository>();
+            services.AddScoped<ITaxPriceFoodResourceRepository, TaxPriceFoodResourceRepository>();
             services.AddScoped<IBreedDiameterModelRepository, BreedDiameterModelRepository>();
             services.AddScoped<ISTDRepository, STDRepository>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
