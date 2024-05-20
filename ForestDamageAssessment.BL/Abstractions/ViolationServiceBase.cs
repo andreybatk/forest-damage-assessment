@@ -118,7 +118,7 @@ namespace ForestDamageAssessment.BL.Abstractions
             }
 
             forestAreaData.TotalMoney *= Year2024Coefficient;
-            forestAreaData.Coefficients.Add($"Коэффициент за 2024 год ({Year2024Coefficient}):", forestAreaData.TotalMoney);
+            forestAreaData.Coefficients.Add($"Коэффициент за {forestAreaData.Year} год ({Year2024Coefficient}):", forestAreaData.TotalMoney);
 
             forestAreaData.TotalMoney *= MainCoefficient;
             forestAreaData.Coefficients.Add($"Размер ущерба при {MainCoefficient}-кратном увеличении:", forestAreaData.TotalMoney);

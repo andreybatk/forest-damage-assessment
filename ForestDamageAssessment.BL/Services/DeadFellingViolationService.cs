@@ -2,6 +2,7 @@
 using ForestDamageAssessment.BL.Interfaces;
 using ForestDamageAssessment.BL.Models;
 using ForestDamageAssessment.DB.Interfaces;
+using ForestDamageAssessment.DB.Repositories;
 using System.Globalization;
 
 namespace ForestDamageAssessment.BL.Services
@@ -10,12 +11,14 @@ namespace ForestDamageAssessment.BL.Services
     {
         private readonly ITaxPriceRepository _taxPriceRepository;
         private readonly ISTDRepository _sTDRepository;
+        private readonly IBreedDiameterModelRepository _breedDiameterModelRepository;
 
-        public DeadFellingViolationService(ITaxPriceRepository taxPriceRepository, ISTDRepository sTDRepository, IAssortmentRepository assortmentRepository, IArticleRepository articleRepository)
+        public DeadFellingViolationService(ITaxPriceRepository taxPriceRepository, ISTDRepository sTDRepository, IAssortmentRepository assortmentRepository, IArticleRepository articleRepository, IBreedDiameterModelRepository breedDiameterModelRepository)
             : base(assortmentRepository, articleRepository)
         {
             _taxPriceRepository = taxPriceRepository;
             _sTDRepository = sTDRepository;
+            _breedDiameterModelRepository = breedDiameterModelRepository;
         }
 
         protected override int ArticleID => 5;
@@ -23,7 +26,7 @@ namespace ForestDamageAssessment.BL.Services
         public async Task<ForestArea<ITreeViewModel>> CalculateAsync(ForestArea<ITreeViewModel> forestArea)
         {
             await GetArticleInfo(forestArea.ForestData);
-            await CalculateDiameterAsync(forestArea.ModelList);
+            await CalculateDiameterAsync(forestArea.ModelList, forestArea.ForestData.Year);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);
             CalculateTotalMoneyPunishment(forestArea.ModelList, forestArea.ForestData);
@@ -54,12 +57,12 @@ namespace ForestDamageAssessment.BL.Services
                     model.Money.BusinessAndFirewood = model.Money.Firewood;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //TODO LOGGER
             }
         }
-        private async Task CalculateDiameterAsync(List<ITreeViewModel>? modelList)
+        private async Task CalculateDiameterAsync(List<ITreeViewModel>? modelList, string year)
         {
             if (modelList is null)
             {
@@ -69,11 +72,32 @@ namespace ForestDamageAssessment.BL.Services
             {
                 foreach (var model in modelList)
                 {
-                    model.CalculatedDiameter = model.Diameter;
-                    model.ThicknessLevel = await GetThicknessLevelAsync(model.Diameter);
+                    int.TryParse(year, out int currentYear);
+
+                    if (currentYear < 2019)
+                    {
+                        var breedDiameter = await _breedDiameterModelRepository.GetBreedDiameterModelAsync(model.Breed);
+
+                        if (breedDiameter == null)
+                        {
+                            continue;
+                        }
+
+                        double DimeterPercent =
+                            double.Parse(breedDiameter.C1) * Math.Pow(model.H, double.Parse(breedDiameter.C2))
+                            - double.Parse(breedDiameter.C3) * Math.Exp(-double.Parse(breedDiameter.C4) * model.H);
+
+                        model.CalculatedDiameter = Math.Round(model.Diameter * 100 / DimeterPercent);
+                        model.ThicknessLevel = await GetThicknessLevelAsync(model.CalculatedDiameter);
+                    }
+                    else
+                    {
+                        model.CalculatedDiameter = model.Diameter;
+                        model.ThicknessLevel = await GetThicknessLevelAsync(model.Diameter);
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //TODO LOGGER
             }

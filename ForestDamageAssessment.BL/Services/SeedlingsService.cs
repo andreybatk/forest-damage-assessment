@@ -19,15 +19,14 @@ namespace ForestDamageAssessment.BL.Services
         public async Task<SeedlingData> CalculateAsync(int[] count, string[] breed, string[] price)
         {
             var seedlingData = new SeedlingData();
-
-            seedlingData.ModelList = new List<SeedlingViewModel>();
+            seedlingData.ModelList = new List<SeedViewModel>();
             var culture = new CultureInfo("en-us");
 
             for (int i = 0; i < count.Length; i++)
             {
                 double.TryParse(price[i], culture, out double currentPrice);
                 var money = currentPrice * Convert.ToDouble(count[i]);
-                var model = new SeedlingViewModel { Count = count[i], Breed = breed[i], Price = currentPrice, Money = money };
+                var model = new SeedViewModel { Count = count[i], Breed = breed[i], Price = currentPrice, Money = money };
                 seedlingData.ModelList.Add(model);
             }
 

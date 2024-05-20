@@ -1,48 +1,33 @@
 ﻿@{
-    ViewData["Title"] = "Расчет ущерба от заготовки и сбора недревесных лесных ресурсов";
+    ViewData["Title"] = "Расчет ущерба от уничтожения или повреждения муравейников";
 }
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
-    <h1 class="display-6">Заготовка и сбор недревесных лесных ресурсов</h1>
+    <h1 class="display-6">Уничтожение или повреждение муравейников</h1>
 </div>
 
-<form asp-action="ForestResourceFellingData" asp-controller="ViolationExtra" method="post">
+<form asp-action="RemovalOfAnthillsData" asp-controller="ViolationExtra" method="post">
     <div class="mb-3">
         <h4 class="text-black-50">Информация об участке леса</h4>
-        <div>
+        <div class="mb-3">
             <select class="form-select-sm mr-3" name="region">
                 <option selected>Республика Марий Эл</option>
             </select>
         </div>
+        <input class="form-control w-50" list="breeds" name="mainForestBreed" placeholder="Основная лесообразующая порода" required>
     </div>
-    <h4 class="text-center">Информация о насаждениях</h4>
+    <h4 class="text-center">Информация о нарушении</h4>
     <div class="table-responsive">
         <table class="table table-bordered border">
             <thead>
                 <tr>
-                    <th>Пни (куб. м)</th>
-                    <th>Кора деревьев и кустарников (т)</th>
-                    <th>Луб (т)</th>
-                    <th>Береста (т)</th>
-                    <th>Пихтовая лапа (т)</th>
-                    <th>Сосновая лапа (т)</th>
-                    <th>Еловая лапа (т)</th>
-                    <th>Хворост, веточный корм (куб. м)</th>
-                    <th>Мох, лесная подстилка, камыш, тростник (кг)</th>
+                    <th>Диаметр муравейника</th>
                 </tr>
             </thead>
             <tbody id="inputs">
                 <tr>
-                    <td><input name="stumps[]"></td>
-                    <td><input name="bark[]"></td>
-                    <td><input name="lub[]"></td>
-                    <td><input name="birchBark[]"></td>
-                    <td><input name="firPaw[]"></td>
-                    <td><input name="pinePaw[]"></td>
-                    <td><input name="sprucePaw[]"></td>
-                    <td><input name="brushwood[]"></td>
-                    <td><input name="forestFloor[]"></td>
+                    <td><input type="number" step="0.01" min="0" name="diameter[]" required></td>
                     <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
                 </tr>
             </tbody>
@@ -51,6 +36,24 @@
         <input class="btn btn-success" type="submit" value="Отправить" />
     </div>
 </form>
+
+<datalist id="breeds">
+    <option>Береза</option>
+    <option>Ель</option>
+    <option>Липа</option>
+    <option>Осина</option>
+    <option>Пихта</option>
+    <option>Сосна</option>
+    <option disabled>Ольха черная</option>
+    <option disabled>Дуб порослевой</option>
+    <option disabled>Дуб семенной</option>
+    <option disabled>Ива древовидная</option>
+    <option disabled>Ильм (вяз)</option>
+    <option disabled>Кедр</option>
+    <option disabled>Клен</option>
+    <option disabled>Осокорь</option>
+    <option disabled>Сосна после подсочки</option>
+</datalist>
 
 <script>
     function addRow() {

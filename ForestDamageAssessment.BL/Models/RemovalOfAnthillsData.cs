@@ -2,9 +2,9 @@
 
 namespace ForestDamageAssessment.BL.Models
 {
-    public class ForestUseData
+    public class RemovalOfAnthillsData
     {
-        public ForestUseData()
+        public RemovalOfAnthillsData()
         {
             Coefficients = new Dictionary<string, double>();
         }
@@ -14,9 +14,9 @@ namespace ForestDamageAssessment.BL.Models
         /// </summary>
         public string Region { get; set; }
         /// <summary>
-        /// Модель
+        /// Модели
         /// </summary>
-        public ForestUseViewModel? Model;
+        public List<AnthillViewModel>? ModelList;
         /// <summary>
         /// Коэффициенты и размер ущерба
         /// </summary>

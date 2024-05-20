@@ -21,9 +21,8 @@ namespace ForestDamageAssessment.BL.Services
         public async Task<ResinData> CalculateAsync(string[] countTon, string[] breed, string region)
         {
             var resinData = new ResinData();
-            resinData.Region = region;
-
             resinData.ModelList = new List<ResinViewModel>();
+            resinData.Region = region;
             var culture = new CultureInfo("en-us");
 
             for (int i = 0; i < countTon.Length; i++)
@@ -42,13 +41,13 @@ namespace ForestDamageAssessment.BL.Services
             foreach (var resin in resinData.ModelList)
             {
                 var taxPrice = await _taxPriceResinRepository.GetTaxPriceAsync(resin.Breed, resinData.Region);
-                var culture = new CultureInfo("en-us");
 
                 if (taxPrice == null)
                 {
                     continue;
                 }
 
+                var culture = new CultureInfo("en-us");
                 double.TryParse(taxPrice.Price, culture, out double price);
                 resin.Price = price;
                 resin.Money = resin.CountTon * price;

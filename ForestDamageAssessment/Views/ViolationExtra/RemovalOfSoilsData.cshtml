@@ -1,0 +1,54 @@
+﻿@using ForestDamageAssessment.BL.Interfaces;
+@using ForestDamageAssessment.BL.Models;
+@model RemovalOfSoilsData
+@{
+    ViewData["Title"] = "Расчет данных о нарушении";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered border">
+        <thead>
+            <tr>
+                <th>Площадь (кв. м)</th>
+                <th>Кол-во транспортных средств</th>
+                <th>Основная лесообразующая порода</th>
+                <th>Ставка платы</th>
+                <th>Общий размер ущерба</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@String.Format("{0:f6}", @Model?.Model.Square)</td>
+                <td>@Model?.Model.VehicleCount</td>
+                <td>@Model?.Model.MainForestBreed</td>
+                <td>@String.Format("{0:C2}", @Model?.Model.MainForestBreedPrice)</td>
+                <td>@String.Format("{0:C2}", @Model?.Model.Money)</td>
+            </tr>
+        </tbody>
+        <tfoot class="table-dark">
+            <tr>
+                <td colspan="4">Итого по лесосеке</td>
+                <td>@String.Format("{0:C2}", Model.TotalMoney)</td>
+            </tr>
+            @foreach (var item in Model.Coefficients)
+            {
+                <tr>
+                    <td colspan="4">@item.Key</td>
+                    <td>@String.Format("{0:C2}", @item.Value)</td>
+                </tr>
+            }
+        </tfoot>
+    </table>
+</div>
+
+<div class="form-text">
+    <p>Вид нарушения (прил. @Model.ViolationArticle.AppendixNumber п. @Model.ViolationArticle.ArticleNumber):<br />@Model.ViolationArticle.Title</p>
+    <p>Размер ущерба:<br />@Model.ViolationArticle.Punish</p>
+    <p>Описание:<br />@Model.ViolationArticle.Description</p>
+    <a class="link-secondary" href=" https: //base.garant.ru/72141810/">Постановление Правительства РФ №1730</a>
+    <a class="link-secondary" href="https://base.garant.ru/12153804/b89690251be5277812a78962f6302560/">Постановление Правительства РФ №310</a>
+</div>

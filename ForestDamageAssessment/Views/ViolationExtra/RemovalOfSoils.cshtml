@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Расчет ущерба от самовольного снятия, уничтожения или порчи";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <h1 class="display-6">Самовольное снятие, уничтожение или порча почв</h1>
+</div>
+
+<form asp-action="RemovalOfSoilsData" asp-controller="ViolationExtra" method="post">
+    <div class="mb-3">
+        <h4 class="text-black-50">Информация об участке леса</h4>
+        <div class="mb-3">
+            <select class="form-select-sm mr-3" name="region">
+                <option selected>Республика Марий Эл</option>
+            </select>
+        </div>
+        <input class="form-control w-50" list="breeds" name="mainForestBreed" placeholder="Основная лесообразующая порода" required>
+    </div>
+    <h4 class="text-center">Информация о нарушении</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered border">
+            <thead>
+                <tr>
+                    <th>Площадь (кв. м)</th>
+                    <th>Кол-во транспортных средств</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="number" step="1" min="0" name="square" required></td>
+                    <td><input type="number" step="0.01" min="0" name="vehicleCount"></td>
+                </tr>
+            </tbody>
+        </table>
+        <input class="btn btn-success" type="submit" value="Отправить" />
+    </div>
+</form>
+
+<datalist id="breeds">
+    <option>Береза</option>
+    <option>Ель</option>
+    <option>Липа</option>
+    <option>Осина</option>
+    <option>Пихта</option>
+    <option>Сосна</option>
+    <option disabled>Ольха черная</option>
+    <option disabled>Дуб порослевой</option>
+    <option disabled>Дуб семенной</option>
+    <option disabled>Ива древовидная</option>
+    <option disabled>Ильм (вяз)</option>
+    <option disabled>Кедр</option>
+    <option disabled>Клен</option>
+    <option disabled>Осокорь</option>
+    <option disabled>Сосна после подсочки</option>
+</datalist>

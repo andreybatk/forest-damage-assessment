@@ -102,19 +102,10 @@ namespace ForestDamageAssessment.BL.Services
                     }
 
                     var culture = new CultureInfo("en-us");
-
                     double bushCount = Convert.ToDouble(model.BushCount);
-
-                    //double.TryParse(taxPrice.PriceAverage, culture, out double priceAverage);
-                    //double.TryParse(taxPrice.PriceSmall, culture, out double priceSmall);
                     double.TryParse(taxPrice.PriceLarge, culture, out double priceLarge);
                     double.TryParse(taxPrice.Firewood, culture, out double priceFirewood);
 
-                    //model.Money.TaxPriceSmall = priceSmall;
-                    //model.Money.TaxPriceAverage = priceAverage;
-                    //model.Money.Large = priceAverage * model.Stock.SumAverage;
-                    //model.Money.Average = priceLarge * model.Stock.SumLarge;
-                    //model.Money.Small = priceSmall * model.Stock.SumSmall;
                     model.Money.TaxPriceLarge = priceLarge;
                     model.Money.TaxPriceFirewood = priceFirewood;
                     model.Money.Business = model.Stock.SumBusiness * priceLarge * bushCount;

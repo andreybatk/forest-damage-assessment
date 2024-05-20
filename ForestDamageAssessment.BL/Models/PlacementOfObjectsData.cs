@@ -2,21 +2,17 @@
 
 namespace ForestDamageAssessment.BL.Models
 {
-    public class ForestUseData
+    public class PlacementOfObjectsData
     {
-        public ForestUseData()
+        public PlacementOfObjectsData()
         {
             Coefficients = new Dictionary<string, double>();
         }
 
         /// <summary>
-        /// Регион
-        /// </summary>
-        public string Region { get; set; }
-        /// <summary>
         /// Модель
         /// </summary>
-        public ForestUseViewModel? Model;
+        public ObjectViewModel? Model;
         /// <summary>
         /// Коэффициенты и размер ущерба
         /// </summary>

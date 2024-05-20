@@ -11,6 +11,7 @@ namespace ForestDamageAssessment.Controllers
         private readonly IExtendedViolationService<TreeFellingViolation2Service, ITreeViewModel> _treeFellingViolation2Service;
         private readonly IExtendedViolationService<BushFellingViolationService, IBushViewModel> _bushFellingViolationService;
         private readonly IExtendedViolationService<BushFellingViolation2Service, IBushViewModel> _bushFellingViolation2Service;
+        private readonly IExtendedViolationService<BushFellingViolation3Service, IBushViewModel> _bushFellingViolation3Service;
         private readonly IViolationService<DeadFellingViolationService, ITreeViewModel> _deadFellingViolationService;
         private readonly ISeedlingsService _seedlingsService;
         private readonly IPlantationFellingService _plantationFellingService;
@@ -21,6 +22,7 @@ namespace ForestDamageAssessment.Controllers
             IExtendedViolationService<TreeFellingViolation2Service, ITreeViewModel> treeFellingViolation2Service,
             IExtendedViolationService<BushFellingViolationService, IBushViewModel> bushFellingViolationService,
             IExtendedViolationService<BushFellingViolation2Service, IBushViewModel> bushFellingViolation2Service,
+            IExtendedViolationService<BushFellingViolation3Service, IBushViewModel> bushFellingViolation3Service,
             IViolationService<DeadFellingViolationService, ITreeViewModel> deadFellingViolationService,
             ISeedlingsService seedlingsService,
             IPlantationFellingService plantationFellingService,
@@ -31,6 +33,7 @@ namespace ForestDamageAssessment.Controllers
             _treeFellingViolation2Service = treeFellingViolation2Service;
             _bushFellingViolationService = bushFellingViolationService;
             _bushFellingViolation2Service = bushFellingViolation2Service;
+            _bushFellingViolation3Service = bushFellingViolation3Service;
             _deadFellingViolationService = deadFellingViolationService;
             _seedlingsService = seedlingsService;
             _plantationFellingService = plantationFellingService;
@@ -147,6 +150,28 @@ namespace ForestDamageAssessment.Controllers
             var fileModel = await _fileModelService.CreateFileModelAsync(uploadedFile);
 
             return View("BushFellingData", await _bushFellingViolation2Service.CalculateFromFileAsync(fileModel, forestArea));
+        }
+        [HttpGet]
+        public IActionResult BushFelling3()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> BushFelling3Data(int[] count, string mainForestBreed, string[] breedBush, string[] bushType,
+            string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+        {
+            var forestArea = _forestAreaViewModelService.CreateForestArea(count, mainForestBreed, breedBush, bushType, region, year, isOZU, isProtectiveForests, isOOPT);
+
+            return View("BushFellingData", await _bushFellingViolation3Service.CalculateAsync(forestArea));
+        }
+        [HttpPost]
+        public async Task<IActionResult> BushFelling3DataFromFile(IFormFile uploadedFile,
+            string mainForestBreed, string region, string year, bool isOZU, bool isProtectiveForests, bool isOOPT)
+        {
+            var forestArea = _forestAreaViewModelService.CreateForestArea(mainForestBreed, region, year, isOZU, isProtectiveForests, isOOPT);
+            var fileModel = await _fileModelService.CreateFileModelAsync(uploadedFile);
+
+            return View("BushFellingData", await _bushFellingViolation3Service.CalculateFromFileAsync(fileModel, forestArea));
         }
         [HttpGet]
         public IActionResult DeadFelling()

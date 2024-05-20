@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Расчет ущерба от размещения в лесах отходов производства и потребления";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <h1 class="display-6">Размещение в лесах отходов производства и потребления</h1>
+</div>
+
+<form asp-action="ForestPollution2Data" asp-controller="ViolationExtra" method="post">
+    <h4 class="text-center">Информация о нарушении</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered border">
+            <thead>
+                <tr>
+                    <th>Цена за очистку территории</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="number" step="0.01" min="1" name="priceCleaning" required></td>
+                </tr>
+            </tbody>
+        </table>
+        <input class="btn btn-success" type="submit" value="Отправить" />
+    </div>
+</form>

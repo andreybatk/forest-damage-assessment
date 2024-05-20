@@ -1,8 +1,8 @@
 ﻿@using ForestDamageAssessment.BL.Interfaces;
 @using ForestDamageAssessment.BL.Models;
-@model ForestUseData
+@model RemovalOfAnthillsData
 @{
-    ViewData["Title"] = "Расчет данных о насаждениях";
+    ViewData["Title"] = "Расчет данных о нарушении";
 }
 
 <div class="text-center">
@@ -14,22 +14,11 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Площадь (га)</th>
-                <th>Цена арендной платы</th>
-                <th class="text-center" colspan="6">Дополнительное нарушение</th>
+                <th>Диаметр</th>
+                <th>Коэффициент за диаметр</th>
+                <th>Основная лесообразующая порода</th>
+                <th>Ставка платы</th>
                 <th>Общий размер ущерба</th>
-            </tr>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Нарушение 1</th>
-                <th>Ставка платы</th>
-                <th>Нарушение 2</th>
-                <th>Ставка платы</th>
-                <th>Нарушение 3</th>
-                <th>Ставка платы</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -37,27 +26,23 @@
             {
                 <tr>
                     <th>@(i + 1)</th>
-                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].Square)</td>
-                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Price)</td>
-                    <td>@(Model?.ModelList[i].IsViolation1 == true ? "Присутствует" : "Отсутствует")</td>
-                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Violation1Price)</td>
-                    <td>@(Model?.ModelList[i].IsViolation2 == true ? "Присутствует" : "Отсутствует")</td>
-                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Violation2Price)</td>
-                    <td>@(Model?.ModelList[i].IsViolation3 == true ? "Присутствует" : "Отсутствует")</td>
-                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].Violation3Price)</td>
+                    <td>@String.Format("{0:f6}", @Model?.ModelList[i].Diameter)</td>
+                    <td>@String.Format("{0:f2}", @Model?.ModelList[i].Coeff)</td>
+                    <td>@Model?.ModelList[i].MainForestBreed</td>
+                    <td>@String.Format("{0:C2}", @Model?.ModelList[i].MainForestBreedPrice)</td>
                     <td>@String.Format("{0:C2}", @Model?.ModelList[i].Money)</td>
                 </tr>
             }
         </tbody>
         <tfoot class="table-dark">
             <tr>
-                <td colspan="9">Итого по лесосеке</td>
+                <td colspan="5">Итого по лесосеке</td>
                 <td>@String.Format("{0:C2}", Model.TotalMoney)</td>
             </tr>
             @foreach (var item in Model.Coefficients)
             {
                 <tr>
-                    <td colspan="9">@item.Key</td>
+                    <td colspan="5">@item.Key</td>
                     <td>@String.Format("{0:C2}", @item.Value)</td>
                 </tr>
             }

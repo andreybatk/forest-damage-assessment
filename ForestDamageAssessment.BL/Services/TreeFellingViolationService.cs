@@ -25,7 +25,7 @@ namespace ForestDamageAssessment.BL.Services
         public async Task<ForestArea<ITreeViewModel>> CalculateAsync(ForestArea<ITreeViewModel> forestArea)
         {
             await GetArticleInfo(forestArea.ForestData);
-            await CalculateDiameterAsync(forestArea.ModelList);
+            await CalculateDiameterAsync(forestArea.ModelList, forestArea.ForestData.Year);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);
             CalculateTotalMoneyPunishment(forestArea.ModelList, forestArea.ForestData);
@@ -76,7 +76,7 @@ namespace ForestDamageAssessment.BL.Services
             }
 
             await GetArticleInfo(forestArea.ForestData);
-            await CalculateDiameterAsync(forestArea.ModelList);
+            await CalculateDiameterAsync(forestArea.ModelList, forestArea.ForestData.Year);
             await CalculateStockAsync(forestArea.ModelList);
             await CalculateMoneyPunishmentAsync(forestArea);
             CalculateTotalMoneyPunishment(forestArea.ModelList, forestArea.ForestData);
@@ -101,7 +101,6 @@ namespace ForestDamageAssessment.BL.Services
                     }
 
                     var culture = new CultureInfo("en-us");
-
                     double.TryParse(taxPrice.PriceAverage, culture, out double priceAverage);
                     double.TryParse(taxPrice.PriceLarge, culture, out double priceLarge);
                     double.TryParse(taxPrice.PriceSmall, culture, out double priceSmall);
@@ -119,12 +118,12 @@ namespace ForestDamageAssessment.BL.Services
                     model.Money.BusinessAndFirewood = model.Money.Business + model.Money.Firewood;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //TODO LOGGER
             }
         }
-        private async Task CalculateDiameterAsync(List<ITreeViewModel>? modelList)
+        private async Task CalculateDiameterAsync(List<ITreeViewModel>? modelList, string year)
         {
             if (modelList is null)
             {
@@ -134,22 +133,32 @@ namespace ForestDamageAssessment.BL.Services
             {
                 foreach (var model in modelList)
                 {
-                    var breedDiameter = await _breedDiameterModelRepository.GetBreedDiameterModelAsync(model.Breed);
+                    int.TryParse(year, out int currentYear);
 
-                    if (breedDiameter == null)
+                    if (currentYear < 2019)
                     {
-                        continue;
+                        var breedDiameter = await _breedDiameterModelRepository.GetBreedDiameterModelAsync(model.Breed);
+
+                        if (breedDiameter == null)
+                        {
+                            continue;
+                        }
+
+                        double DimeterPercent =
+                            double.Parse(breedDiameter.C1) * Math.Pow(model.H, double.Parse(breedDiameter.C2))
+                            - double.Parse(breedDiameter.C3) * Math.Exp(-double.Parse(breedDiameter.C4) * model.H);
+
+                        model.CalculatedDiameter = Math.Round(model.Diameter * 100 / DimeterPercent);
+                        model.ThicknessLevel = await GetThicknessLevelAsync(model.CalculatedDiameter);
                     }
-
-                    double DimeterPercent =
-                        double.Parse(breedDiameter.C1) * Math.Pow(model.H, double.Parse(breedDiameter.C2))
-                        - double.Parse(breedDiameter.C3) * Math.Exp(-double.Parse(breedDiameter.C4) * model.H);
-
-                    model.CalculatedDiameter = Math.Round(model.Diameter * 100 / DimeterPercent);
-                    model.ThicknessLevel = await GetThicknessLevelAsync(model.CalculatedDiameter);
+                    else
+                    {
+                        model.CalculatedDiameter = model.Diameter;
+                        model.ThicknessLevel = await GetThicknessLevelAsync(model.Diameter);
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //TODO LOGGER
             }

@@ -1,0 +1,206 @@
+﻿@{
+    ViewData["Title"] = "Расчет ущерба от уничтожения, выкапывания или повреждения кустарничков";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <h1 class="display-6">Уничтожение, выкапывание или повреждение кустарничков</h1>
+</div>
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header border" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Заполнить данные
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body border">
+                <form asp-action="BushFelling3Data" asp-controller="Violation" method="post">
+                    <div class="mb-3">
+                        <h4 class="text-black-50">Информация об участке леса</h4>
+                        <div>
+                            <select class="form-select-sm mr-3" name="region">
+                                <option selected>Республика Марий Эл</option>
+                            </select>
+                            <select class="form-select-sm" name="year">
+                                <option selected>2024</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="true" id="OZU" name="isOZU">
+                                <label class="form-check-label" for="OZU">
+                                    ОЗУ
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="true" id="protectiveForests" name="isProtectiveForests">
+                                <label class="form-check-label" for="protectiveForests">
+                                    Защитные леса
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="true" id="OOPT" name="isOOPT">
+                                <label class="form-check-label" for="OOPT">
+                                    ООПТ
+                                </label>
+                            </div>
+                        </div>
+                        <input class="form-control w-50" list="breeds" name="mainForestBreed" placeholder="Основная лесообразующая порода" required>
+                    </div>
+                    <h4 class="text-center">Информация о поврежденных насаждениях</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered border">
+                            <thead>
+                                <tr>
+                                    <th>Кол-во</th>
+                                    <th>Порода кустарника</th>
+                                    <th>Тип кустарника</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inputs">
+                                <tr>
+                                    <td><input class="form-control" type="number" step="1" min="1" name="count[]" required></td>
+                                    <td><input class="form-control" list="breeds" name="breedBush[]"></td>
+                                    <td>
+                                        <select class="form-select" name="bushType[]">
+                                            <option selected>Лиственная</option>
+                                        </select>
+                                    </td>
+                                    <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary" onclick="addRow()" type="button">Добавить данные</button>
+                        <input class="btn btn-success" type="submit" value="Отправить" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header border" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Загрузить из файла
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body border">
+                <form asp-action="BushFelling2DataFromFile" asp-controller="Violation" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <h4 class="text-black-50">Информация об участке леса</h4>
+                        <div>
+                            <select class="form-select-sm mr-3" name="region">
+                                <option selected>Республика Марий Эл</option>
+                            </select>
+                            <select class="form-select-sm" name="year">
+                                <option selected>2024</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="true" id="OZU" name="isOZU">
+                                <label class="form-check-label" for="OZU">
+                                    ОЗУ
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="true" id="protectiveForests" name="isProtectiveForests">
+                                <label class="form-check-label" for="protectiveForests">
+                                    Защитные леса
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="true" id="OOPT" name="isOOPT">
+                                <label class="form-check-label" for="OOPT">
+                                    ООПТ
+                                </label>
+                            </div>
+                        </div>
+                        <input class="form-control w-50" list="breeds" name="mainForestBreed" placeholder="Основная лесообразующая порода" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Информация о поврежденных насаждениях</label>
+                        <input class="form-control" type="file" name="uploadedFile" accept=".txt, .csv" required />
+                        <button class="btn btn-secondary mt-3" type="button" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Посмотреть пример
+                        </button>
+                        <input class="btn btn-success mt-3" type="submit" value="Загрузить" />
+                    </div>
+                </form>
+                <div class="collapse" id="collapseExample">
+                    <div class="p-2 bg-light border">
+                        <p class="text-black-50">Кол-во | Порода | Тип (только "Лиственная")</p>
+                        <code>
+                            Пример 1:<br />
+                            10;барбарис;Лиственная;<br />
+                            15;можжевельник;Лиственная;<br />
+                            5;жасмин;Лиственная;<br />
+                        </code>
+                        <code>
+                            Пример 2:<br />
+                            10;;Лиственная<br />
+                            15;-;Лиственная<br />
+                            5;;Лиственная<br />
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<datalist id="breeds">
+    <option>Береза</option>
+    <option>Ель</option>
+    <option>Липа</option>
+    <option>Осина</option>
+    <option>Пихта</option>
+    <option>Сосна</option>
+    <option disabled>Ольха черная</option>
+    <option disabled>Дуб порослевой</option>
+    <option disabled>Дуб семенной</option>
+    <option disabled>Ива древовидная</option>
+    <option disabled>Ильм (вяз)</option>
+    <option disabled>Кедр</option>
+    <option disabled>Клен</option>
+    <option disabled>Осокорь</option>
+    <option disabled>Сосна после подсочки</option>
+</datalist>
+
+<script>
+    function addRow() {
+        try {
+            event.preventDefault();
+            var parent = document.getElementById("inputs");
+            var clone = parent.children[0].cloneNode(true);
+            parent.appendChild(clone);
+
+            var inputs = clone.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+            }
+        } catch (e) { alert(e); }
+
+    }
+    function deleteRow(currentRow) {
+        try {
+            var table = document.getElementById('inputs');
+            var rowCount = table.rows.length;
+            for (var i = 0; i < rowCount; i++) {
+                var row = table.rows[i];
+
+                if (row == currentRow.parentNode.parentNode) {
+                    if (rowCount <= 1) {
+                        alert("Нельзя удалить все строки.");
+                        break;
+                    }
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
+                }
+            }
+        } catch (e) { alert(e); }
+    }
+</script>

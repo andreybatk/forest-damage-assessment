@@ -12,7 +12,7 @@ namespace ForestDamageAssessment.BL.Models
         /// <summary>
         /// Модели
         /// </summary>
-        public List<SeedlingViewModel>? ModelList;
+        public List<SeedViewModel>? ModelList;
         /// <summary>
         /// Коэффициенты и размер ущерба
         /// </summary>

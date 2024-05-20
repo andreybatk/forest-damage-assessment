@@ -17,12 +17,20 @@ namespace ForestDamageAssessment.BL.DiContainer
             services.AddScoped<IPlantationFellingService, PlantationFellingService>();
             services.AddScoped<IResinFellingService, ResinFellingService>();
             services.AddScoped<IForestResourceFellingService, ForestResourceFellingService>();
-            services.AddScoped<IForestUseFellingService, ForestUseFellingService>();
+            services.AddScoped<IForestUseService, ForestUseService>();
             services.AddScoped<IFoodResourceFellingService, FoodResourceFellingService>();
+            services.AddScoped<IPlacementOfObjectsService, PlacementOfObjectsService>();
+            services.AddScoped<IRemovalOfSoilsService, RemovalOfSoilsService>();
+            services.AddScoped<IRemovalOfAnthillsService, RemovalOfAnthillsService>();
+            services.AddScoped<IDamageToObjectsService, DamageToObjectsService>();
+            services.AddScoped<IRemovalOfSignsService, RemovalOfSignsService>();
+            services.AddScoped(typeof(IForestPollutionService<ForestPollutionService>), typeof(ForestPollutionService));
+            services.AddScoped(typeof(IForestPollutionService<ForestPollution2Service>), typeof(ForestPollution2Service));
             services.AddScoped(typeof(IExtendedViolationService<TreeFellingViolationService, ITreeViewModel>), typeof(TreeFellingViolationService));
             services.AddScoped(typeof(IExtendedViolationService<BushFellingViolationService, IBushViewModel>), typeof(BushFellingViolationService));
             services.AddScoped(typeof(IExtendedViolationService<TreeFellingViolation2Service, ITreeViewModel>), typeof(TreeFellingViolation2Service));
             services.AddScoped(typeof(IExtendedViolationService<BushFellingViolation2Service, IBushViewModel>), typeof(BushFellingViolation2Service));
+            services.AddScoped(typeof(IExtendedViolationService<BushFellingViolation3Service, IBushViewModel>), typeof(BushFellingViolation3Service));
             services.AddScoped(typeof(IViolationService<DeadFellingViolationService, ITreeViewModel>), typeof(DeadFellingViolationService));
 
             services.AddScoped<IAssortmentRepository, AssortmentRepository>();

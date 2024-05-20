@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Расчет от самовольного использования лесов";
+    ViewData["Title"] = "Расчет ущерба от самовольного использования лесов";
 }
 
 <div class="text-center">
@@ -7,7 +7,7 @@
     <h1 class="display-6">Самовольное использование лесов</h1>
 </div>
 
-<form asp-action="ForestUseFellingData" asp-controller="ViolationExtra" method="post">
+<form asp-action="ForestUseData" asp-controller="ViolationExtra" method="post">
     <div class="mb-3">
         <h4 class="text-black-50">Информация об участке леса</h4>
         <div>
@@ -36,7 +36,7 @@
             </div>
         </div>
     </div>
-    <h4 class="text-center">Информация о насаждениях</h4>
+    <h4 class="text-center">Информация о нарушении</h4>
     <div class="table-responsive">
         <table class="table table-bordered border">
             <thead>
@@ -45,51 +45,13 @@
                     <th>Цена арендной платы</th>
                 </tr>
             </thead>
-            <tbody id="inputs">
+            <tbody>
                 <tr>
-                    <td><input name="square[]"></td>
-                    <td><input name="price[]"></td>
-                    <td><a class="btn btn-danger" onclick="deleteRow(this)">-</a></td>
+                    <td><input type="number" step="0.01" min="0" name="square" required></td>
+                    <td><input type="number" step="0.01" min="1" name="price" required></td>
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-primary" onclick="addRow()" type="button">Добавить данные</button>
         <input class="btn btn-success" type="submit" value="Отправить" />
     </div>
 </form>
-
-<script>
-    function addRow() {
-        try {
-            event.preventDefault();
-            var parent = document.getElementById("inputs");
-            var clone = parent.children[0].cloneNode(true);
-            parent.appendChild(clone);
-
-            var inputs = clone.getElementsByTagName('input');
-            for (var i = 0; i < inputs.length; i++) {
-                inputs[i].value = '';
-            }
-        } catch (e) { alert(e); }
-
-    }
-    function deleteRow(currentRow) {
-        try {
-            var table = document.getElementById('inputs');
-            var rowCount = table.rows.length;
-            for (var i = 0; i < rowCount; i++) {
-                var row = table.rows[i];
-
-                if (row == currentRow.parentNode.parentNode) {
-                    if (rowCount <= 1) {
-                        alert("Нельзя удалить все строки.");
-                        break;
-                    }
-                    table.deleteRow(i);
-                    rowCount--;
-                    i--;
-                }
-            }
-        } catch (e) { alert(e); }
-    }
-</script>

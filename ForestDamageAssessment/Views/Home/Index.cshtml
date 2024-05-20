@@ -30,6 +30,22 @@
         <h4>Кустарников, лиан</h4>
         <p>Повреждение, не влекущее прекращения роста кустарников и лиан.</p>
     </a>
+    <a asp-area="" asp-controller="Violation" asp-action="BushFelling3" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Кустарничков</h4>
+        <p>Уничтожение, выкапывание или повреждение кустарничков.</p>
+    </a>
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="RemovalOfAnthills" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Муравейников</h4>
+        <p>Уничтожение или повреждение муравейников.</p>
+    </a>
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="RemovalOfSigns" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Знаков</h4>
+        <p>Уничтожение или повреждение лесоустроительных или лесохозяйственных знаков.</p>
+    </a>
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="DamageToObjects" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Объектов</h4>
+        <p>Повреждение объектов лесной инфраструктуры</p>
+    </a>
 </div>
 <div class="list-group">
     <h4 class="text-uppercase">Уничтожение или повреждение</h4>
@@ -58,9 +74,28 @@
     </a>
 </div>
 <div class="list-group">
+    <h4 class="text-uppercase">Загрязнение</h4>
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="ForestPollution" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Загрязнение лесов</h4>
+        <p>Загрязнение лесов выбросами, радиоактивными и другими вредными веществами</p>
+    </a>
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="ForestPollution2" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Размещение в лесах отходов</h4>
+        <p>Размещение в лесах отходов производства и потребления</p>
+    </a>
+</div>
+<div class="list-group">
     <h4 class="text-uppercase">Другие нарушения</h4>
-    <a asp-area="" asp-controller="ViolationExtra" asp-action="ForestUseFelling" class="list-group-item list-group-item-action list-group-item-success">
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="ForestUse" class="list-group-item list-group-item-action list-group-item-success">
         <h4>Самовольное использование лесов</h4>
-        <p>Самовольное использование лесов для целей, предусмотренных Лесным кодексом Российской Федерации, с учетом назначения земель, на которых они располагаются/</p>
+        <p>Самовольное использование лесов для целей, предусмотренных Лесным кодексом Российской Федерации, с учетом назначения земель, на которых они располагаются.</p>
+    </a>
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="PlacementOfObjects" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Самовольное размещение объектов</h4>
+        <p>Самовольное размещение объектов капитального строительства, объектов, не являющихся объектами капитального строительства.</p>
+    </a>
+    <a asp-area="" asp-controller="ViolationExtra" asp-action="RemovalOfSoils" class="list-group-item list-group-item-action list-group-item-success">
+        <h4>Самовольное снятие, уничтожение или порча почв</h4>
+        <p>Самовольное снятие, уничтожение или порча почв.</p>
     </a>
 </div>

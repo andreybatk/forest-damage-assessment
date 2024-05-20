@@ -1,6 +1,6 @@
 ﻿namespace ForestDamageAssessment.BL.Models
 {
-    public class SeedlingViewModel
+    public class SeedViewModel
     {
         /// <summary>
         /// Кол-во
