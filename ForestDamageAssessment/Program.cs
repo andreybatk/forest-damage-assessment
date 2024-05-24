@@ -2,6 +2,7 @@ using ForestDamageAssessment.DB;
 using ForestDamageAssessment.BL.DiContainer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ForestDamageAssessment.Middleware;
 
 namespace ForestDamageAssessment
 {
@@ -44,6 +45,7 @@ namespace ForestDamageAssessment
                 app.UseHsts();
             }
 
+            app.UseCulture();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -1,5 +1,4 @@
 ﻿using ForestDamageAssessment.DB.Models;
-using ForestDamageAssessment.DB.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

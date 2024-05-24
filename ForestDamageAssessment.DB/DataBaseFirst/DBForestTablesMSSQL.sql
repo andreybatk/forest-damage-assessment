@@ -1,11 +1,11 @@
-﻿DROP TABLE IF EXISTS RankHeights;
+DROP TABLE IF EXISTS RankHeights;
 CREATE TABLE RankHeights (
   ID INT IDENTITY (1, 1) NOT NULL,
-  Breed nvarchar(20) DEFAULT NULL,
-  ThicknessLevel nvarchar(3) DEFAULT NULL,
-  MinH nvarchar(4) DEFAULT NULL,
-  MaxH nvarchar(4) DEFAULT NULL,
-  RankH int DEFAULT NULL
+  Breed NVARCHAR(20) DEFAULT NULL,
+  ThicknessLevel NVARCHAR(3) DEFAULT NULL,
+  MinH NVARCHAR(4) DEFAULT NULL,
+  MaxH NVARCHAR(4) DEFAULT NULL,
+  RankH INT DEFAULT NULL
 )
 --
 -- Дамп данных таблицы RankHeights
@@ -1298,17 +1298,17 @@ INSERT INTO RankHeights (Breed, ThicknessLevel, MinH, MaxH, RankH) VALUES
 DROP TABLE IF EXISTS TaxPrices;
 CREATE TABLE TaxPrices (
   ID INT IDENTITY (1, 1) NOT NULL,
-  TaxPriceCode nvarchar(32) DEFAULT NULL,
-  SubjectRF nvarchar(40) COLLATE Cyrillic_General_CI_AS DEFAULT NULL,
-  Area nvarchar(53) COLLATE Cyrillic_General_CI_AS DEFAULT NULL,
-  TaxPriceDesc nvarchar(1072) DEFAULT NULL,
-  Breed nvarchar(15) COLLATE Cyrillic_General_CI_AS DEFAULT NULL,
-  RankTax int DEFAULT NULL,
-  TransportationDistance nvarchar(5) DEFAULT NULL,
-  PriceLarge nvarchar(40) DEFAULT NULL,
-  PriceAverage nvarchar(40) DEFAULT NULL,
-  PriceSmall nvarchar(40) DEFAULT NULL,
-  Firewood nvarchar(40) DEFAULT NULL
+  TaxPriceCode NVARCHAR(32) DEFAULT NULL,
+  SubjectRF NVARCHAR(40) DEFAULT NULL,
+  Area NVARCHAR(53) DEFAULT NULL,
+  TaxPriceDesc NVARCHAR(1072) DEFAULT NULL,
+  Breed NVARCHAR(15) DEFAULT NULL,
+  RankTax INT DEFAULT NULL,
+  TransportationDistance NVARCHAR(5) DEFAULT NULL,
+  PriceLarge NVARCHAR(40) DEFAULT NULL,
+  PriceAverage NVARCHAR(40) DEFAULT NULL,
+  PriceSmall NVARCHAR(40) DEFAULT NULL,
+  Firewood NVARCHAR(40) DEFAULT NULL
 )
 
 --
@@ -2660,7 +2660,7 @@ CREATE TABLE TaxPricesResin (
   ID INT IDENTITY (1, 1) NOT NULL,
   Breed	VARCHAR(512),
   SubjectRF	VARCHAR(512),
-  Price	nvarchar(40)
+  Price	NVARCHAR(40)
 )
 
 INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Сосна', 'Республика Алтай', '42.8');
@@ -2743,7 +2743,6 @@ INSERT INTO TaxPricesResin (Breed, SubjectRF, Price) VALUES ('Ель', 'Евре
 
 
 -- TaxPricesForestUse
--- Остольное за 1 кг
 
 DROP TABLE IF EXISTS TaxPricesForestUse;
 CREATE TABLE TaxPricesForestUse (
@@ -2889,7 +2888,7 @@ INSERT INTO TaxPricesForestResource (SubjectRF, StumpsPrice , BarkPrice, LubPric
 DROP TABLE IF EXISTS Regions;
 CREATE TABLE Regions (
   ID INT IDENTITY (1, 1) NOT NULL,
-  SubjectRF nvarchar(40) COLLATE Cyrillic_General_CI_AS DEFAULT NULL
+  SubjectRF NVARCHAR(40) DEFAULT NULL
 )
 
 --
@@ -2986,7 +2985,7 @@ INSERT INTO Regions (SubjectRF) VALUES
 DROP TABLE IF EXISTS STDs;
 CREATE TABLE STDs (
   ID INT IDENTITY (1, 1) NOT NULL,
-  ThicknessLevel int DEFAULT NULL
+  ThicknessLevel INT DEFAULT NULL
 )
 
 --
@@ -3030,33 +3029,33 @@ INSERT INTO STDs (ThicknessLevel) VALUES
 DROP TABLE IF EXISTS AssortmentsLinden;
 CREATE TABLE AssortmentsLinden (
   ID INT IDENTITY (1, 1) NOT NULL,
-  Breed nvarchar(10) COLLATE Cyrillic_General_CI_AS DEFAULT NULL,
-  RankH nvarchar(10) DEFAULT NULL,
-  ThicknessLevel nvarchar(10) DEFAULT NULL,
-  H nvarchar(10) DEFAULT NULL,
-  VInBark nvarchar(10) DEFAULT NULL,
-  Large1 nvarchar(10) DEFAULT NULL,
-  Large2 nvarchar(10) DEFAULT NULL,
-  Large3 nvarchar(10) DEFAULT NULL,
-  LargeTotal nvarchar(10) DEFAULT NULL,
-  Average1_1 nvarchar(10) DEFAULT NULL,
-  Average1_2 nvarchar(10) DEFAULT NULL,
-  Average1_3 nvarchar(10) DEFAULT NULL,
-  Average1Total nvarchar(10) DEFAULT NULL,
-  Average2_1 nvarchar(10) DEFAULT NULL,
-  Average2_2 nvarchar(10) DEFAULT NULL,
-  Average2_3 nvarchar(10) DEFAULT NULL,
-  Average2Total nvarchar(10) DEFAULT NULL,
-  Small1 nvarchar(10) DEFAULT NULL,
-  Small2 nvarchar(10) DEFAULT NULL,
-  Small3 nvarchar(10) DEFAULT NULL,
-  SmallTotal nvarchar(10) DEFAULT NULL,
-  AllBusiness nvarchar(10) DEFAULT NULL,
-  TechnologicalRawMaterials nvarchar(10) DEFAULT NULL,
-  FirewoodFuel nvarchar(10) DEFAULT NULL,
-  Waste nvarchar(10) DEFAULT NULL,
-  Bark nvarchar(10) DEFAULT NULL,
-  Total nvarchar(10) DEFAULT NULL
+  Breed NVARCHAR(10) DEFAULT NULL,
+  RankH NVARCHAR(10) DEFAULT NULL,
+  ThicknessLevel NVARCHAR(10) DEFAULT NULL,
+  H NVARCHAR(10) DEFAULT NULL,
+  VInBark NVARCHAR(10) DEFAULT NULL,
+  Large1 NVARCHAR(10) DEFAULT NULL,
+  Large2 NVARCHAR(10) DEFAULT NULL,
+  Large3 NVARCHAR(10) DEFAULT NULL,
+  LargeTotal NVARCHAR(10) DEFAULT NULL,
+  Average1_1 NVARCHAR(10) DEFAULT NULL,
+  Average1_2 NVARCHAR(10) DEFAULT NULL,
+  Average1_3 NVARCHAR(10) DEFAULT NULL,
+  Average1Total NVARCHAR(10) DEFAULT NULL,
+  Average2_1 NVARCHAR(10) DEFAULT NULL,
+  Average2_2 NVARCHAR(10) DEFAULT NULL,
+  Average2_3 NVARCHAR(10) DEFAULT NULL,
+  Average2Total NVARCHAR(10) DEFAULT NULL,
+  Small1 NVARCHAR(10) DEFAULT NULL,
+  Small2 NVARCHAR(10) DEFAULT NULL,
+  Small3 NVARCHAR(10) DEFAULT NULL,
+  SmallTotal NVARCHAR(10) DEFAULT NULL,
+  AllBusiness NVARCHAR(10) DEFAULT NULL,
+  TechnologicalRawMaterials NVARCHAR(10) DEFAULT NULL,
+  FirewoodFuel NVARCHAR(10) DEFAULT NULL,
+  Waste NVARCHAR(10) DEFAULT NULL,
+  Bark NVARCHAR(10) DEFAULT NULL,
+  Total NVARCHAR(10) DEFAULT NULL
 )
 
 --
@@ -3152,32 +3151,32 @@ INSERT INTO AssortmentsLinden (Breed, RankH, ThicknessLevel, H, VInBark, Large1,
 DROP TABLE IF EXISTS Assortments;
 CREATE TABLE Assortments (
   ID INT IDENTITY (1, 1) NOT NULL,
-  Breed nvarchar(255) COLLATE Cyrillic_General_CI_AS DEFAULT NULL,
-  RankH nvarchar(10) DEFAULT NULL,
-  ThicknessLevel nvarchar(10) DEFAULT NULL,
-  H nvarchar(10) DEFAULT NULL,
-  VInBark nvarchar(10) DEFAULT NULL,
-  Large1 nvarchar(10) DEFAULT NULL,
-  Large2 nvarchar(10) DEFAULT NULL,
-  Large3 nvarchar(10) DEFAULT NULL,
-  LargeTotal nvarchar(10) DEFAULT NULL,
-  Average1_1 nvarchar(10) DEFAULT NULL,
-  Average1_2 nvarchar(10) DEFAULT NULL,
-  Average1_3 nvarchar(10) DEFAULT NULL,
-  Average1Total nvarchar(10) DEFAULT NULL,
-  Average2_1 nvarchar(10) DEFAULT NULL,
-  Average2_2 nvarchar(10) DEFAULT NULL,
-  Average2_3 nvarchar(10) DEFAULT NULL,
-  Average2Total nvarchar(10) DEFAULT NULL,
-  Small1 nvarchar(10) DEFAULT NULL,
-  Small2 nvarchar(10) DEFAULT NULL,
-  Small3 nvarchar(10) DEFAULT NULL,
-  SmallTotal nvarchar(10) DEFAULT NULL,
-  AllBusiness nvarchar(10) DEFAULT NULL,
-  TechnologicalRawMaterials nvarchar(10) DEFAULT NULL,
-  FirewoodFuel nvarchar(10) DEFAULT NULL,
-  Waste nvarchar(10) DEFAULT NULL,
-  Total nvarchar(10) DEFAULT NULL
+  Breed NVARCHAR(255) DEFAULT NULL,
+  RankH NVARCHAR(10) DEFAULT NULL,
+  ThicknessLevel NVARCHAR(10) DEFAULT NULL,
+  H NVARCHAR(10) DEFAULT NULL,
+  VInBark NVARCHAR(10) DEFAULT NULL,
+  Large1 NVARCHAR(10) DEFAULT NULL,
+  Large2 NVARCHAR(10) DEFAULT NULL,
+  Large3 NVARCHAR(10) DEFAULT NULL,
+  LargeTotal NVARCHAR(10) DEFAULT NULL,
+  Average1_1 NVARCHAR(10) DEFAULT NULL,
+  Average1_2 NVARCHAR(10) DEFAULT NULL,
+  Average1_3 NVARCHAR(10) DEFAULT NULL,
+  Average1Total NVARCHAR(10) DEFAULT NULL,
+  Average2_1 NVARCHAR(10) DEFAULT NULL,
+  Average2_2 NVARCHAR(10) DEFAULT NULL,
+  Average2_3 NVARCHAR(10) DEFAULT NULL,
+  Average2Total NVARCHAR(10) DEFAULT NULL,
+  Small1 NVARCHAR(10) DEFAULT NULL,
+  Small2 NVARCHAR(10) DEFAULT NULL,
+  Small3 NVARCHAR(10) DEFAULT NULL,
+  SmallTotal NVARCHAR(10) DEFAULT NULL,
+  AllBusiness NVARCHAR(10) DEFAULT NULL,
+  TechnologicalRawMaterials NVARCHAR(10) DEFAULT NULL,
+  FirewoodFuel NVARCHAR(10) DEFAULT NULL,
+  Waste NVARCHAR(10) DEFAULT NULL,
+  Total NVARCHAR(10) DEFAULT NULL
 )
 
 --
@@ -4687,29 +4686,29 @@ INSERT INTO Assortments (Breed, RankH, ThicknessLevel, H, VInBark, Large1, Large
 DROP TABLE IF EXISTS AssortmentsExtra;
 CREATE TABLE AssortmentsExtra (
   ID INT IDENTITY (1, 1) NOT NULL,
-  Breed nvarchar(255) DEFAULT NULL,
-  RankH nvarchar(10) DEFAULT NULL,
-  ThicknessLevel nvarchar(10) DEFAULT NULL,
-  H nvarchar(10) DEFAULT NULL,
-  VInBark nvarchar(10) DEFAULT NULL,
-  UnitOfMeasure nvarchar(10) DEFAULT NULL,
-  LargeTotal nvarchar(10) DEFAULT NULL,
-  Average1Total nvarchar(10) DEFAULT NULL,
-  Average2Total nvarchar(10) DEFAULT NULL,
-  SmallTotal nvarchar(10) DEFAULT NULL,
-  AllBusiness nvarchar(10) DEFAULT NULL,
-  PlywoodLog nvarchar(10) DEFAULT NULL,
-  Sawlog nvarchar(10) DEFAULT NULL,
-  CommodityRidge nvarchar(10) DEFAULT NULL,
-  Stroyles nvarchar(10) DEFAULT NULL,
-  Podtovarnik nvarchar(10) DEFAULT NULL,
-  TechnologicalRawMaterials nvarchar(10) DEFAULT NULL,
-  FirewoodFuel nvarchar(10) DEFAULT NULL,
-  Waste nvarchar(10) DEFAULT NULL,
-  TechnologicalRawMaterialsFirewood nvarchar(10) DEFAULT NULL,
-  FirewoodFuelFirewood nvarchar(10) DEFAULT NULL,
-  WasteFirewood nvarchar(10) DEFAULT NULL,
-  Bark nvarchar(10) DEFAULT NULL
+  Breed NVARCHAR(255) DEFAULT NULL,
+  RankH NVARCHAR(10) DEFAULT NULL,
+  ThicknessLevel NVARCHAR(10) DEFAULT NULL,
+  H NVARCHAR(10) DEFAULT NULL,
+  VInBark NVARCHAR(10) DEFAULT NULL,
+  UnitOfMeasure NVARCHAR(10) DEFAULT NULL,
+  LargeTotal NVARCHAR(10) DEFAULT NULL,
+  Average1Total NVARCHAR(10) DEFAULT NULL,
+  Average2Total NVARCHAR(10) DEFAULT NULL,
+  SmallTotal NVARCHAR(10) DEFAULT NULL,
+  AllBusiness NVARCHAR(10) DEFAULT NULL,
+  PlywoodLog NVARCHAR(10) DEFAULT NULL,
+  Sawlog NVARCHAR(10) DEFAULT NULL,
+  CommodityRidge NVARCHAR(10) DEFAULT NULL,
+  Stroyles NVARCHAR(10) DEFAULT NULL,
+  Podtovarnik NVARCHAR(10) DEFAULT NULL,
+  TechnologicalRawMaterials NVARCHAR(10) DEFAULT NULL,
+  FirewoodFuel NVARCHAR(10) DEFAULT NULL,
+  Waste NVARCHAR(10) DEFAULT NULL,
+  TechnologicalRawMaterialsFirewood NVARCHAR(10) DEFAULT NULL,
+  FirewoodFuelFirewood NVARCHAR(10) DEFAULT NULL,
+  WasteFirewood NVARCHAR(10) DEFAULT NULL,
+  Bark NVARCHAR(10) DEFAULT NULL
 )
 
 --
@@ -5253,11 +5252,11 @@ INSERT INTO AssortmentsExtra (Breed, RankH, ThicknessLevel, H, VInBark, UnitOfMe
 DROP TABLE IF EXISTS BreedDiameterModels;
 CREATE TABLE BreedDiameterModels (
   ID INT IDENTITY (1, 1) NOT NULL,
-  Breed nvarchar(40) DEFAULT NULL,
-  C1 nvarchar(10) DEFAULT NULL,
-  C2 nvarchar(10) DEFAULT NULL,
-  C3 nvarchar(10) DEFAULT NULL,
-  C4 nvarchar(10) DEFAULT NULL,
+  Breed NVARCHAR(40) DEFAULT NULL,
+  C1 NVARCHAR(10) DEFAULT NULL,
+  C2 NVARCHAR(10) DEFAULT NULL,
+  C3 NVARCHAR(10) DEFAULT NULL,
+  C4 NVARCHAR(10) DEFAULT NULL,
 )
 INSERT INTO BreedDiameterModels (Breed, C1, C2, C3, C4) VALUES
 ('Ель', '92,166', '-4,025', '-99,75', '-0,0077'),
@@ -5271,9 +5270,9 @@ INSERT INTO BreedDiameterModels (Breed, C1, C2, C3, C4) VALUES
 DROP TABLE IF EXISTS Articles;
 CREATE TABLE Articles (
   ID INT IDENTITY (1, 1) NOT NULL,
-  Title nvarchar(1024) DEFAULT NULL,
-  Punish nvarchar(1024) DEFAULT NULL,
-  Description nvarchar(1024) DEFAULT NULL,
+  Title NVARCHAR(1024) DEFAULT NULL,
+  Punish NVARCHAR(1024) DEFAULT NULL,
+  Description NVARCHAR(1024) DEFAULT NULL,
   ArticleNumber INT DEFAULT NULL,
   AppendixNumber INT DEFAULT NULL,
 )
