@@ -9,7 +9,6 @@ namespace ForestDamageAssessment.BL.Services
     {
         private readonly ITaxPriceRepository _taxPriceRepository;
         private readonly IArticleRepository _articleRepository;
-        private const double MainCoefficient = 2D;
         private const int ArticleID = 14;
 
         public RemovalOfAnthillsService(ITaxPriceRepository taxPriceRepository, IArticleRepository articleRepository)
